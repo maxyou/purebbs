@@ -13,7 +13,13 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/'
     },
-    devtool: 'inline-source-map',
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM",
+    },
+    // addition - add source-map support
+    devtool: "source-map",
+    // devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
         hot: true
@@ -29,10 +35,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js|jsx$/,
-                use: 'babel-loader',
-                exclude: /node_modules/
+                test: /\.(t|j)sx?$/,
+                use: { loader: 'awesome-typescript-loader' }
             },
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            },
+            // {
+            //     test: /\.js|jsx$/,
+            //     use: 'babel-loader',
+            //     exclude: /node_modules/
+            // },
             {
                 test: /\.css$/,
                 use: [
@@ -67,7 +82,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx', 'json'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', 'json'],
         alias: {
             '@': path.join(__dirname, './src')
         }
@@ -76,15 +91,15 @@ module.exports = {
         historyApiFallback: true,
         proxy: [{
             context: [
-                    `/tool`,
-                    `/user`,
-                    `/admin`,
-                    `/extend`,
-                    `/sys`,
-                    `/avatar`,
-                    `/detail`,
-                    `/post`
-                    ],
+                `/tool`,
+                `/user`,
+                `/admin`,
+                `/extend`,
+                `/sys`,
+                `/avatar`,
+                `/detail`,
+                `/post`
+            ],
             target: 'http://localhost:3001',
             secure: false,
             changeOrigin: true
