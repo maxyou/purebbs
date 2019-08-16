@@ -1,22 +1,22 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
     mode: "development",
     entry: {
-        app: './src/index.js'
+        app: './src/index.tsx'
     },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/'
     },
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM",
-    },
+    // externals: {
+    //     "react": "React",
+    //     "react-dom": "ReactDOM",
+    // },
     // addition - add source-map support
     devtool: "source-map",
     // devtool: 'inline-source-map',
@@ -25,7 +25,8 @@ module.exports = {
         hot: true
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        // new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, './src/index.html'),
             filename: 'index.html'
