@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { createStore, applyMiddleware, compose} from 'redux'
 import { Provider } from 'react-redux'
 import reducers from './redux/reducer';
-import Layout from './layout';
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './redux/saga'
+import Layout from './layout'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
@@ -22,14 +24,14 @@ sagaMiddleware.run(rootSaga)
 //   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 // )
 
-class App extends Component {
+class App extends Component<{}, {}> {
   render() {
     return (
       <div>
         <Provider store={store}>
-          <Layout>
+          <Layout />
 
-          </Layout>
+          {/* </Layout> */}
         </Provider>
       </div>
     );

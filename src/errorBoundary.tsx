@@ -1,6 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 
-class ErrorBoundary extends React.Component {
+interface IState{
+    error: any,
+    errorInfo: any
+}
+
+class ErrorBoundary extends React.Component<{}, IState> {
+
     constructor(props) {
         super(props);
         this.state = { error: null, errorInfo: null };
