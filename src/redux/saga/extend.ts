@@ -2,7 +2,7 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {extend as serviceExtend} from '@/service'
+import {extend as serviceExtend} from 'service'
 import {extend as actionExtend} from '../action'
 
 function* extendLineupJoin(action) {

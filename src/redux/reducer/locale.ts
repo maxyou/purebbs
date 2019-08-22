@@ -1,6 +1,6 @@
 import { locale as actionLocale } from '../action'
-import en from '@/locale/en-us'
-import zh from '@/locale/zh-cn'
+import en from 'locale/en-us'
+import zh from 'locale/zh-cn'
 
 var moment = require('moment');
 

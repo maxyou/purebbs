@@ -8,7 +8,7 @@ import post from './post'
 import detail from './detail'
 import user from './user'
 
-module.exports = {
+export {
     admin,
     extend,
     sys,

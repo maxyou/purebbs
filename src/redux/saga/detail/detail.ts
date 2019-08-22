@@ -2,7 +2,7 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {detail as serviceDetail} from '@/service'
+import {detail as serviceDetail} from 'service'
 import {detail as actionDetail, extend as actionExtend} from '../../action'
 
 

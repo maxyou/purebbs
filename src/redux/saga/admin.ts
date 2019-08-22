@@ -2,7 +2,7 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {admin as serviceAdmin} from '@/service'
+import {admin as serviceAdmin} from 'service'
 // console.log('serviceAdmin:')
 // console.log(serviceAdmin)
 import {admin as actionAdmin} from '../action'

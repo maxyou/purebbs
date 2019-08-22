@@ -2,7 +2,7 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {user as serviceUser} from '@/service'
+import {user as serviceUser} from 'service'
 import {user as actionUser} from '../action'
 
 function* userGetStatus(action) {
