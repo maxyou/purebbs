@@ -1,6 +1,20 @@
 import { admin as actionAdmin } from '../action'
 
-const initState = {
+interface IState {
+  userPageSize: number,
+  userPageCurrent: number,
+  userPaginateExt: number,
+  userTotalDocs: number,
+  userAddResult: string,
+  userListResult: object,
+  userListLoading: boolean,
+  userAdding: boolean,
+  userDeletting: boolean,
+  userUpdatting: boolean,
+  userEdit: object,
+}
+
+const initState:IState = {
   userPageSize: 10,
   userPageCurrent: 1,
   userPaginateExt: 3,
@@ -13,7 +27,8 @@ const initState = {
   userUpdatting: false,
   userEdit: {},
 }
-export default function user(state = initState, action) {
+
+export default function admin(state:IState = initState, action:{type:string, payload:any}):IState {
   switch (action.type) {
 
     case actionAdmin.ACTION.ADMIN_USER_EDIT:

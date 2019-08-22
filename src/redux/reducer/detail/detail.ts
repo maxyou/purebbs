@@ -1,6 +1,25 @@
 import { detail as actionDetail } from '../../action'
 
-const initState = {
+interface IState{
+  post: object,
+  postLoading: boolean,
+  commentListResult: object,
+  commentLoading: boolean,
+  commentPageSize: number,
+  commentPageCurrent: number,
+  commentPaginateExt: number,
+  commentTotalDocs: number,
+  commentAddResult: string,
+  commentAdding: boolean,
+  commentDeletting: boolean,
+  commentUpdatting: boolean,
+  // postDeletting: false,
+  postUpdatting: boolean,
+  postAttaching: boolean,
+  commentAttaching: boolean,
+}
+
+const initState:IState = {
   post: {},
   postLoading: false,
   commentListResult: {},
@@ -18,7 +37,7 @@ const initState = {
   postAttaching: false,
   commentAttaching: false,
 }
-export default function detail(state = initState, action) {
+export default function detail(state:IState = initState, action:{type:string, payload:any}):IState {
   switch (action.type) {
 
     case actionDetail.ACTION.DETAIL_POST_COMMENTS_CLEAR:

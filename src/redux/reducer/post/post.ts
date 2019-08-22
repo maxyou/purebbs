@@ -1,6 +1,21 @@
 import { post as actionPost } from '../../action'
 
-const initState = {
+interface IState {
+  postPageSize: number,
+  postPageCurrent: number,
+  postPaginateExt: number,
+  postTotalDocs: number,
+  postAddResult: string,
+  postListResult: object,
+  postListLoading: boolean,
+  postAdding: boolean,
+  postDeletting: boolean,
+  postUpdatting: boolean,
+  postAttaching: boolean,
+  categoryCurrent: string,
+}
+
+const initState:IState = {
   postPageSize: 10,
   postPageCurrent: 1,
   postPaginateExt: 5,
@@ -14,7 +29,8 @@ const initState = {
   postAttaching: false,
   categoryCurrent: '',
 }
-export default function post(state = initState, action) {
+
+export default function post(state:IState = initState, action:{type:string, payload:any}):IState {
   switch (action.type) {
 
     case actionPost.ACTION.POST_CATEGORY_NAV:

@@ -6,7 +6,7 @@ import {detail as serviceDetail} from '@/service'
 import {detail as actionDetail, extend as actionExtend} from '../../action'
 
 
-function* detailPostGet(action) {
+function* detailPostGet(action) {    
     // console.log('====detail post get 1');
     var res = yield call(serviceDetail.detailPostGet, action.payload)
     // console.log('====detail post get 2'+JSON.stringify(res.data));

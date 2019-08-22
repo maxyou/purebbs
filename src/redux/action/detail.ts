@@ -1,4 +1,4 @@
-const ACTION = {
+const ACTION : {[index: string]: string} = {
     
     DETAIL_POST_COMMENTS_CLEAR: 'detail_post_comments_clear',
 
@@ -41,20 +41,20 @@ const ACTION = {
     DETAIL_COMMENT_ATTACH_SUCCESS: 'detail_comment_attach_success',
     DETAIL_COMMENT_ATTACH_FAIL: 'detail_comment_attach_fail',
 }
-
-module.exports = {
+const Creator:{[index: string]: {<T>(v:T):{type:string, payload: T}}} = {    
+    detailPostCommentsClear: (v) => ({ type: ACTION.DETAIL_POST_COMMENTS_CLEAR, payload: v }),
+    detailPostGet: (v) => ({ type: ACTION.DETAIL_POST_GET, payload: v }),
+    detailCommentNav: (v) => ({ type: ACTION.DETAIL_COMMENT_NAV, payload: v }),
+    detailCommentChangePageSize: (v) => ({ type: ACTION.DETAIL_COMMENT_CHANGE_PAGE_SIZE, payload: v }),
+    detailCommentAdd: (v) => ({ type: ACTION.DETAIL_COMMENT_ADD, payload: v }),
+    detailCommentDelete: (v) => ({ type: ACTION.DETAIL_COMMENT_DELETE_BY_ID, payload: v }),
+    detailCommentUpdate: (v) => ({ type: ACTION.DETAIL_COMMENT_UPDATE_BY_ID, payload: v }),
+    detailCommentGet: (v) => ({ type: ACTION.DETAIL_COMMENT_GET, payload: v }),
+    detailPostFindByIdAndUpdate: (v) => ({ type: ACTION.DETAIL_POST_UPDATE_BY_ID, payload: v }),
+    detailPostFindByIdAndAttach: (v) => ({ type: ACTION.DETAIL_POST_ATTACH_BY_ID, payload: v }),
+    detailCommentFindByIdAndAttach: (v) => ({ type: ACTION.DETAIL_COMMENT_ATTACH_BY_ID, payload: v }),
+}
+export default {
     ACTION,
-    Creator:{
-        detailPostCommentsClear: (v) => ({ type: ACTION.DETAIL_POST_COMMENTS_CLEAR, payload: v }),
-        detailPostGet: (v) => ({ type: ACTION.DETAIL_POST_GET, payload: v }),
-        detailCommentNav: (v) => ({ type: ACTION.DETAIL_COMMENT_NAV, payload: v }),
-        detailCommentChangePageSize: (v) => ({ type: ACTION.DETAIL_COMMENT_CHANGE_PAGE_SIZE, payload: v }),
-        detailCommentAdd: (v) => ({ type: ACTION.DETAIL_COMMENT_ADD, payload: v }),
-        detailCommentDelete: (v) => ({ type: ACTION.DETAIL_COMMENT_DELETE_BY_ID, payload: v }),
-        detailCommentUpdate: (v) => ({ type: ACTION.DETAIL_COMMENT_UPDATE_BY_ID, payload: v }),
-        detailCommentGet: (v) => ({ type: ACTION.DETAIL_COMMENT_GET, payload: v }),
-        detailPostFindByIdAndUpdate: (v) => ({ type: ACTION.DETAIL_POST_UPDATE_BY_ID, payload: v }),
-        detailPostFindByIdAndAttach: (v) => ({ type: ACTION.DETAIL_POST_ATTACH_BY_ID, payload: v }),
-        detailCommentFindByIdAndAttach: (v) => ({ type: ACTION.DETAIL_COMMENT_ATTACH_BY_ID, payload: v }),
-    }
+    Creator
 }

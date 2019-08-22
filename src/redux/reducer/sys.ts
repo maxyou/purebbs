@@ -1,6 +1,12 @@
 import { sys as actionSys } from '../action'
 
-const initState = {
+interface IState{
+  categoryLoading: boolean,
+  categoryGetResult:object,
+  category:string[]
+}
+
+const initState:IState = {
   categoryLoading: false,
   categoryGetResult:{},
   category:[]
@@ -8,7 +14,7 @@ const initState = {
 
 const getCategory = (result) => result && result.data && result.data.category || []
 
-export default function sys(state = initState, action) {
+export default function sys(state:IState = initState, action:{type:string, payload:any}):IState {
   switch (action.type) {
     case actionSys.ACTION.SYS_CATEGORY_GET:
       console.log('sys category get')

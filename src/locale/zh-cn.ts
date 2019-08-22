@@ -19,7 +19,6 @@ const zh_CN = {
     user_oldPwd: '旧密码',
     user_newPwd: '新密码',
     user_newPwdAgain: '再次输入新密码',
-    user_newPwdAgain: '再次输入新密码',
     user_inconsist_pwd_twice: '两次输入的密码不一致',
     user_register_email_optional: '(可选，用于重置密码)',
 

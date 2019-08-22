@@ -1,4 +1,4 @@
-const ACTION = {
+const ACTION : {[index: string]: string} = {
     
     USER_LOGIN: 'user_login',
     USER_LOGIN_SUCCESS: 'user_login_success',
@@ -46,19 +46,21 @@ const ACTION = {
 
 }
 
-module.exports = {
-    ACTION,
-    Creator:{
-        userFindByIdAndUpdate: (v) => ({ type: ACTION.USER_UPDATE_BY_ID, payload: v }),
-        userAvatarFindByIdAndUpdate: (v) => ({ type: ACTION.USER_AVATAR_UPDATE_BY_ID, payload: v }),
-        userChangePassword: (v) => ({ type: ACTION.USER_CHANGE_PASSWORD, payload: v }),
-        userResetPassword: (v) => ({ type: ACTION.USER_RESET_PASSWORD, payload: v }),
-        userResetPasswordNew: (v) => ({ type: ACTION.USER_RESET_PASSWORD_NEW, payload: v }),
-        // userUploadAvatar: (v) => ({ type: ACTION.USER_UPLOAD_AVATAR, payload: v }),
-        userGetStatus: (v) => ({ type: ACTION.USER_GET_STATUS, payload: v }),
-        userOtherInfoGet: (v) => ({ type: ACTION.USER_GET_OTHER_INFO, payload: v }),
-        userLogin: (v) => ({ type: ACTION.USER_LOGIN, payload: v }),
-        userLogout: (v) => ({ type: ACTION.USER_LOGOUT, payload: v }),
-        userRegister: (v) => ({ type: ACTION.USER_REGISTER, payload: v }),
-    }
+const Creator:{[index: string]: {<T>(v:T):{type:string, payload: T}}} = {    
+    userFindByIdAndUpdate: (v) => ({ type: ACTION.USER_UPDATE_BY_ID, payload: v }),
+    userAvatarFindByIdAndUpdate: (v) => ({ type: ACTION.USER_AVATAR_UPDATE_BY_ID, payload: v }),
+    userChangePassword: (v) => ({ type: ACTION.USER_CHANGE_PASSWORD, payload: v }),
+    userResetPassword: (v) => ({ type: ACTION.USER_RESET_PASSWORD, payload: v }),
+    userResetPasswordNew: (v) => ({ type: ACTION.USER_RESET_PASSWORD_NEW, payload: v }),
+    // userUploadAvatar: (v) => ({ type: ACTION.USER_UPLOAD_AVATAR, payload: v }),
+    userGetStatus: (v) => ({ type: ACTION.USER_GET_STATUS, payload: v }),
+    userOtherInfoGet: (v) => ({ type: ACTION.USER_GET_OTHER_INFO, payload: v }),
+    userLogin: (v) => ({ type: ACTION.USER_LOGIN, payload: v }),
+    userLogout: (v) => ({ type: ACTION.USER_LOGOUT, payload: v }),
+    userRegister: (v) => ({ type: ACTION.USER_REGISTER, payload: v }),
 }
+export default {
+    ACTION,
+    Creator
+}
+

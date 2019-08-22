@@ -1,6 +1,23 @@
 import { user as actionUser } from '../action'
 
-const initState = {
+interface IState{
+  isLogin: boolean,
+  userUpdatting: boolean,
+  userAvatarUpdatting: boolean,
+  result: object,
+  _id: string,
+  name: string,
+  role: string,
+  email: string,
+  created: string,
+  avatarPath: string,
+  resetPwdResult: object,
+  resetPwdNewResult: object,
+  other:object,
+  board:string[],
+}
+
+const initState:IState = {
   isLogin: false,
   userUpdatting: false,
   userAvatarUpdatting: false,
@@ -18,13 +35,13 @@ const initState = {
 }
 
 
-const getBoard = (result) => result && result.data && result.data.board || ''
-const getName = (result) => result && result.data && result.data.name || ''
-const getId = (result) => result && result.data && result.data._id || ''
-const getRole = (result) => result && result.data && result.data.role || ''
-const getEmail = (result) => result && result.data && result.data.email || ''
-const getCreated = (result) => result && result.data && result.data.created || ''
-const getAvatarPath = (result) => {
+const getBoard:{(arg0:any):string[]} = (result) => result && result.data && result.data.board || []
+const getName:{(arg0:any):string} = (result) => result && result.data && result.data.name || ''
+const getId:{(arg0:any):string} = (result) => result && result.data && result.data._id || ''
+const getRole:{(arg0:any):string} = (result) => result && result.data && result.data.role || ''
+const getEmail:{(arg0:any):string} = (result) => result && result.data && result.data.email || ''
+const getCreated:{(arg0:any):string} = (result) => result && result.data && result.data.created || ''
+const getAvatarPath:{(arg0:any):string} = (result) => {
   let fileName = result && result.data && result.data.avatarFileName || ''
   if (fileName) {
     return 'user/avatar/' + fileName
@@ -33,7 +50,7 @@ const getAvatarPath = (result) => {
   }
 }
 
-export default function post(state = initState, action) {
+export default function user(state:IState = initState, action:{type:string, payload:any}):IState {
   switch (action.type) {
 
     case actionUser.ACTION.USER_GET_OTHER_INFO:
@@ -205,7 +222,7 @@ export default function post(state = initState, action) {
       // console.log('reducer: after user login fail')
       // console.log(action.payload)
       return {
-        ...state, isLogin: false,
+        ...state,
         isLogin: false,
         result: action.payload,
       }

@@ -1,6 +1,6 @@
 import { locale as actionLocale } from '../action'
-import en from '@/locale/en-us.js'
-import zh from '@/locale/zh-cn.js'
+import en from '@/locale/en-us'
+import zh from '@/locale/zh-cn'
 
 var moment = require('moment');
 
@@ -16,14 +16,17 @@ function mapLanguage(language){
             return zh
     }
 }
-
-const initState = {
+interface IState {
+    language: string,
+    words: object
+}
+const initState:IState = {
     language: 'zh',
     words: zh
 }
 moment.locale('zh-cn')
 
-export default function locale(state = initState, action) {
+export default function locale(state:IState = initState, action:{type:string, payload:any}):IState {
     
     switch (action.type) {
 
