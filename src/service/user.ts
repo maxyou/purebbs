@@ -4,25 +4,25 @@ import cookies from 'react-cookies'
 axios.defaults.headers.common['x-csrf-token'] = cookies.load('csrfToken');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-module.exports = {
+export default {
 
-  register(user) {
+  register(user:any) {
     console.log('service user register')
     return axios.post('/user/register', user)
   },
-  login(user) {
+  login(user:any) {
     console.log('service user login')
     return axios.post('/user/login', user)
   },
-  logout(user) {
+  logout(user:any) {
     console.log('service user logout')
     return axios.post('/user/logout', user)
   },
-  getStatus() {
+  getStatus(v:any) {
     console.log('service user status')
     return axios.get('/user/status')
   },
-  getOtherInfo(v) {
+  getOtherInfo(v:any) {
     console.log('service other user info')
     console.log(v)
     return axios.get('/user/other/info', { params: {user:JSON.stringify(v) }})
@@ -31,23 +31,23 @@ module.exports = {
   //   console.log('service user upload')
   //   return axios.post('/user/upload/avatar', v)
   // },
-  updateAvatar(v) {
+  updateAvatar(v:any) {
     console.log('service user upload')
     return axios.post('/user/upload/avatar', v)
   },
-  userUpdate(v) {
+  userUpdate(v:any) {
     console.log('service user update')
     return axios.post('/user/update', v)
   },
-  userChangePassword(v) {
+  userChangePassword(v:any) {
     console.log('service user userChangePassword')
     return axios.post('/user/password/change', v)
   },
-  userResetPassword(v) {
+  userResetPassword(v:any) {
     console.log('service user userResetPassword')
     return axios.post('/user/password/reset', v)
   },
-  userResetPasswordNew(v) {
+  userResetPasswordNew(v:any) {
     console.log('service user userResetPassword')
     return axios.post('/user/password/new', v)
   },
