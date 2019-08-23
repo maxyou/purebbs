@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link, NavLink, Redirect, withRouter } from 'react-router-dom'
 import { user as actionUser, locale as actionLocale, sys as actionSys} from '@/redux/action'
 import { AvatarImg } from '@/component/user'
-import {calc} from '@/tool'
+// import {calc} from '@/tool'
 
 const AppbarHeight = '50px'
 

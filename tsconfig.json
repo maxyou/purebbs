@@ -1,5 +1,12 @@
 {
     "compilerOptions": {
+      "baseUrl": "src",
+      "paths": {
+        "@/biz/*": ["biz/*"],
+        "@/component/*": ["component/*"],
+        "@/layout/*": ["layout/*"],
+        "@/redux/*": ["redux/*"],
+    },
       "noImplicitAny": false,
       "target": "es5",
       "lib": [
