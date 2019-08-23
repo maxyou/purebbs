@@ -4,7 +4,7 @@ import cookies from 'react-cookies'
 axios.defaults.headers.common['x-csrf-token'] = cookies.load('csrfToken');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-module.exports = {
+export default {
 
   detailPostGet(v) {
     console.log('service detail post get')

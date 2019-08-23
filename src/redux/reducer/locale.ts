@@ -1,10 +1,10 @@
 import { locale as actionLocale } from '../action'
-import en from 'locale/en-us'
-import zh from 'locale/zh-cn'
+import en from '../../locale/en-us'
+import zh from '../../locale/zh-cn'
 
 var moment = require('moment');
 
-function mapLanguage(language) {
+function mapLanguage(language:string) {
     const code = language.substring(0, 2)
     console.log('mapLanguage:' + code)
     switch (code) {

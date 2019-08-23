@@ -2,12 +2,13 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {admin as serviceAdmin} from 'service'
+import {admin as serviceAdmin} from '../../service'
 // console.log('serviceAdmin:')
 // console.log(serviceAdmin)
 import {admin as actionAdmin} from '../action'
+import {IAction} from '../common'
 
-function* userAdd(action) {
+function* userAdd(action:IAction) {
     // console.log('====user Sagas 1');
     var res = yield call(serviceAdmin.userAdd, action.payload)
     // console.log('====user Sagas 2'+JSON.stringify(res.data));
@@ -19,7 +20,7 @@ function* userAdd(action) {
         // console.log('====user Sagas 4');
     }
 }
-function* userGet(action) {
+function* userGet(action:IAction) {
     // console.log('====user get 1');
     var res = yield call(serviceAdmin.userGet, action.payload)
     // console.log('====user get 2'+JSON.stringify(res.data));
@@ -31,7 +32,7 @@ function* userGet(action) {
         yield put({ type: actionAdmin.ACTION.ADMIN_USER_GET_FAIL, payload: res.data })
     }
 }
-function* userFindByIdAndDelete(action) {
+function* userFindByIdAndDelete(action:IAction) {
     // console.log('====user get 1');
     var res = yield call(serviceAdmin.userFindByIdAndDelete, action.payload)
     // console.log('====user get 2'+JSON.stringify(res.data));
@@ -43,7 +44,7 @@ function* userFindByIdAndDelete(action) {
         // console.log('====user get 4');
     }
 }
-function* userFindByIdAndUpdate(action) {
+function* userFindByIdAndUpdate(action:IAction) {
     // console.log('====user update 1');
     var res = yield call(serviceAdmin.userFindByIdAndUpdate, action.payload)
     // console.log('====user update 2'+JSON.stringify(res.data));
@@ -56,7 +57,7 @@ function* userFindByIdAndUpdate(action) {
         // console.log('====user get 4');
     }
 }
-function* userAvatarFindByIdAndUpdate(action) {
+function* userAvatarFindByIdAndUpdate(action:IAction) {
     // console.log('====user avatar update 1');
     var res = yield call(serviceAdmin.userAvatarFindByIdAndUpdate, action.payload)
     // console.log('====user avatar update 2'+JSON.stringify(res.data));

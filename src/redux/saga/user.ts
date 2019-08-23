@@ -2,10 +2,11 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {user as serviceUser} from 'service'
+import {user as serviceUser} from '../../service'
 import {user as actionUser} from '../action'
+import {IAction} from '../common'
 
-function* userGetStatus(action) {
+function* userGetStatus(action:IAction) {
     // console.log('====userGetStatus Sagas 1');
     var res = yield call(serviceUser.getStatus, action.payload)
     // console.log('====userGetStatus Sagas 2 res:'+JSON.stringify(res));
@@ -18,7 +19,7 @@ function* userGetStatus(action) {
         // console.log('====userGetStatus Sagas 4');
     }
 }
-function* userGetOtherInfo(action) {
+function* userGetOtherInfo(action:IAction) {
     // console.log('====userGetOtherInfo Sagas 1');
     var res = yield call(serviceUser.getOtherInfo, action.payload)
     // console.log('====userGetOtherInfo Sagas 2 res:'+JSON.stringify(res));
@@ -30,7 +31,7 @@ function* userGetOtherInfo(action) {
         // console.log('====userGetOtherInfo Sagas 4');
     }
 }
-function* userLogin(action) {
+function* userLogin(action:IAction) {
     // console.log('====userLogin Sagas 1');
     var res = yield call(serviceUser.login, action.payload)
     // console.log('====userLogin Sagas 2 res:'+JSON.stringify(res));
@@ -42,7 +43,7 @@ function* userLogin(action) {
         // console.log('====userLogin Sagas 4');
     }
 }
-function* userRegister(action) {
+function* userRegister(action:IAction) {
     // console.log('====userRegister Sagas 1');
     var res = yield call(serviceUser.register, action.payload)
     // console.log('====userRegister Sagas 2 res:'+JSON.stringify(res));
@@ -54,7 +55,7 @@ function* userRegister(action) {
         // console.log('====userRegister Sagas 4');
     }
 }
-function* userLogout(action) {
+function* userLogout(action:IAction) {
     // console.log('====user logout 1');
     var res = yield call(serviceUser.logout, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));
@@ -79,7 +80,7 @@ function* userLogout(action) {
 //         yield put({ type: actionUser.ACTION.USER_UPLOAD_AVATAR_FAIL, payload: res.data })
 //     }
 // }
-function* userUpdateAvatar(action) {
+function* userUpdateAvatar(action:IAction) {
     // console.log('====user upload avatar 1');
     var res = yield call(serviceUser.updateAvatar, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));
@@ -92,7 +93,7 @@ function* userUpdateAvatar(action) {
         yield put({ type: actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID_FAIL, payload: res.data })
     }
 }
-function* userUpdate(action) {
+function* userUpdate(action:IAction) {
     // console.log('====user update 1');
     var res = yield call(serviceUser.userUpdate, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));
@@ -106,7 +107,7 @@ function* userUpdate(action) {
     }
 }
 
-function* userChangePassword(action) {
+function* userChangePassword(action:IAction) {
     // console.log('====user userChangePassword 1');
     var res = yield call(serviceUser.userChangePassword, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));
@@ -119,7 +120,7 @@ function* userChangePassword(action) {
     }
 }
 
-function* userResetPassword(action) {
+function* userResetPassword(action:IAction) {
     // console.log('====user userResetPasswordpdate 1');
     var res = yield call(serviceUser.userResetPassword, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));
@@ -132,7 +133,7 @@ function* userResetPassword(action) {
     }
 }
 
-function* userResetPasswordNew(action) {
+function* userResetPasswordNew(action:IAction) {
     // console.log('====user userResetPasswordNew 1');
     var res = yield call(serviceUser.userResetPasswordNew, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));

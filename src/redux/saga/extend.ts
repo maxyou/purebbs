@@ -2,10 +2,11 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {extend as serviceExtend} from 'service'
+import {extend as serviceExtend} from '../../service'
 import {extend as actionExtend} from '../action'
+import {IAction} from '../common'
 
-function* extendLineupJoin(action) {
+function* extendLineupJoin(action:IAction) {
     // console.log('====extend lineup join 1');
     var res = yield call(serviceExtend.extendLineupJoin, action.payload)
     // console.log('====extend lineup join 2'+JSON.stringify(res.data));
@@ -18,7 +19,7 @@ function* extendLineupJoin(action) {
     }
 }
 
-function* extendLineupQuit(action) {
+function* extendLineupQuit(action:IAction) {
     // console.log('====extend lineup join 1');
     var res = yield call(serviceExtend.extendLineupQuit, action.payload)
     // console.log('====extend lineup join 2'+JSON.stringify(res.data));
@@ -31,7 +32,7 @@ function* extendLineupQuit(action) {
     }
 }
 
-function* extendVoteJoin(action) {
+function* extendVoteJoin(action:IAction) {
     // console.log('====extend vote join 1');
     var res = yield call(serviceExtend.extendVoteJoin, action.payload)
     // console.log('====extend vote join 2'+JSON.stringify(res.data));
@@ -44,7 +45,7 @@ function* extendVoteJoin(action) {
     }
 }
 
-function* extendVoteQuit(action) {
+function* extendVoteQuit(action:IAction) {
     // console.log('====extend vote join 1');
     var res = yield call(serviceExtend.extendVoteQuit, action.payload)
     // console.log('====extend vote join 2'+JSON.stringify(res.data));

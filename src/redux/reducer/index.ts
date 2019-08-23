@@ -19,7 +19,7 @@ const appReducer = combineReducers({
     sys,
 })
 
-const rootReducer = (state, action) => {
+const rootReducer = (state:any, action:any) => {
     //https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store
     
     switch (action.type) {

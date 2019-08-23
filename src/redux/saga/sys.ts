@@ -2,11 +2,11 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {sys as serviceSys} from 'service'
+import {sys as serviceSys} from '../../service'
 import {sys as actionSys} from '../action'
+import {IAction} from '../common'
 
-
-function* categoryGet(action) {
+function* categoryGet(action:IAction) {
     // console.log('====sys categoryGet 1');
     var res = yield call(serviceSys.categoryGet, action.payload)
     // console.log('====sys categoryGet 2'+JSON.stringify(res.data));

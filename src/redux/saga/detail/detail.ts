@@ -2,11 +2,11 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {detail as serviceDetail} from 'service'
+import {detail as serviceDetail} from '../../../service'
 import {detail as actionDetail, extend as actionExtend} from '../../action'
+import {IAction} from '../../common'
 
-
-function* detailPostGet(action) {    
+function* detailPostGet(action:IAction) {    
     // console.log('====detail post get 1');
     var res = yield call(serviceDetail.detailPostGet, action.payload)
     // console.log('====detail post get 2'+JSON.stringify(res.data));
@@ -20,7 +20,7 @@ function* detailPostGet(action) {
     }
 }
 
-function* detailCommentGet(action) {
+function* detailCommentGet(action:IAction) {
     // console.log('====detail comment get 1');
     var res = yield call(serviceDetail.detailCommentGet, action.payload)
     // console.log('====detail post get 2'+JSON.stringify(res.data));
@@ -33,7 +33,7 @@ function* detailCommentGet(action) {
     }
 }
 
-function* detailCommentAdd(action) {
+function* detailCommentAdd(action:IAction) {
     // console.log('====detail comment add Sagas 1');
     var res = yield call(serviceDetail.detailCommentAdd, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));
@@ -46,7 +46,7 @@ function* detailCommentAdd(action) {
     }
 }
 
-function* detailCommentDeleteById(action) {
+function* detailCommentDeleteById(action:IAction) {
     // console.log('====detail comment delete Sagas 1');
     var res = yield call(serviceDetail.detailCommentDeleteById, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));
@@ -59,7 +59,7 @@ function* detailCommentDeleteById(action) {
     }
 }
 
-function* detailCommentUpdateById(action) {
+function* detailCommentUpdateById(action:IAction) {
     // console.log('====detail comment update Sagas 1');
     var res = yield call(serviceDetail.detailCommentUpdateById, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));
@@ -72,7 +72,7 @@ function* detailCommentUpdateById(action) {
     }
 }
 
-function* detailPostUpdateById(action) {
+function* detailPostUpdateById(action:IAction) {
     // console.log('====detail post update Sagas 1');
     var res = yield call(serviceDetail.detailPostUpdateById, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));
@@ -85,7 +85,7 @@ function* detailPostUpdateById(action) {
     }
 }
 
-function* detailPostAttachById(action) {
+function* detailPostAttachById(action:IAction) {
     // console.log('====detail post attach Sagas 1');
     var res = yield call(serviceDetail.detailPostAttachById, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));
@@ -98,7 +98,7 @@ function* detailPostAttachById(action) {
     }
 }
 
-function* detailCommentAttachById(action) {
+function* detailCommentAttachById(action:IAction) {
     // console.log('====detail comment attach Sagas 1');
     var res = yield call(serviceDetail.detailCommentAttachById, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));

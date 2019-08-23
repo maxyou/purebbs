@@ -36,6 +36,7 @@
   "dependencies": {
     "@types/react": "^16.9.1",
     "@types/react-dom": "^16.8.5",
+    "@types/react-redux": "^7.1.2",
     "axios": "^0.19.0",
     "browser-cookies": "^1.2.0",
     "dialog-polyfill": "^0.5.0",

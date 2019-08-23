@@ -2,12 +2,13 @@
 // import 'babel-polyfill';
 import "regenerator-runtime/runtime";
 import { put, takeEvery, all, call } from 'redux-saga/effects'
-import {post as servicePost} from 'service'
+import {post as servicePost} from '../../../service'
 // console.log('servicePost:')
 // console.log(servicePost)
 import {post as actionPost} from '../../action'
+import {IAction} from '../../common'
 
-function* postAdd(action) {
+function* postAdd(action:IAction) {
     // console.log('====post Sagas 1');
     var res = yield call(servicePost.postAdd, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));
@@ -19,7 +20,7 @@ function* postAdd(action) {
         // console.log('====post Sagas 4');
     }
 }
-function* postGet(action) {
+function* postGet(action:IAction) {
     // console.log('====post get 1');
     var res = yield call(servicePost.postGet, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));
@@ -31,7 +32,7 @@ function* postGet(action) {
         yield put({ type: actionPost.ACTION.POST_GET_FAIL, payload: res.data })
     }
 }
-function* postFindByIdAndDelete(action) {
+function* postFindByIdAndDelete(action:IAction) {
     // console.log('====post delete 1');
     var res = yield call(servicePost.postFindByIdAndDelete, action.payload)
     // console.log('====post get 2'+JSON.stringify(res.data));
@@ -43,7 +44,7 @@ function* postFindByIdAndDelete(action) {
         // console.log('====post delete 4');
     }
 }
-function* postFindByIdAndUpdate(action) {
+function* postFindByIdAndUpdate(action:IAction) {
     // console.log('====post update 1');
     var res = yield call(servicePost.postFindByIdAndUpdate, action.payload)
     // console.log('====post update 2'+JSON.stringify(res.data));
@@ -57,7 +58,7 @@ function* postFindByIdAndUpdate(action) {
     }
 }
 
-function* postAttachById(action) {
+function* postAttachById(action:IAction) {
     // console.log('==== post attach Sagas 1');
     var res = yield call(servicePost.postAttachById, action.payload)
     // console.log('====post Sagas 2'+JSON.stringify(res.data));

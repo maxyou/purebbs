@@ -1,18 +1,22 @@
 import * as React from 'react'
 
+interface IProps{
+    children: any,
+}
 interface IState{
     error: any,
     errorInfo: any
 }
 
-class ErrorBoundary extends React.Component<{}, IState> {
+class ErrorBoundary extends React.Component<IProps, IState> {
 
-    constructor(props) {
+    constructor(props:IProps) {
         super(props);
-        this.state = { error: null, errorInfo: null };
+        // this.state:{error:any, errorInfo: any} = { error: null, errorInfo: null };
     }
+    state:{error:any, errorInfo: any} = { error: null, errorInfo: null };
 
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch(error:any, errorInfo:any) {
         // Catch errors in any components below and re-render with error message
         this.setState({
             error: error,
