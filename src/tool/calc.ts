@@ -12,9 +12,9 @@
 // console.log('--------calc-------')
 // console.log(category)
 
-module.exports = {
+export default {
 
-    tool(v) {
+    tool(v:any) {
         return v
     },
     // categoryIdstr2QueryStr(idStr, category){
@@ -36,7 +36,7 @@ module.exports = {
     //     }
     //     return found
     // },
-    categoryIdstr2Name(idStr, category){
+    categoryIdstr2Name(idStr:string, category:any[]){
 
         // console.log('--------calc categoryIdstr2Name-------')
         // console.log(category)
@@ -64,7 +64,7 @@ module.exports = {
     //       return ''
     //     }
     //   },
-    calcPaginateArray(current = 1, ext = 2, maxRight) {
+    calcPaginateArray(current = 1, ext = 2, maxRight:number) {
         // required:
         //  current <= maxright
 

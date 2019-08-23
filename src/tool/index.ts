@@ -2,7 +2,7 @@ import calc from './calc'
 import sys from './sys'
 import time from './time'
 
-module.exports = {
+export {
     calc,
     time,
     sys,

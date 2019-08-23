@@ -5,7 +5,7 @@ import Home from './home'
 import Lineup from './lineup'
 import Vote from './vote'
 
-export {
+export default {
     Add,
     AddLineup,
     AddVote,

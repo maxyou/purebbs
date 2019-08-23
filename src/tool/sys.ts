@@ -1,10 +1,10 @@
 
-module.exports = {
+export default {
 
-    defineCanvasToBlob(v) {
+    defineCanvasToBlob(v:any) {
         if (!HTMLCanvasElement.prototype.toBlob) {
             Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-                value: function (callback, type, quality) {
+                value: function (callback:any, type:any, quality:any) {
                     var dataURL = this.toDataURL(type, quality).split(',')[1];
                     setTimeout(function () {
 

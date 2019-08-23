@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import reducers from './redux/reducer';
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './redux/saga'
-// import Layout from './layout'
+import Layout from './layout'
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' as keyof typeof window] as typeof compose || compose;
@@ -29,7 +29,7 @@ class App extends Component<{}, {}> {
     return (
       <div>
         <Provider store={store}>
-          {/* <Layout /> */}
+          <Layout />
           test test test ~~~ ###
         </Provider>
       </div>
