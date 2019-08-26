@@ -6,15 +6,15 @@ import 'cropperjs/dist/cropper.css' // see installation section above for versio
 // If you choose not to use import, you need to assign Cropper to default
 // var Cropper = require('react-cropper').default
 
-class AvatarCrop extends Component {
+class AvatarCrop extends Component<any, any> {
 
     constructor(props) {
         super(props)
         this.state = {
             src: '',
         }
-        this.myRef = React.createRef()
     }
+    myRef:any = React.createRef()
 
 
     onOk = e => {

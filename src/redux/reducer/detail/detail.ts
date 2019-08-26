@@ -37,7 +37,7 @@ const initState:IState = {
   postAttaching: false,
   commentAttaching: false,
 }
-export default function detail(state:IState = initState, action:{type:string, payload:any}):IState {
+export default function detail(state:IState = initState, action:{type:string, payload:any}):IState { //action做枚举类限制？
   switch (action.type) {
 
     case actionDetail.ACTION.DETAIL_POST_COMMENTS_CLEAR:

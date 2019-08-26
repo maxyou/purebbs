@@ -6,7 +6,7 @@ import { post as actionPost } from '@/redux/action'
 import { calc, time } from '@/tool'
 import styled from 'styled-components'
 import { AvatarName } from '@/component/user'
-import Extend from '@/biz/extend'
+import * as Extend from '@/biz/extend'
 import { command } from '@/biz/common'
 import dialogPolyfill from 'dialog-polyfill'
 import ReactMde from "react-mde";

@@ -1,3 +1,5 @@
+// import * as React from 'react';
+// import * as ReactDOM from "react-dom";
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');

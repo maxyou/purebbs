@@ -1,7 +1,7 @@
 
 export default {
 
-    defineCanvasToBlob(v:any) {
+    defineCanvasToBlob() {
         if (!HTMLCanvasElement.prototype.toBlob) {
             Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
                 value: function (callback:any, type:any, quality:any) {

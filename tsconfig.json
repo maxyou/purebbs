@@ -6,6 +6,7 @@
         "@/component/*": ["component/*"],
         "@/layout/*": ["layout/*"],
         "@/redux/*": ["redux/*"],
+        "@/tool": ["tool"],
     },
       "noImplicitAny": false,
       "target": "es5",

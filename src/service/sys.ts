@@ -6,7 +6,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export default {
   
-  categoryGet(v:any) {
+  categoryGet(v?:any) {
     console.log('service categoryGet get')
     // return axios.get('/detail/'+id)
     return axios.get('/sys/category')

@@ -1,10 +1,13 @@
-import React, { Component, useEffect, useRef } from 'react'
+import * as React from 'react'
+import { Component, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import { Link, NavLink, Redirect, withRouter } from 'react-router-dom'
-import { user as actionUser, locale as actionLocale, sys as actionSys} from '@/redux/action'
+import { user as actionUser, locale as actionLocale, sys as actionSys } from '@/redux/action'
 import { AvatarImg } from '@/component/user'
 // import {calc} from '@/tool'
+
 
 const AppbarHeight = '50px'
 
@@ -89,12 +92,25 @@ const StyledSelect = styled.select`
 function usePrevious(value) {
     const ref = useRef();
     useEffect(() => {
-      ref.current = value;
+        ref.current = value;
     });
     return ref.current;
-  }
-  
-const Appbar = function (props) {
+}
+
+interface IState2Prop {
+    isLogin: boolean,
+    words: any,
+    user: any,
+    locale: any,
+    sys: any,
+}
+interface IDispatch2Prop {
+    userLogout: (v?) => void,
+    userGetStatus: (v?) => void,
+    languageSet: (v) => void,
+    categoryGet: (v?) => void,
+}
+const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
     const { isLogin } = props
     const prevProps = usePrevious({ isLogin })
 
@@ -122,11 +138,11 @@ const Appbar = function (props) {
         // props.history.push('/post')
         // console.log('push to /post 2')
     }
-    
+
 
     useEffect(
         () => {
-            if (!prevProps){
+            if (!prevProps) {
                 props.userGetStatus()
                 props.categoryGet()
             }
@@ -148,20 +164,20 @@ const Appbar = function (props) {
                     {/* <StyledDivUserName><NavLink to={`/user/${props.user._id}`}>{props.user.name}</NavLink></StyledDivUserName> */}
                     <StyledDivUserName><StyledLink to='/user'>{props.user.name}</StyledLink></StyledDivUserName>
                 </StyledDivUserAvatarName>
-                
-                {props.user.role=='admin'?<StyledDivUserAdmin><StyledLink to='/admin'><span>{props.words.adm_admin}</span></StyledLink></StyledDivUserAdmin>:null}
-                
+
+                {props.user.role == 'admin' ? <StyledDivUserAdmin><StyledLink to='/admin'><span>{props.words.adm_admin}</span></StyledLink></StyledDivUserAdmin> : null}
+
                 <StyledDivUserLogout><StyledLink to='/'><span onClick={logout}>{props.words.user_logout}</span></StyledLink></StyledDivUserLogout>
-                
+
                 <StyledDivUserLogin><StyledLink to='/login'><span>{props.words.user_login}</span></StyledLink></StyledDivUserLogin>
-                
+
                 <StyledDivUserRegister><StyledLink to='/register'><span>{props.words.user_register}</span></StyledLink></StyledDivUserRegister>
                 {/* <StyledDivLocale>
                     <button onClick={()=>props.languageSet('zh')}>zh</button>
                     <button onClick={()=>props.languageSet('en')}>en</button>
                 </StyledDivLocale> */}
-                
-                <StyledSelect onChange={(e) => { props.languageSet( e.target.value )}} value={''+props.locale.language}>
+
+                <StyledSelect onChange={(e) => { props.languageSet(e.target.value) }} value={'' + props.locale.language}>
                     <option value='zh'>中文</option>
                     <option value='en'>en</option>
                 </StyledSelect>
@@ -170,7 +186,8 @@ const Appbar = function (props) {
     );
 }
 
-const mapStateToProps = state => ({
+
+const mapStateToProps: { (state: any): IState2Prop } = (state) => ({ //todo: 似乎意义不大？
     isLogin: state.user.isLogin,
     words: state.locale.words,
     user: state.user,
@@ -178,13 +195,24 @@ const mapStateToProps = state => ({
     sys: state.sys,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
     userLogout: (v) => dispatch(actionUser.Creator.userLogout(v)),
     userGetStatus: (v) => dispatch(actionUser.Creator.userGetStatus(v)),
-    languageSet:(v)=>dispatch(actionLocale.Creator.languageSet(v)),
-    categoryGet:(v)=>dispatch(actionSys.Creator.categoryGet(v)),
+    languageSet: (v) => dispatch(actionLocale.Creator.languageSet(v)),
+    categoryGet: (v) => dispatch(actionSys.Creator.categoryGet(v)),
 })
-export default withRouter(connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Appbar))
+
+// const stateProps:any = connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )
+// const AppbarStateProps = stateProps(Appbar)
+// const AppbarPropsWithRouter = withRouter(AppbarStateProps)
+// export default AppbarPropsWithRouter
+
+export default withRouter(
+    (connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ) as any) (Appbar)
+)
