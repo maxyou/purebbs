@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {PageRound}from './paginate'
+// import {PageRound}from './paginate'
 import Add from './add'
 import Edit from './edit'
 import Page from './page'

@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { admin as actionAdmin } from '@/redux/action'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { AvatarImg } from '@/component/user'
 import { time } from '@/tool'
+import { Dispatch } from 'redux';
 const StyledDivCard = styled.div`
     width:100%;
     height:170px;
     // background-color: #c2c456;
     `
 
-function card(props) {
+const card: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
 
   const gotoEdit = () => {
     props.edit(props.user)
@@ -22,7 +23,7 @@ function card(props) {
     <StyledDivCard>
       <fieldset>
         <legend>{props.user.name}</legend>
-        
+
         <div>{props.words.user_avatar}:<AvatarImg width='35px' src={'user/avatar/' + props.user.avatarFileName} /></div>
         {/* <div>{props.words.user_name}:{props.user.name}</div> */}
         <div>{props.words.user_role}:{props.user.role}</div>
@@ -34,16 +35,32 @@ function card(props) {
   );
 }
 
+interface IProps extends RouteComponentProps<any>{
+  user: any,
+}
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  words: any,
+}
+interface IDispatch2Prop {
+  edit: (v?) => void,
+}
 
-const mapStateToProps = state => ({
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   edit: (v) => dispatch(actionAdmin.Creator.userEdit(v)),
 })
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(card))
+
+export default withRouter<IProps, any>(
+  (connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ) as any)(card)
+)

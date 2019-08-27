@@ -30,7 +30,7 @@ class App extends Component<{}, {}> {
       <div>
         <Provider store={store}>
           <Layout />
-          test test test ~~~ ###
+          
         </Provider>
       </div>
     );

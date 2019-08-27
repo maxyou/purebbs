@@ -3,14 +3,35 @@ import { connect } from 'react-redux'
 // import actionPost from '@/redux/action/post'
 import { post as actionPost, locale as actionLocale } from '@/redux/action'
 import styled from 'styled-components'
-import { Route, Link } from 'react-router-dom'
+import { Dispatch } from 'redux';
+
 const StyledTextarea = styled.textarea`
     margin: 3px;
     border:2px solid #dede00;
     width: 80%;
     height: 200px;
 `
-class PostAdd extends React.Component {
+
+
+interface IRouterProp {
+    history: any,
+}
+interface IDispatch2Prop {
+    submit: (v:any) => void,
+    languageSet: (v:any) => void,
+}
+
+type IState2Prop = {
+    addResult: object,
+    words: any,
+    user: any,
+};
+
+type State = {
+    title: string,
+    content: string,
+};
+class PostAdd extends React.Component<IState2Prop & IDispatch2Prop & IRouterProp, State> {
 
     constructor(props) {
         super(props)
@@ -19,7 +40,8 @@ class PostAdd extends React.Component {
             content: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.handleTitleChange = this.handleTitleChange.bind(this)
+        this.handleContentChange = this.handleContentChange.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
     }
 
@@ -43,8 +65,11 @@ class PostAdd extends React.Component {
         this.props.history.goBack()
     }
 
-    handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+    handleTitleChange(e) {
+        this.setState({ title: e.target.value })
+    }
+    handleContentChange(e) {
+        this.setState({ content: e.target.value })
     }
 
     render() {
@@ -56,9 +81,9 @@ class PostAdd extends React.Component {
                 <hr />
                 <form style={{ display: 'inline' }} onSubmit={this.handleSubmit} method="post">
                     <span >{this.props.words.cntnt_title}</span>
-                    <input type="text" name="title" onChange={this.handleChange} value={this.state.title} /><br />
+                    <input type="text" name="title" onChange={this.handleTitleChange} value={this.state.title} /><br />
                     <span >{this.props.words.cntnt_content}</span>
-                    <StyledTextarea type="text" name="content" onChange={this.handleChange} value={this.state.content} /><br />
+                    <StyledTextarea type="text" name="content" onChange={this.handleContentChange} value={this.state.content} /><br />
                     <input type="submit" value={this.props.words.cmn_cancel} onClick={this.handleCancel} />
                     <input type="submit" value={this.props.words.cmn_confirm} />
                 </form><br />
@@ -67,13 +92,13 @@ class PostAdd extends React.Component {
         )
     }
 }
-const mapStateToProps = state => ({
+const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
     addResult: state.post.postAddResult,
     words: state.locale.words,
     user: state.user
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
     submit: (v) => dispatch(actionPost.Creator.postAdd(v)),
     languageSet: (v) => dispatch(actionLocale.Creator.languageSet(v))
 })

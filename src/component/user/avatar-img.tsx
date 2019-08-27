@@ -8,7 +8,7 @@ const StyledImg = styled.img`
     // border:1px solid #dede00;
 `
 
-export default function AvatarImg({src, width, height='', radius}) {
+export default function AvatarImg({src, width, height='', radius=''}) {
     // console.log('AvatarImg')
     // console.log(src)
     // console.log(width)

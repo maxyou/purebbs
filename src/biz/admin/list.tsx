@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { admin as actionAdmin } from '@/redux/action'
 import styled from 'styled-components'
 import { Link, withRouter } from 'react-router-dom'
+import { Dispatch } from 'redux';
 import Card from './card'
 
 const StyledDivList = styled.div`
@@ -19,7 +20,7 @@ function useIdAsKey(userListResult) {
   return []
 }
 
-function usePrevious(value) {
+function usePrevious(value):any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -28,10 +29,10 @@ function usePrevious(value) {
 }
 
 
-function userList(props) {
+const userList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
 
   const { userAdding, userUpdatting, userDeletting, userPageCurrent, userPageSize } = props
-  const prevProps = usePrevious({ userAdding, userUpdatting, userDeletting, userPageCurrent, userPageSize })
+  const prevProps:IState2Prop = usePrevious({ userAdding, userUpdatting, userDeletting, userPageCurrent, userPageSize })
 
   useEffect(
     () => {
@@ -72,7 +73,24 @@ function userList(props) {
   )
 }
 
-const mapStateToProps = state => ({
+
+interface IState2Prop {
+  userPageSize: number,
+  userPageCurrent: number,
+  userListResult: object,
+  userListLoading: boolean,
+  userAdding: boolean,
+  userDeletting: boolean,
+  userUpdatting: boolean,
+
+}
+interface IDispatch2Prop {
+  get: (v?) => void,
+  findByIdAndDelete: (v?) => void,
+  findByIdAndUpdate: (v) => void,
+}
+
+const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
   userPageSize: state.admin.userPageSize,
   userPageCurrent: state.admin.userPageCurrent,
   userListResult: state.admin.userListResult,
@@ -82,12 +100,15 @@ const mapStateToProps = state => ({
   userUpdatting: state.admin.userUpdatting,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
   get: (v) => dispatch(actionAdmin.Creator.userGet(v)),
   findByIdAndDelete: (v) => dispatch(actionAdmin.Creator.userFindByIdAndDelete(v)),
   findByIdAndUpdate: (v) => dispatch(actionAdmin.Creator.userFindByIdAndUpdate(v)),
 })
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(userList))
+
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (userList)
+)
