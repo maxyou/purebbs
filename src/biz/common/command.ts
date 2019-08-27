@@ -8,6 +8,6 @@ const ATTACH_ACTION = {
     
 }
 
-module.exports = {
+export default{
     ATTACH_ACTION,
 }
