@@ -10,10 +10,11 @@ import * as Extend from '@/biz/extend'
 import { command } from '@/biz/common'
 import dialogPolyfill from 'dialog-polyfill'
 import ReactMde from "react-mde";
-import ReactDOM from "react-dom";
+import { Dispatch } from 'redux';
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
-import { category } from "../common"
+// import { category } from "../common"
+import {ICategoryItem} from '@/redux/common'
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -179,15 +180,18 @@ const StyledSpanAnonymous = styled.span`
     font-size: small;
 `
 
-function usePrevious(value) {
+function usePrevious(value):any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
   });
   return ref.current;
 }
-
-function post(props) {
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props) {
 
   useEffect(
     () => {
@@ -198,7 +202,7 @@ function post(props) {
     }, []
   )
 
-  const [postEdit, setPostEdit] = useState({ title: '', content: '', category: '', anonymous: '' })
+  const [postEdit, setPostEdit] = useState({ title: '', content: '', category: '', anonymous: false })
 
   function handleDelete(v) {
     console.log(props)
@@ -213,7 +217,7 @@ function post(props) {
   }
 
   const { postUpdatting, postAttaching } = props
-  const prevProps = usePrevious({ postUpdatting, postAttaching })
+  const prevProps:IState2Prop = usePrevious({ postUpdatting, postAttaching })
 
   useEffect(
     () => {
@@ -262,8 +266,8 @@ function post(props) {
     setPostEdit(v)
     console.log('openEdit')
     console.log(v)
-    var detailPostDialog = document.getElementById('detailPostDialog');
-    detailPostDialog.showModal()
+    var detailPostDialog:any = document.getElementById('detailPostDialog');
+    detailPostDialog!.showModal()
   }
   function toggleStickTop(v) {
     // v.stickTop = !v.stickTop
@@ -289,7 +293,7 @@ function post(props) {
       attachCmd: v.likeHasCurrentUser ? command.ATTACH_ACTION.ATTACH_LIKE_CANCEL : command.ATTACH_ACTION.ATTACH_LIKE_SET
     })
   }
-  const [markdownTab, setMarkdownTab] = useState("write");
+  const [markdownTab, setMarkdownTab] = useState<"write"|"preview"|undefined>("write");
   return (
     <div>
       <StyledDialog id="detailPostDialog">
@@ -404,8 +408,25 @@ function post(props) {
     </div>
   );
 }
-// {JSON.stringify(props.post)}
-const mapStateToProps = state => ({
+
+
+interface IState2Prop {
+  user: any,
+  words: any,
+  post: any,
+  postLoading: boolean,
+  postUpdatting: boolean,
+  postAttaching: boolean,
+  category: ICategoryItem[],
+}
+interface IDispatch2Prop {
+  detailPostGet: (v?) => void,
+  findByIdAndDelete: (v?) => void,
+  findByIdAndUpdate: (v) => void,
+  findByIdAndAttach: (v?) => void,
+}
+
+const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
   user: state.user,
   words: state.locale.words,
   post: state.detail.post,
@@ -415,13 +436,15 @@ const mapStateToProps = state => ({
   category: state.sys.category,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
   detailPostGet: (v) => dispatch(actionDetail.Creator.detailPostGet(v)),
   findByIdAndDelete: (v) => dispatch(actionPost.Creator.postFindByIdAndDelete(v)), //暂时复用post页面功能
   findByIdAndUpdate: (v) => dispatch(actionDetail.Creator.detailPostFindByIdAndUpdate(v)),
   findByIdAndAttach: (v) => dispatch(actionDetail.Creator.detailPostFindByIdAndAttach(v)),
 })
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(post))
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (post)
+)

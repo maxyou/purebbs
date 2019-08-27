@@ -74,20 +74,6 @@ function page(props) {
   return (
     <div>
       <Board></Board>
-      {/* <StyledDivCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.ALL.idStr)} 
-            selected={props.category==category.ALL.idStr}><StyledLink to={'#'}>{category.ALL.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.DEV_WEB.idStr)} 
-            selected={props.category==category.DEV_WEB.idStr}><StyledLink to={'#'}>{category.DEV_WEB.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.DEV_CLIENT.idStr)} 
-            selected={props.category==category.DEV_CLIENT.idStr}><StyledLink to={'#'}>{category.DEV_CLIENT.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.PM.idStr)} 
-            selected={props.category==category.PM.idStr}><StyledLink to={'#'}>{category.PM.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.JOB.idStr)} 
-            selected={props.category==category.JOB.idStr}><StyledLink to={'#'}>{category.JOB.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.OTHER.idStr)} 
-            selected={props.category==category.OTHER.idStr}><StyledLink to={'#'}>{category.OTHER.name}</StyledLink></StyledSpanCategory>
-      </StyledDivCategory> */}
       <DivPageHead>
         {/* {props.user.isLogin?<Link to={`${props.match.url}/add`}><button>{props.words.cntnt_addPost}</button></Link>:null}         */}
         <DivPageAdd isLogin={props.user.isLogin}><Link to={`${props.match.url}/add`}><button>{props.words.cntnt_addPost}</button></Link></DivPageAdd>
@@ -112,7 +98,7 @@ const mapStateToProps = state => ({
   postPageSize: state.post.postPageSize,
   // postPageCurrent: state.post.postPageCurrent,
   postTotalDocs: state.post.postTotalDocs,
-  category: state.post.category,
+  // category: state.post.category,
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux';
 import { detail as actionDetail } from '@/redux/action'
-import ErrorBoundary from '@/errorBoundary'
+// import ErrorBoundary from '@/errorBoundary'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import { time } from '@/tool'
@@ -159,16 +160,18 @@ function useIdAsKey(commentListResult) {
   return []
 }
 
-function usePrevious(value) {
+function usePrevious(value):any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
   });
   return ref.current;
 }
-
-
-function commentList(props) {
+interface IRouterProp {
+  match: any,
+}
+const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props) {
+// function commentList(props) {
 
   useEffect(
     () => {
@@ -180,10 +183,10 @@ function commentList(props) {
   )
 
   // const [commentUpdate, setCommentUpdate] = useState('')
-  const [commentEdit, setCommentEdit] = useState({content:'', anonymous:''})
+  const [commentEdit, setCommentEdit] = useState({content:'', anonymous:false})
 
   const { commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching } = props
-  const prevProps = usePrevious({ commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching })
+  const prevProps:IState2Prop = usePrevious({ commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching })
 
   useEffect(
     () => {
@@ -235,8 +238,8 @@ function commentList(props) {
   function openEdit(v) {
     console.log(v)
     setCommentEdit(v)
-    var detailCommentDialog = document.getElementById('detailCommentDialog');
-    detailCommentDialog.showModal()
+    var detailCommentDialog:any = document.getElementById('detailCommentDialog');
+    detailCommentDialog!.showModal()
   }
 
   function handleLike(v) {
@@ -356,7 +359,26 @@ function commentList(props) {
   )
 }
 
-const mapStateToProps = state => ({
+interface IState2Prop {
+  user: any,
+  words: any,
+  commentPageSize: number,
+  commentPageCurrent: number,
+  commentListResult: any,
+  commentListLoading: boolean,
+  commentAdding: boolean,
+  commentDeletting: boolean,
+  commentUpdatting: boolean,
+  commentAttaching: boolean,
+}
+interface IDispatch2Prop {
+  get: (v?) => void,
+  delete: (v?) => void,
+  update: (v) => void,
+  findByIdAndAttach: (v?) => void,
+}
+
+const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
   user: state.user,
   words: state.locale.words,
   commentPageSize: state.detail.commentPageSize,
@@ -369,13 +391,20 @@ const mapStateToProps = state => ({
   commentAttaching: state.detail.commentAttaching,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
   get: (v) => dispatch(actionDetail.Creator.detailCommentGet(v)),
   delete: (v) => dispatch(actionDetail.Creator.detailCommentDelete(v)),
   update: (v) => dispatch(actionDetail.Creator.detailCommentUpdate(v)),
   findByIdAndAttach: (v) => dispatch(actionDetail.Creator.detailCommentFindByIdAndAttach(v)),
 })
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(commentList))
+// export default withRouter(connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// ) (commentList))
+
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (commentList)
+)

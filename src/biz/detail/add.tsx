@@ -75,7 +75,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     commentAdd: (v) => dispatch(actionDetail.Creator.detailCommentAdd(v))
 })
-export default withRouter(connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(commentAdd))
+
+export default withRouter(
+    (connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ) as any) (commentAdd)
+  )
