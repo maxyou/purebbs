@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import {PageRound}from './paginate'
+import * as React from 'react';
+// import {PageRound}from './paginate'
 import PostAdd from './add'
 import PostPage from './page'
 import styled from 'styled-components'

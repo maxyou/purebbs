@@ -1,17 +1,20 @@
-import React, { Component, useEffect, useRef } from 'react'
+import * as React from 'react'
+import { Component, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux';
 import { post as actionPost } from '@/redux/action'
 import { calc, time } from '@/tool'
-import ErrorBoundary from '@/errorBoundary'
+// import ErrorBoundary from '@/errorBoundary'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import { AvatarName } from '@/component/user'
 
-import IconLineup from '@/component/icon/lineup.svg'
+import * as IconLineup from '@/component/icon/lineup.svg'
 import IconVote from '@/component/icon/vote.svg'
 
 // import { category as categoryCommon } from "../common"
 import { command } from '@/biz/common'
+import {ICategoryItem} from '@/redux/common'
 
 const ItemHeight = '60px'
 const PostTitleHeight = '40px'
@@ -227,7 +230,7 @@ function useIdAsKey(postListResult) {
   return []
 }
 
-function usePrevious(value) {
+function usePrevious(value):any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -235,11 +238,11 @@ function usePrevious(value) {
   return ref.current;
 }
 
-
-function postList(props) {
+const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
+// function postList(props) {
 
   const { postAdding, postUpdatting, postDeletting, postPageCurrent, postPageSize, categoryCurrent, postAttaching } = props
-  const prevProps = usePrevious({ postAdding, postUpdatting, postDeletting, postPageCurrent, postPageSize, categoryCurrent, postAttaching })
+  const prevProps:IState2Prop = usePrevious({ postAdding, postUpdatting, postDeletting, postPageCurrent, postPageSize, categoryCurrent, postAttaching })
 
   console.log('category 1')
   console.log(categoryCurrent)
@@ -320,7 +323,7 @@ function postList(props) {
         break
       case 'vote':
         expireDate = new Date(extend.addVote.expireTime)
-        var people = new Set([])
+        var people = new Set()
         extend.voteData.forEach(v => {
           console.log(v)
           v.forEach(vv =>{
@@ -453,7 +456,29 @@ function postList(props) {
   )
 }
 
-const mapStateToProps = state => ({
+
+interface IState2Prop {
+  user: any,
+  words: any,
+  postPageSize: number,
+  postPageCurrent: number,
+  postListResult: any,
+  postListLoading: boolean,
+  postAdding: boolean,
+  postDeletting: boolean,
+  postUpdatting: boolean,
+  postAttaching: boolean,
+  categoryCurrent: string,
+  category: ICategoryItem[],
+}
+interface IDispatch2Prop {
+  get: (v?) => void,
+  findByIdAndDelete: (v?) => void,
+  findByIdAndUpdate: (v) => void,
+  postFindByIdAndAttach: (v?) => void,
+}
+
+const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
   user: state.user,
   words: state.locale.words,
   postPageSize: state.post.postPageSize,
@@ -468,13 +493,19 @@ const mapStateToProps = state => ({
   category: state.sys.category,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
   get: (v) => dispatch(actionPost.Creator.postGet(v)),
   findByIdAndDelete: (v) => dispatch(actionPost.Creator.postFindByIdAndDelete(v)),
   findByIdAndUpdate: (v) => dispatch(actionPost.Creator.postFindByIdAndUpdate(v)),
   postFindByIdAndAttach: (v) => dispatch(actionPost.Creator.postFindByIdAndAttach(v)),
 })
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(postList))
+// export default withRouter(connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(postList))
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (postList)
+)

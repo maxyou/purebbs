@@ -7,9 +7,9 @@ import { Route, Link } from 'react-router-dom'
 import ReactMde from "react-mde"
 import * as Showdown from "showdown"
 import "react-mde/lib/styles/css/react-mde-all.css"
-import {Add as AddExtend} from "../extend"
-
-
+import { Add as AddExtend } from "../extend"
+import {ICategoryItem} from '@/redux/common'
+import { Dispatch } from 'redux';
 
 const StyledDivHeader = styled.div`    
     // height: 30px;
@@ -41,38 +41,66 @@ const converter = new Showdown.Converter({
     tasklists: true
 });
 
+interface IRouterProp {
+    history: any,
+}
+interface IDispatch2Prop {
+    submit: (v:any) => void,
+}
 
-class PostAdd extends React.Component {
+type IState2Prop = {
+    addResult: object,
+    words: any,
+    user: any,
+    extend: any,
+    category: ICategoryItem[],
+};
 
+type State = {
+    title: string,
+    content: string,
+    category: string,
+    anonymous: boolean,
+    markdownTab: "write"|"preview"|undefined,
+};
+class PostAdd extends React.Component<IState2Prop & IDispatch2Prop & IRouterProp, State> {
+    readonly state: State = {
+        title: '',
+        content: '',
+        // category: '',
+        category: (this.props.category && this.props.category[1]) ? this.props.category[1].idStr : '',
+        anonymous: false,
+        markdownTab: 'write'
+    };
     constructor(props) {
         super(props)
 
         console.log('------------PostAdd----------------')
         // console.log(props)
 
-        this.state = {
-            title: '',
-            content: '',
-            // category: '',
-            category: (props.category && props.category[1]) ? props.category[1].idStr : '',
-            anonymous: false,
-            markdownTab: 'write'
-        }
+        // this.state = {
+        //     title: '',
+        //     content: '',
+        //     // category: '',
+        //     category: (props.category && props.category[1]) ? props.category[1].idStr : '',
+        //     anonymous: false,
+        //     markdownTab: 'write'
+        // }
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.handleTitleChange = this.handleTitleChange.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
         this.handleMarkdownChange = this.handleMarkdownChange.bind(this)
         this.setMarkdownTab = this.setMarkdownTab.bind(this)
         // this.setAnonymous = this.setAnonymous.bind(this)
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
 
         console.log('------------------componentDidUpdate-----------------------')
-        if(!this.state.category && this.props.category && this.props.category[1]){
+        if (!this.state.category && this.props.category && this.props.category[1]) {
 
             console.log('------------------componentDidUpdate.setState-----------------------')
-            this.setState({category: this.props.category[1].idStr })
+            this.setState({ category: this.props.category[1].idStr })
         }
     }
 
@@ -80,7 +108,7 @@ class PostAdd extends React.Component {
         e.preventDefault()
         console.log('handleSubmit')
 
-        if(!this.state.title || this.state.title.length==0){
+        if (!this.state.title || this.state.title.length == 0) {
             alert('must have title')
             return
         }
@@ -103,8 +131,8 @@ class PostAdd extends React.Component {
         // console.log(this.props)
         this.props.history.goBack()
     }
-    handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+    handleTitleChange(e) {
+        this.setState({ title: e.target.value })
     }
 
     handleMarkdownChange(e) {
@@ -125,7 +153,7 @@ class PostAdd extends React.Component {
                 <form style={{ display: 'inline' }} onSubmit={this.handleSubmit} method="post">
                     <StyledDivHeader>
                         <StyledSpanTitle >{this.props.words.cntnt_title}</StyledSpanTitle>
-                        <StyledInputTitle type="text" name="title" onChange={this.handleChange} value={this.state.title} />
+                        <StyledInputTitle type="text" name="title" onChange={this.handleTitleChange} value={this.state.title} />
                     </StyledDivHeader>
 
                     {/* <span >{this.props.words.cntnt_content}</span> */}
@@ -138,14 +166,13 @@ class PostAdd extends React.Component {
                             Promise.resolve(converter.makeHtml(markdown))
                         }
                     />
-                    {/* <StyledTextarea type="text" name="content" onChange={this.handleChange} value={this.state.content} /><br/>                     */}
                     <input type="submit" value={this.props.words.cmn_cancel} onClick={this.handleCancel} />
                     <input type="submit" value={this.props.words.cmn_confirm} />
-                    <StyledSelect onChange={(e) => {this.setState({category: e.target.value}) }} value={this.state.category}>
+                    <StyledSelect onChange={(e) => { this.setState({ category: e.target.value }) }} value={this.state.category}>
 
                         {
-                            this.props.category.map((v, index)=>{
-                                if(index===0){
+                            this.props.category.map((v, index) => {
+                                if (index === 0) {
                                     return null
                                 }
 
@@ -156,14 +183,16 @@ class PostAdd extends React.Component {
                     </StyledSelect>
                     <label htmlFor="anonymous"><StyledSpanAnonymous>{this.props.words.cntnt_anonymous_publish}</StyledSpanAnonymous></label>
                     <input type="checkbox" id="anonymous" name="anonymous"
-                        onChange={(e) => this.setState({anonymous:e.target.checked})} checked={this.state.anonymous} />
+                        onChange={(e) => this.setState({ anonymous: e.target.checked })} checked={this.state.anonymous} />
                 </form><br />
-                <AddExtend></AddExtend>                
+                <AddExtend></AddExtend>
             </div>
         )
     }
 }
-const mapStateToProps = state => ({
+
+
+const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
     addResult: state.post.postAddResult,
     words: state.locale.words,
     user: state.user,
@@ -171,7 +200,7 @@ const mapStateToProps = state => ({
     category: state.sys.category,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
     submit: (v) => dispatch(actionPost.Creator.postAdd(v)),
 })
 export default connect(
