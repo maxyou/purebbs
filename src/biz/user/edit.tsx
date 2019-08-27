@@ -26,7 +26,7 @@ const StyledInput = styled.input`
 function edit(props) {
 
   const [cropDisplay, setCropDisplay] = useState('none')
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState<any>(null)
   const [cropBlob, setCropBlob] = useState(null)
   // const [role, setRole] = useState(props.user.role)
   const [email, setEmail] = useState(props.user.email || '')
@@ -125,7 +125,10 @@ const mapDispatchToProps = dispatch => ({
   findByIdAndUpdate: (v) => dispatch(actionUser.Creator.userFindByIdAndUpdate(v)),
   findByIdAndUpdateAvatar: (v) => dispatch(actionUser.Creator.userAvatarFindByIdAndUpdate(v)),
 })
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(edit))
+
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (edit)
+)

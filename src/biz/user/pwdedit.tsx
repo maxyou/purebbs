@@ -75,7 +75,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userChangePassword: (v) => dispatch(actionUser.Creator.userChangePassword(v)),
 })
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PwdEdit))
+
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (PwdEdit)
+)

@@ -39,7 +39,9 @@ const mapDispatchToProps = dispatch => ({
   // edit: (v) => dispatch(actionAdmin.Creator.userEdit(v)),
 })
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(me))
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (me)
+)

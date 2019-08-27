@@ -80,7 +80,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   resetPassword: (v) => dispatch(actionUser.Creator.userResetPassword(v))
 })
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ResetPassword))
+
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (ResetPassword)
+)

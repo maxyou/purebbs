@@ -59,7 +59,10 @@ const mapDispatchToProps = dispatch => ({
   userOtherInfoGet: (v) => dispatch(actionUser.Creator.userOtherInfoGet(v)),
 })
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(other))
+
+export default withRouter(
+  (connect(
+      mapStateToProps,
+      mapDispatchToProps
+  ) as any) (other)
+)
