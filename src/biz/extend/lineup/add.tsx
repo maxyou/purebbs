@@ -26,7 +26,7 @@ function add(props) {
                 </div>
                 <div>
                     <span>{props.words.ext_expire_time}</span>
-                    <span onChange={event => props.update({ ...props.addLineup, expireTime: event.target.value })}>
+                    <span onChange={(event:any) => props.update({ ...props.addLineup, expireTime: event.target.value })}>
                         <input type="datetime-local" name="bdaytime" ></input>
                     </span>
                 </div>

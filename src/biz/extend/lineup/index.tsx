@@ -23,7 +23,7 @@ const StyledDivColor = styled.div`
     }};
 `
 
-function usePrevious(value) {
+function usePrevious(value):any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -79,7 +79,7 @@ function Lineup(props) {
             return (
                 <div>
                     <hr></hr>
-                    <button disabled="disabled">{props.words.ext_expired}</button>
+                    <button disabled>{props.words.ext_expired}</button>
                     {/* <span>当前：{JSON.stringify(currentTime.getTime())}，截止时间：{JSON.stringify(expireTime.getTime())}</span><br/> */}
                     <span>{props.words.ext_expire_time}：{expireTime.toString()}</span>
                     {/* <hr></hr>

@@ -40,7 +40,7 @@ const initState:IState = {
     // expireTimeUTC: null,
     anonymous: false,
     ifMulti: 'single',
-    options:[]
+    options:['']
   },
   
   //join or quit extend activity

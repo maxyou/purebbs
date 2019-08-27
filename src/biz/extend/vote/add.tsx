@@ -47,7 +47,7 @@ function add(props) {
         props.update({ ...props.addVote, options: newOptions })
     }
     function insertOption(index) {
-        var newOptions = []
+        var newOptions:string[] = []
         props.addVote.options.forEach((option, position) => {
             newOptions.push(option)
             if (index == position) {
@@ -70,14 +70,14 @@ function add(props) {
 
                 <div>
                     <span>{props.words.ext_single_multiple}</span>
-                    <span onChange={event => props.update({ ...props.addVote, ifMulti: event.target.value })}>
+                    <span onChange={(event:any) => props.update({ ...props.addVote, ifMulti: event.target.value })}>
                         <input type="radio" value="single" name="ifMulti" />{props.words.ext_vote_single}
                             <input type="radio" value="multiple" name="ifMulti" />{props.words.ext_vote_multiple}
                         </span>
                 </div>
                 <div>
                     <span>{props.words.ext_expire_time}</span>
-                    <span onChange={event => props.update({ ...props.addVote, expireTime: event.target.value })}>
+                    <span onChange={(event:any) => props.update({ ...props.addVote, expireTime: event.target.value })}>
                     {/* <span onChange={event => props.update({ ...props.addVote, expireTime: event.target.value, expireTimeUTC: new Date(event.target.value).getTime() })}> */}
                         {/* <input type="date" name="bday" /> */}
                         <input type="datetime-local" name="bdaytime" ></input>

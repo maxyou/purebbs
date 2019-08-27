@@ -29,7 +29,7 @@ const StyledDivVoter = styled.div`
 //     align-items: center;    
 // `
 
-function usePrevious(value) {
+function usePrevious(value):any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -44,7 +44,7 @@ function Vote(props) {
     const [anonymous, setAnonymous] = useState(false)
 
     const [singleVote, setSingleVote] = useState(null)
-    const [multiVote, setMultiVote] = useState([])
+    const [multiVote, setMultiVote] = useState<boolean[]>([])
 
 
     const { voteJoinning, voteQuitting } = props
@@ -79,7 +79,7 @@ function Vote(props) {
             if (voteData[index]) {
                 console.log('------get voter------2')
 
-                var voter = []
+                var voter:string[] = []
                 console.log(JSON.stringify(voteData[index]))
                 voteData[index].forEach((v) => {
                     voter.push(v.name)
@@ -130,7 +130,7 @@ function Vote(props) {
             return (
                 <div>
                     <hr></hr>
-                    <button disabled="disabled">{props.words.ext_expired}</button>
+                    <button disabled>{props.words.ext_expired}</button>
                     {/* <span>当前：{JSON.stringify(currentTime.getTime())}，截止时间：{JSON.stringify(expireTime.getTime())}</span><br/> */}
                     <span>{props.words.ext_expire_time}：{expireTime.toString()}</span>
                     {/* <hr></hr>
@@ -220,7 +220,7 @@ function Vote(props) {
         // console.log(index)
         console.log(e.target.checked)
 
-        var newMultiVote = [...multiVote]
+        var newMultiVote:boolean[] = [...multiVote]
         newMultiVote[index] = e.target.checked
 
         console.log(multiVote)
