@@ -9,6 +9,14 @@ import { time } from '@/tool'
 import { AvatarName } from '@/component/user'
 import dialogPolyfill from 'dialog-polyfill'
 import {command} from '@/biz/common'
+import * as Showdown from "showdown";
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true
+});
 
 const CommentTotalHeight = '60px'
 const CommentInfoHeight = '20px'
@@ -35,18 +43,27 @@ const StyledDivList = styled.div`
   flex: 1 0 auto;
   `
   const StyledDivCommentUpper = styled.div`
-  // background-color: red;
+  background-color: red;
   display:flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   flex: 1 0 auto;
 `
 const StyledDivComment = styled.div`
   padding: 5px;
-  width: 0px;
+  // width: 0px;
   white-space: pre-wrap;
   word-wrap: normal;
-  // background-color: green;
+  background-color: lightgreen;
+  flex: 1 0 auto;
+`
+const StyledDivCommentMde = styled.div`
+  padding: 5px;
+  // width: 0px;
+  white-space: pre-wrap;
+  word-wrap: normal;
+  background-color: lightblue;
   flex: 1 0 auto;
 `
 
@@ -312,6 +329,7 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
               <StyledDivComment>
                   {v.content}
               </StyledDivComment>
+              <StyledDivCommentMde dangerouslySetInnerHTML={{ __html: converter.makeHtml(v.content) }}></StyledDivCommentMde>
             </StyledDivCommentUpper>
 
             <StyledDivInfo>
