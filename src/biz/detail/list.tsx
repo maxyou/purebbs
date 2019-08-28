@@ -41,31 +41,32 @@ const StyledDivList = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  flex: 1 0 auto;
+  flex: 1 0 0%;
   `
   const StyledDivCommentUpper = styled.div`
-  background-color: red;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
+  // background-color: red;
+  // display:flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: stretch;
   flex: 1 0 auto;
 `
-const StyledDivComment = styled.div`
-  padding: 5px;
-  // width: 0px;
-  white-space: pre-wrap;
-  word-wrap: normal;
-  background-color: lightgreen;
-  flex: 1 0 auto;
-`
+// const StyledDivComment = styled.div`
+//   padding: 5px;
+//   // width: 0px;
+//   white-space: pre-wrap;
+//   word-wrap: normal;
+//   background-color: lightgreen;
+//   flex: 1 0 auto;
+// `
 const StyledDivCommentMde = styled.div`
+  // margin: 10px;
   padding: 5px;
-  // width: 0px;
-  white-space: pre-wrap;
-  word-wrap: normal;
-  background-color: lightblue;
-  flex: 1 0 auto;
+  // width: 300px;
+  // white-space: pre-wrap;
+  // word-wrap: normal;
+  // background-color: lightgreen;
+  // flex: 1 0 auto;
 `
 
 const StyledDivInfo = styled.div`
@@ -154,9 +155,10 @@ const StyledDialog = styled.dialog`
 
 const StyledDivUpdate = styled.div`
     padding: 3px;
-    background-color: blue;
+    // background-color: blue;
     display:flex;
     justify-content: center;
+    flex-direction: column;
     align-items: stretch;    
 `
 const StyledTextarea = styled.textarea`
@@ -345,9 +347,9 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
           <StyledDivMain>
 
             <StyledDivCommentUpper>
-              <StyledDivComment>
+              {/* <StyledDivComment>
                   {v.content}
-              </StyledDivComment>
+              </StyledDivComment> */}
               <StyledDivCommentMde dangerouslySetInnerHTML={{ __html: converter.makeHtml(v.content) }}></StyledDivCommentMde>
             </StyledDivCommentUpper>
 
