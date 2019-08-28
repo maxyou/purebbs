@@ -9,6 +9,7 @@ import { time } from '@/tool'
 import { AvatarName } from '@/component/user'
 import dialogPolyfill from 'dialog-polyfill'
 import {command} from '@/biz/common'
+import ReactMde from "react-mde"
 import * as Showdown from "showdown";
 
 const converter = new Showdown.Converter({
@@ -153,10 +154,10 @@ const StyledDialog = styled.dialog`
 
 const StyledDivUpdate = styled.div`
     padding: 3px;
-    // background-color: blue;
+    background-color: blue;
     display:flex;
     justify-content: center;
-    align-items: center;    
+    align-items: stretch;    
 `
 const StyledTextarea = styled.textarea`
     // margin: 3px;
@@ -204,6 +205,8 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
 
   const { commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching } = props
   const prevProps:IState2Prop = usePrevious({ commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching })
+
+  const [markdownTab, setMarkdownTab] = useState<"write" | "preview" | undefined>("write")
 
   useEffect(
     () => {
@@ -280,6 +283,12 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
     })
   }
 
+  function commentEditOnChange(e){
+    console.log(e)
+    console.log(commentEdit)
+    setCommentEdit({ ...commentEdit, content: e })
+  }
+
   return (
     <div>
       <StyledDialog id="detailCommentDialog">
@@ -287,7 +296,17 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
           {/* <span >修改评论: </span><br /> */}
 
           <StyledDivUpdate>
-            <StyledTextarea type="text" name="comment" onChange={(e) => setCommentEdit({ ...commentEdit, content: e.target.value })} value={commentEdit.content} /><br />
+            {/* <StyledTextarea type="text" name="comment" onChange={(e) => setCommentEdit({ ...commentEdit, content: e.target.value })} value={commentEdit.content} /><br /> */}
+            <ReactMde
+                        value={commentEdit.content}
+                        // onChange={(e:any) => setComment(e.target.value)}
+                        onChange={commentEditOnChange}
+                        selectedTab={markdownTab}
+                        onTabChange={setMarkdownTab}
+                        generateMarkdownPreview={markdown =>
+                            Promise.resolve(converter.makeHtml(markdown))
+                        }
+                    />
           </StyledDivUpdate>
 
           <input type="submit" value={props.words.cmn_cancel} />
