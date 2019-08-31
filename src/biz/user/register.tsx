@@ -29,6 +29,10 @@ const Register = function (props) {
   }
 
   useEffect(() => {
+    setRandom(Math.random())
+  },[])
+
+  useEffect(() => {
     console.log('register useEffect')
     if (props.user.isLogin) {
       console.log('useEffect to redirect to /post')
@@ -36,6 +40,7 @@ const Register = function (props) {
     }
   }, [props.user.isLogin])
 
+  const [random, setRandom] = useState(0)
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [passwordAgain, setPasswordAgain] = useState('')
@@ -58,7 +63,7 @@ const Register = function (props) {
           <input type="email" name="email" onChange={e => setEmail(e.target.value)} value={email} />{props.words.user_register_email_optional}<br />
           <span >{props.words.cmn_verifyCode}: </span>
           <input type="text" name="code" onChange={e => setCode(e.target.value)} value={code} /><br />
-          <img src="/tool/verify" title="看不清？点击刷新"
+          <img src={`/tool/verify?mt=${random}`} title="看不清？点击刷新"
             onClick={(e:any) => e.target.src = ('/tool/verify?mt=' + Math.random())} /><br />
           <input type="submit" value={props.words.user_register} />
         </form>
