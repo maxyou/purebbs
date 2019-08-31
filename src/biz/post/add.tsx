@@ -10,6 +10,7 @@ import "react-mde/lib/styles/css/react-mde-all.css"
 import { Add as AddExtend } from "../extend"
 import {ICategoryItem} from '@/redux/common'
 import { Dispatch } from 'redux';
+import { calc, time } from '@/tool'
 
 const StyledDivHeader = styled.div`    
     // height: 30px;
@@ -119,7 +120,7 @@ class PostAdd extends React.Component<IState2Prop & IDispatch2Prop & IRouterProp
             content: this.state.content,
             category: this.state.category,
             anonymous: this.state.anonymous,
-            extend: this.props.extend,
+            extend: calc.calcExtendVoteOptions(this.props.extend),
             // author: user.result && user.result.data && user.result.data.name,
             // authorId: user.result && user.result.data && user.result.data._id,
         })

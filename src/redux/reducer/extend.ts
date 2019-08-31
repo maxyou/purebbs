@@ -1,30 +1,30 @@
 import { extend as actionExtend } from '../action'
-
-interface IState {
-   //add extend activity
-   addChoice: string,
-   addLineup: {
-     expireTime: object|null,
-     // expireTimeUTC: null,
-     anonymous: boolean,    
-   },
-   addVote: {
-     expireTime: object|null,
-     // expireTimeUTC: null,
-     anonymous: boolean,
-     ifMulti: string,
-     options:string[]
-   },
+import { IExtendState as IState } from '../common'
+// interface IState {
+//    //add extend activity
+//    addChoice: string,
+//    addLineup: {
+//      expireTime: object|null,
+//      // expireTimeUTC: null,
+//      anonymous: boolean,    
+//    },
+//    addVote: {
+//      expireTime: object|null,
+//      // expireTimeUTC: null,
+//      anonymous: boolean,
+//      ifMulti: string,
+//      options:string[]
+//    },
    
-   //join or quit extend activity
-   lineupJoinning: boolean|null,
-   lineupQuitting: boolean|null,
-   voteJoinning: boolean|null,
-   voteQuitting: boolean|null,
+//    //join or quit extend activity
+//    lineupJoinning: boolean|null,
+//    lineupQuitting: boolean|null,
+//    voteJoinning: boolean|null,
+//    voteQuitting: boolean|null,
  
-   //extend activity data from server
-   extendFromServer:object|null,
-}
+//    //extend activity data from server
+//    extendFromServer:object|null,
+// }
 
 const initState:IState = {
   

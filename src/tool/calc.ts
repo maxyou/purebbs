@@ -1,4 +1,5 @@
-
+import { IExtendState } from '../redux/common'
+import { AddVote } from '@/biz/extend';
 /**
  * todo 这里遗留一个问题
  * 
@@ -17,6 +18,18 @@ export default {
     tool(v:any) {
         return v
     },
+
+    calcExtendVoteOptions(v:IExtendState){
+
+        if(v.addVote && v.addVote.options){
+            return {...v, addVote:{...v.addVote, options:v.addVote.options.filter((v:string)=>{
+                return v.length>0
+            })}}
+        }else{
+            return v
+        }
+    },
+
     // categoryIdstr2QueryStr(idStr, category){
 
     //     /**

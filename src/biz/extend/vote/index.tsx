@@ -29,7 +29,7 @@ const StyledDivVoter = styled.div`
 //     align-items: center;    
 // `
 
-function usePrevious(value):any {
+function usePrevious(value): any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -52,7 +52,7 @@ function Vote(props) {
 
     useEffect(
         () => {
-            if(prevProps){
+            if (prevProps) {
                 if (
                     (prevProps.voteJoinning == true && props.voteJoinning == false)
                     || (prevProps.voteQuitting == true && props.voteQuitting == false)
@@ -79,7 +79,7 @@ function Vote(props) {
             if (voteData[index]) {
                 console.log('------get voter------2')
 
-                var voter:string[] = []
+                var voter: string[] = []
                 console.log(JSON.stringify(voteData[index]))
                 voteData[index].forEach((v) => {
                     voter.push(v.name)
@@ -95,7 +95,7 @@ function Vote(props) {
 
         if (voteData) {
             return voteData.some(function (item, index, array) {
-                if(item){
+                if (item) {
                     return item.some(function (itemInner, index, array) {
                         return itemInner._id == props.user._id
                     })
@@ -125,7 +125,7 @@ function Vote(props) {
         console.log(expireTime)
         console.log(JSON.stringify(expireTime))
         // if(Date.now() > new Date(props.extendFromServer.addVote.expireTime).getTime()){
-        if(currentTime > expireTime){
+        if (currentTime > expireTime) {
             console.log('expired')
             return (
                 <div>
@@ -158,22 +158,22 @@ function Vote(props) {
         }
 
         return (<div>
-                <hr></hr>
-                <button onClick={join}>{props.words.ext_join_vote}</button>
-                {props.extendFromServer.addVote.anonymous
-                            ?<span>
-                                <label htmlFor="anonymous">{props.words.ext_choose_anonymous}:</label>
-                                <input type="checkbox" id="anonymous" name="anonymous" 
-                                    onChange={(e) => setAnonymous(e.target.checked)} checked={anonymous} />
-                            </span>
-                            :null
-                        }
-            </div>)
+            <hr></hr>
+            <button onClick={join}>{props.words.ext_join_vote}</button>
+            {props.extendFromServer.addVote.anonymous
+                ? <span>
+                    <label htmlFor="anonymous">{props.words.ext_choose_anonymous}:</label>
+                    <input type="checkbox" id="anonymous" name="anonymous"
+                        onChange={(e) => setAnonymous(e.target.checked)} checked={anonymous} />
+                </span>
+                : null
+            }
+        </div>)
     }
 
     function join() {
         console.log('-------join----------1')
-        
+
         console.log(props.post)
         props.extendVoteJoin({
             postId: props.post.data.postId,
@@ -220,7 +220,7 @@ function Vote(props) {
         // console.log(index)
         console.log(e.target.checked)
 
-        var newMultiVote:boolean[] = [...multiVote]
+        var newMultiVote: boolean[] = [...multiVote]
         newMultiVote[index] = e.target.checked
 
         console.log(multiVote)
@@ -243,12 +243,12 @@ function Vote(props) {
                     <span>{props.words.ext_if_allow_anonymous}:{props.extendFromServer.addVote.anonymous ? <span>{props.words.cmn_yes}</span> : <span>{props.words.cmn_no}</span>}</span>
                     <div>
                         <input readOnly type="radio" value="single" name="ifMulti" checked={props.extendFromServer.addVote.ifMulti == 'single'} />{props.words.ext_vote_single}
-                            <input readOnly type="radio" value="multiple" name="ifMulti" checked={props.extendFromServer.addVote.ifMulti == 'multiple'} />{props.words.ext_vote_multiple}
-                        </div>
-                        <div>
-                            {/* <span>截止时间:</span>{new Date(props.extendFromServer.addVote.expireTime)}<br />                             */}
-                            <span>{props.words.ext_expire_time}:</span>{props.extendFromServer.addVote.expireTime}
-                        </div>
+                        <input readOnly type="radio" value="multiple" name="ifMulti" checked={props.extendFromServer.addVote.ifMulti == 'multiple'} />{props.words.ext_vote_multiple}
+                    </div>
+                    <div>
+                        {/* <span>截止时间:</span>{new Date(props.extendFromServer.addVote.expireTime)}<br />                             */}
+                        <span>{props.words.ext_expire_time}:</span>{props.extendFromServer.addVote.expireTime}
+                    </div>
                 </StyledDivSetting>
 
                 <hr></hr>

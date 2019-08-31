@@ -9,21 +9,21 @@ const StyledDivSetting = styled.div`
     padding-left: 20px;    
 `
 const StyledDivColor = styled.div`
-    background-color:${props=>{
+    background-color:${props => {
         // console.log('StyledDivColor')
         // console.log(props)
         // console.log(props.setColor)
         // console.log(props.key)
         // console.log(props.key%2)
-        if(props.setColor%2){
+        if (props.setColor % 2) {
             return 'lightblue'
-        }else{
+        } else {
             return 'lightgreen'
         }
     }};
 `
 
-function usePrevious(value):any {
+function usePrevious(value): any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -43,7 +43,7 @@ function Lineup(props) {
 
     useEffect(
         () => {
-            if(prevProps){
+            if (prevProps) {
                 if (
                     (prevProps.lineupJoinning == true && props.lineupJoinning == false)
                     || (prevProps.lineupQuitting == true && props.lineupQuitting == false)
@@ -74,7 +74,7 @@ function Lineup(props) {
         // var currentTime = Date.now()
         var currentTime = new Date()
         var expireTime = new Date(props.extendFromServer.addLineup.expireTime)
-        if(currentTime > expireTime){
+        if (currentTime > expireTime) {
             // console.log('expired')
             return (
                 <div>
@@ -100,30 +100,30 @@ function Lineup(props) {
         if (props.extendFromServer.hasCtxUser || props.extendFromServer.lineupData.some((v) => { return v._id == props.user._id })) {
             console.log('quit button')
             return (
-                    <div>
-                        <hr></hr>
-                        <button onClick={quit}>{props.words.ext_quit_lineup}</button>
-                    </div>
-                )
+                <div>
+                    <hr></hr>
+                    <button onClick={quit}>{props.words.ext_quit_lineup}</button>
+                </div>
+            )
         } else {
             console.log('join button')
             return (
-                    <div>
-                        <hr></hr>
-                        <span>{props.words.ext_lineup_message}</span><input type="text" onChange={e => setMessage(e.target.value)} value={message} />
-                        <button onClick={join}>{props.words.ext_join_lineup}</button>
+                <div>
+                    <hr></hr>
+                    <span>{props.words.ext_lineup_message}</span><input type="text" onChange={e => setMessage(e.target.value)} value={message} />
+                    <button onClick={join}>{props.words.ext_join_lineup}</button>
 
-                        {props.extendFromServer.addLineup.anonymous
-                            ?<span>
-                                <label htmlFor="anonymous">{props.words.ext_choose_anonymous}:</label>
-                                <input type="checkbox" id="anonymous" name="anonymous" 
-                                    onChange={(e) => setAnonymous(e.target.checked)} checked={anonymous} />
-                            </span>
-                            :null
-                        }
-                        
-                    </div>
-                )
+                    {props.extendFromServer.addLineup.anonymous
+                        ? <span>
+                            <label htmlFor="anonymous">{props.words.ext_choose_anonymous}:</label>
+                            <input type="checkbox" id="anonymous" name="anonymous"
+                                onChange={(e) => setAnonymous(e.target.checked)} checked={anonymous} />
+                        </span>
+                        : null
+                    }
+
+                </div>
+            )
         }
 
     }
@@ -153,26 +153,29 @@ function Lineup(props) {
             <fieldset>
                 <legend>{props.words.ext_lineup}</legend>
 
-                    <span>{props.words.cmd_setting}</span>
-                    <StyledDivSetting>
-                        {/* <span>是否允许匿名:</span><input readOnly type="checkbox" id="anonymous" name="anonymous" checked={props.extendFromServer.addLineup.anonymous} /> */}
-                        <span>{props.words.ext_if_allow_anonymous}:{props.extendFromServer.addLineup.anonymous?<span>{props.words.cmn_yes}</span>:<span>{props.words.cmn_no}</span>}</span>
-                    </StyledDivSetting>
-
-                    <hr></hr>
-                    <span>{props.words.ext_already_lineupped}:</span>
-                    <StyledDivSetting>
-                        {props.extendFromServer.lineupData.map((v, index) =>
-                            <StyledDivColor setColor={index} key={index}>
-                            {/* <div> */}
-                                {index+1}.{v.name}:{v.message}
-                            </StyledDivColor>
-                        )}
-                    </StyledDivSetting>
-
+                <span>{props.words.cmd_setting}</span>
+                <StyledDivSetting>
+                    {/* <span>是否允许匿名:</span><input readOnly type="checkbox" id="anonymous" name="anonymous" checked={props.extendFromServer.addLineup.anonymous} /> */}
+                    <span>{props.words.ext_if_allow_anonymous}:{props.extendFromServer.addLineup.anonymous ? <span>{props.words.cmn_yes}</span> : <span>{props.words.cmn_no}</span>}</span>
                     <div>
-                        {JoinQuitButton()}
+                        <span>{props.words.ext_expire_time}:</span>{props.extendFromServer.addLineup.expireTime}
                     </div>
+                </StyledDivSetting>
+
+                <hr></hr>
+                <span>{props.words.ext_already_lineupped}:</span>
+                <StyledDivSetting>
+                    {props.extendFromServer.lineupData.map((v, index) =>
+                        <StyledDivColor setColor={index} key={index}>
+                            {/* <div> */}
+                            {index + 1}.{v.name}:{v.message}
+                        </StyledDivColor>
+                    )}
+                </StyledDivSetting>
+
+                <div>
+                    {JoinQuitButton()}
+                </div>
 
             </fieldset>
 
