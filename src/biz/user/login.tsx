@@ -63,7 +63,14 @@ const Login = function (props) {
         <div>{props.user && props.user.result && props.user.result.message}</div>
 
       </fieldset>
+      <fieldset>
+        <legend>使用GitHub登录</legend>
 
+        <a href="https://github.com/login/oauth/authorize?client_id=fa4dc7af97163e8d9837&state=123456&redirect_uri=http://localhost:3001/oauth/github/callback">
+          GitHub
+        </a>
+
+      </fieldset>
       {/* <fieldset>
         <legend>{props.words.user_resetPassword}</legend> */}
 
