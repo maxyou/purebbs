@@ -5,7 +5,7 @@ import { detail as actionDetail } from '@/redux/action'
 // import ErrorBoundary from '@/errorBoundary'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
-import { time } from '@/tool'
+import { calc, time } from '@/tool'
 import { AvatarName } from '@/component/user'
 import dialogPolyfill from 'dialog-polyfill'
 import {command} from '@/biz/common'
@@ -325,18 +325,27 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
 
           <StyledDivAvatar>            
             <StyledLink to={'/user/other/' + (v.authorId==props.user._id||v.anonymous===false?v.authorId:'anonymous')}>
-              <AvatarName src={'user/avatar/' + (v.anonymous===false?(v.fromUser[0] ? v.fromUser[0].avatarFileName : 'default.png'): v.authorId == props.user._id?'myanonymous.png':'anonymous.png')} 
+              {/* <AvatarName src={'user/avatar/' + (v.anonymous===false?(v.fromUser[0] ? v.fromUser[0].avatarFileName : 'default.png'): v.authorId == props.user._id?'myanonymous.png':'anonymous.png')} 
+                    size='small' name={v.anonymous===false?v.author:'anonymous'} /> */}
+              <AvatarName src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)} 
                     size='small' name={v.anonymous===false?v.author:'anonymous'} />
             </StyledLink>
             {v.anonymous !== false ?
                 <StyledSpanAvatarTooltip>
-                  {v.authorId == props.user._id ?
+                  {v.authorId == props.user._id 
+                    ?
                     <StyledDivAvatarInTooltip>
-                      <AvatarName src={'user/avatar/' + (v.fromUser[0] ? v.fromUser[0].avatarFileName : 'default.png')}
+                      <AvatarName src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)}
                         size='small' name={v.author} />
                       <span>{props.words.cntnt_this_is_me}</span>
                     </StyledDivAvatarInTooltip>
-                    : <span>{props.words.cntnt_this_is_anonymous}</span>
+                    :
+                    <StyledDivAvatarInTooltip>
+                      <AvatarName src={calc.calcAvatarPath(undefined, true, v.authorId == props.user._id)}
+                        size='small' name={v.author} />
+                      <span>{props.words.cntnt_this_is_anonymous}</span>
+                    </StyledDivAvatarInTooltip>
+                    //  <span>{props.words.cntnt_this_is_anonymous}</span>
                   }
 
                 </StyledSpanAvatarTooltip>
