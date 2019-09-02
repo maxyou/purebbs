@@ -368,15 +368,19 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                   {v.authorId == props.user._id 
                     ?
                     <StyledDivAvatarInTooltip>
-                      <AvatarName src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)}
-                        size='small' name={v.author} />
-                      <span>{props.words.cntnt_this_is_me}</span>
+                      <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)} width='40px' radius='20px' />
+                      <div>
+                        <div>{v.author}</div>
+                        <div>{props.words.cntnt_this_is_me}</div>
+                      </div>
                     </StyledDivAvatarInTooltip>
                     :
                     <StyledDivAvatarInTooltip>
-                      <AvatarName src={calc.calcAvatarPath(undefined, true, v.authorId == props.user._id)}
-                        size='small' name={v.author} />
-                      <span>{props.words.cntnt_this_is_anonymous}</span>
+                      <AvatarImg src={calc.calcAvatarPath(undefined, true, v.authorId == props.user._id)} width='40px' radius='20px' />
+                      <div>
+                        <div>{v.author}</div>
+                        <div>{props.words.cntnt_this_is_anonymous}</div>
+                      </div>
                     </StyledDivAvatarInTooltip>
                     // <span>{props.words.cntnt_this_is_anonymous}</span>
                   }

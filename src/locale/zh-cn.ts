@@ -54,7 +54,7 @@ const zh_CN = {
     cntnt_last_reply: '最后回复',    
     cntnt_anonymous_publish: '匿名',    
     cntnt_this_is_me: '队长别开枪是我',    
-    cntnt_this_is_anonymous: '暗夜幽灵就是我',    
+    cntnt_this_is_anonymous: '暗夜幽灵',    
 
     adm_admin: '管理',
 
