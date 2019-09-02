@@ -42,12 +42,18 @@ const getRole:{(arg0:any):string} = (result) => result && result.data && result.
 const getEmail:{(arg0:any):string} = (result) => result && result.data && result.data.email || ''
 const getCreated:{(arg0:any):string} = (result) => result && result.data && result.data.created || ''
 const getAvatarPath:{(arg0:any):string} = (result) => {
-  let fileName = result && result.data && result.data.avatarFileName || ''
-  if (fileName) {
-    return 'user/avatar/' + fileName
-  } else {
-    return 'user/avatar/default.png'
+  
+  let avatarPath:string|undefined
+
+  if(result && result.data && result.data){
+    let data = result.data
+    if(data.source=='register' && data.avatarFileName){
+      avatarPath = 'user/avatar/' + data.avatarFileName
+    }else if(data.source=='oauth'){
+      avatarPath = data.oauth.avatarUrl
+    }
   }
+  return avatarPath || 'user/avatar/default.png'
 }
 
 export default function user(state:IState = initState, action:{type:string, payload:any}):IState {
