@@ -22,6 +22,7 @@ const en_US = {
     user_inconsist_pwd_twice: 'Inconsistent password entered twice',
     user_register_email_optional: '(optional. for reset password)',
 
+    cmn_author: 'author',
     cmn_created: 'created',
     cmn_updated: 'updated',
     cmn_confirm: 'confirm',

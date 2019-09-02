@@ -7,7 +7,7 @@ import { calc, time } from '@/tool'
 // import ErrorBoundary from '@/errorBoundary'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
-import { AvatarName } from '@/component/user'
+import { AvatarImg, AvatarName } from '@/component/user'
 
 import * as IconLineup from '@/component/icon/lineup.svg'
 import IconVote from '@/component/icon/vote.svg'
@@ -37,6 +37,8 @@ const StyledDivContainer = styled.div`
 
 
 const StyledDivAvatar = styled.div`
+  padding: 10px;
+  // margin: 10px;
   display:flex;
   position: relative;
   justify-content: center;
@@ -173,10 +175,10 @@ const StyledDivLower = styled.div`
 
 const StyledDivInfo = styled.div`
   // background-color: #5f7f7f;
-  display:flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 1 auto;
+  // display:flex;
+  // justify-content: flex-start;
+  // align-items: center;
+  // flex: 0 1 auto;
 `
 const StyledDivCtrl = styled.div`
   // background-color: #ff7f7f;
@@ -192,9 +194,9 @@ const StyledDivTime = styled.span`
   height: ${PostInfoHeight}; 
   margin-left: 10px;
   // background-color: #c3e383;
-  display:flex;
-  justify-content: center;
-  align-items: center;
+  // display:flex;
+  // justify-content: center;
+  // align-items: center;
 `
 
 const StyledLink = styled(Link)`
@@ -356,10 +358,10 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
 
             <StyledDivAvatar>
               <StyledLink to={'/user/other/' + (v.authorId == props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
-                {/* <AvatarName src={'user/avatar/' + (v.anonymous === false ? (v.fromUser[0] ? v.fromUser[0].avatarFileName : 'default.png') : v.authorId == props.user._id ? 'myanonymous.png' : 'anonymous.png')}
+                {/* <AvatarName src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
                   size='small' name={v.anonymous === false ? v.author : 'anonymous'} /> */}
-                <AvatarName src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
-                  size='small' name={v.anonymous === false ? v.author : 'anonymous'} />
+                  <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)} 
+                      width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               {v.anonymous !== false ?
                 <StyledSpanAvatarTooltip>
@@ -386,7 +388,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
             </StyledDivAvatar>
 
             <StyledDivMain>
-
+            
               <StyledDivUpper>
                 {/* {JSON.stringify(v.fromUser[0])} */}
                 <StyledDivTitleText>
@@ -400,11 +402,8 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
               <StyledDivLower>
 
                 <StyledDivInfo>
-                  <StyledDivTime>{/*allUpdated:*/}{calc.categoryIdstr2Name(v.category, props.category)}</StyledDivTime>
-                </StyledDivInfo>
-
-                <StyledDivInfo>
-                  <StyledDivTime>{/*allUpdated:*/}{time.fromNow(v.allUpdated)}</StyledDivTime>
+                  {/* <StyledDivTime>{props.words.cmn_author}:{v.author}</StyledDivTime> */}
+                  <StyledDivTime>{props.words.cmn_author}:<StyledLink to={'/user/other/' + v.authorId}>{v.author}</StyledLink></StyledDivTime>
                 </StyledDivInfo>
 
                 {/* <StyledDivInfo>
@@ -419,12 +418,19 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                   {v.lastReplyId ?
                     <StyledDivTime>{/*lastReplyTime:{time.fromNow(v.lastReplyTime)}*/}{props.words.cntnt_last_reply}:<StyledLink to={'/user/other/' + v.lastReplyId}>{v.lastReplyName}</StyledLink></StyledDivTime>
                     : null}
+                </StyledDivInfo>
 
+                <StyledDivInfo>
+                  <StyledDivTime>{/*allUpdated:*/}{time.fromNow(v.allUpdated)}</StyledDivTime>
+                </StyledDivInfo>
 
+                <StyledDivInfo>
                   <StyledDivTime>
                     <StyledLink to={'#'} onClick={() => handleLike(v)}><StyledSpanLike color={v.likeHasCurrentUser ? '#FF4500' : '#777777'} hoverColor={v.likeHasCurrentUser ? '#A52A2A' : '#333333'}>{props.words.cntnt_like}{v.likeUser.length}</StyledSpanLike></StyledLink>
                   </StyledDivTime>
+                </StyledDivInfo>
 
+                  <StyledDivInfo>
                   {(props.user.role == 'bm' || props.user._id == v.authorId) ?
                     <StyledDivCtrl>
                       <StyledLink to={'#'} onClick={() => handleDelete(v)}>
@@ -441,6 +447,10 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                   {v.stickTop ?
                     <StyledDivTime><StyledSpanStickTop>{props.words.cntnt_already_stickTop}</StyledSpanStickTop></StyledDivTime>
                     : null}
+                </StyledDivInfo>
+
+                <StyledDivInfo>
+                  <StyledDivTime>{/*allUpdated:*/}{calc.categoryIdstr2Name(v.category, props.category)}</StyledDivTime>
                 </StyledDivInfo>
 
               </StyledDivLower>

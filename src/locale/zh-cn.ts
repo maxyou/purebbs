@@ -22,6 +22,7 @@ const zh_CN = {
     user_inconsist_pwd_twice: '两次输入的密码不一致',
     user_register_email_optional: '(可选，用于重置密码)',
 
+    cmn_author: '作者',
     cmn_created: '创建于',
     cmn_updated: '更新于',
     cmn_confirm: '确认',
