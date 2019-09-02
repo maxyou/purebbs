@@ -19,6 +19,30 @@ export default {
         return v
     },
 
+    calcAvatarPath(
+        user: any,
+        anonymous: boolean = false,
+        isMyself: boolean = false,
+    ):string{
+        if(anonymous){
+            if(isMyself){
+                return 'user/avatar/myanonymous.png'
+            }else{
+                return 'user/avatar/anonymous.png'
+            }
+        }else{
+            if(user.source=='oauth'){
+                return user.oauth.avatarUrl
+            }else{//暂时认为只有 oauth 及 register 两类                
+                if(user.avatarFileName){
+                    return 'user/avatar/' + user.avatarFileName
+                }else{
+                    return 'user/avatar/default.png'
+                }
+            }
+        }
+    },
+
     calcExtendVoteOptions(v:IExtendState){
 
         if(v.addVote && v.addVote.options){
