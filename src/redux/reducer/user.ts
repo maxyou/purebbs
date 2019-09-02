@@ -47,11 +47,13 @@ const getAvatarPath:{(arg0:any):string} = (result) => {
 
   if(result && result.data && result.data){
     let data = result.data
-    if(data.source=='register' && data.avatarFileName){
-      avatarPath = 'user/avatar/' + data.avatarFileName
-    }else if(data.source=='oauth'){
+    if(data.source=='oauth'){
       avatarPath = data.oauth.avatarUrl
-    }
+    }else{
+      if(data.avatarFileName){
+        avatarPath = 'user/avatar/' + data.avatarFileName
+      } 
+    } 
   }
   return avatarPath || 'user/avatar/default.png'
 }
