@@ -202,11 +202,18 @@ const StyledDivTime = styled.span`
   height: ${PostInfoHeight}; 
   margin-left: 10px;
   // background-color: #c3e383;
-  // display:flex;
-  // justify-content: center;
-  // align-items: center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  `
+  
+  const StyledCategory = styled.div`
+  // background-color: #93e3c3;
+  // padding: 2px;
+  border:1px solid;
+  border-color:lightblue;
+  border-radius:3px;
 `
-
 const StyledLink = styled(Link)`
   text-decoration:none;
 `
@@ -461,7 +468,11 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                 </StyledDivInfo>
 
                 <StyledDivInfo>
-                  <StyledDivTime>{/*allUpdated:*/}{calc.categoryIdstr2Name(v.category, props.category)}</StyledDivTime>
+                  <StyledDivTime>
+                    <StyledCategory>
+                      {calc.categoryIdstr2Name(v.category, props.category)}
+                    </StyledCategory>
+                  </StyledDivTime>
                 </StyledDivInfo>
 
               </StyledDivLower>

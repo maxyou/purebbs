@@ -5,7 +5,7 @@ import { detail as actionDetail } from '@/redux/action'
 import { post as actionPost } from '@/redux/action'
 import { calc, time } from '@/tool'
 import styled from 'styled-components'
-import { AvatarName } from '@/component/user'
+import { AvatarImg, AvatarName } from '@/component/user'
 import * as Extend from '@/biz/extend'
 import { command } from '@/biz/common'
 import dialogPolyfill from 'dialog-polyfill'
@@ -39,6 +39,7 @@ const StyledDivHeader = styled.div`
   align-items: center;
 `
 const StyledDivHeaderAvatar = styled.div`
+  padding: 5px;
   position: relative;
   background-color: #ffffff;
   display:flex;
@@ -64,9 +65,17 @@ const StyledSpanAvatarTooltip = styled.span`
   margin-left: 10px;
 `
 const StyledDivAvatarInTooltip = styled.div`
+  padding-left: 10px;
   display:flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+`
+const StyledDivAvatarInTooltipText = styled.div`
+  padding-left: 10px;
+  display:flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
 `
 const StyledDivHeaderMain = styled.div`
   padding-left: 10px;
@@ -107,6 +116,7 @@ const StyledDivHeaderInfo = styled.div`
   flex: 1 0 auto;
 `
 const StyledDivTime = styled.div`
+  padding-left: 5px;
   font-size: small;
   height: ${PostInfoHeight};  
   // padding-left: 10px;
@@ -118,15 +128,24 @@ const StyledDivTime = styled.div`
   flex: 0 0 auto;
 `
 const StyledDivCtrl = styled.div`
+  padding-left: 5px;
+  padding-right: 5px;
   // background-color: #ff7f7f;
   display:flex;
   justify-content: space-between;
   align-items: center;
   flex: 0 0 auto;
 `
+const StyledCategory = styled.div`
+// background-color: #93e3c3;
+// padding: 2px;
+border:1px solid;
+border-color:lightblue;
+border-radius:3px;
+`
 const StyledSpanOp = styled.span`
   font-size: small;
-  margin-left: 10px;
+  // margin-left: 10px;
   color: #777777;
   &:hover {
     color: #333333;
@@ -134,7 +153,7 @@ const StyledSpanOp = styled.span`
 `
 const StyledSpanLike = styled.span`
   font-size: small;
-  margin-left: 10px;
+  // margin-left: 10px;
   color: ${props => props.color};
   &:hover {
     color: ${props => props.hoverColor};
@@ -344,11 +363,13 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
                 <AvatarName src={'user/avatar/' + (props.post.data.fromUser[0] ? props.post.data.fromUser[0].avatarFileName : 'default.png')} size='small' name={props.post.data.author} />
               </StyledLink> */}
               <StyledLink to={'/user/other/' + (props.post.data.authorId == props.user._id || props.post.data.anonymous === false ? props.post.data.authorId : 'anonymous')}>
-                <AvatarName src={'user/avatar/' + (props.post.data.anonymous === false ? (props.post.data.fromUser[0] ? props.post.data.fromUser[0].avatarFileName : 'default.png') :  props.post.data.authorId == props.user._id?'myanonymous.png':'anonymous.png')}
-                  size='small' name={props.post.data.anonymous === false ? props.post.data.author : 'anonymous'} />
+                {/* <AvatarName src={'user/avatar/' + (props.post.data.anonymous === false ? (props.post.data.fromUser[0] ? props.post.data.fromUser[0].avatarFileName : 'default.png') :  props.post.data.authorId == props.user._id?'myanonymous.png':'anonymous.png')}
+                  size='small' name={props.post.data.anonymous === false ? props.post.data.author : 'anonymous'} /> */}
+                  <AvatarImg src={calc.calcAvatarPath(props.post.data.fromUser[0], props.post.data.anonymous, props.post.data.authorId == props.user._id)}
+                  width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               
-              {props.post.data.anonymous !== false ?
+              {/* {props.post.data.anonymous !== false ?
                 <StyledSpanAvatarTooltip>                  
                   {props.post.data.authorId == props.user._id ?
                     <StyledDivAvatarInTooltip>
@@ -361,7 +382,33 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
 
                 </StyledSpanAvatarTooltip>
                 : null
+              } */}
+              {props.post.data.anonymous !== false ?
+                <StyledSpanAvatarTooltip>
+                  {props.post.data.authorId == props.user._id
+                    ?
+                    <StyledDivAvatarInTooltip>
+                      <AvatarImg src={calc.calcAvatarPath(props.post.data.fromUser[0], false, props.post.data.authorId == props.user._id)} width='40px' radius='20px' />
+                      <StyledDivAvatarInTooltipText>
+                        <div>{props.post.data.author}</div>
+                        <div>{props.words.cntnt_this_is_me}</div>
+                      </StyledDivAvatarInTooltipText>
+                    </StyledDivAvatarInTooltip>
+                    :
+                    <StyledDivAvatarInTooltip>
+                      <AvatarImg src={calc.calcAvatarPath(undefined, true, props.post.data.authorId == props.user._id)} width='40px' radius='20px' />
+                      <div>
+                        <div>{props.post.data.author}</div>
+                        <div>{props.words.cntnt_this_is_anonymous}</div>
+                      </div>
+                    </StyledDivAvatarInTooltip>
+                    // <span>{props.words.cntnt_this_is_anonymous}</span>
+                  }
+
+                </StyledSpanAvatarTooltip>
+                : null
               }
+
             </StyledDivHeaderAvatar>
 
             <StyledDivHeaderMain>
@@ -373,7 +420,8 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
 
               <StyledDivHeaderInfo>
 
-                <StyledDivTime>{/*allUpdated:*/}{calc.categoryIdstr2Name(props.post.data.category, props.category)}</StyledDivTime>
+                <StyledDivTime><StyledLink to={'/user/other/' + props.post.data.authorId}>{props.post.data.author}</StyledLink></StyledDivTime>
+                
 
                 <StyledDivTime>{/*updated:*/}{time.fromNow(props.post.data.updated)}</StyledDivTime>
                 {/* <StyledDivTime>created:{time.fromNow(props.post.data.created)}</StyledDivTime> */}
@@ -393,6 +441,13 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
                 <StyledDivCtrl>
                   <StyledLink to={'#'} onClick={() => handleLike(props.post.data)}><StyledSpanLike color={props.post.data.likeHasCurrentUser ? '#FF4500' : '#777777'} hoverColor={props.post.data.likeHasCurrentUser ? '#A52A2A' : '#333333'}>{props.words.cntnt_like}{props.post.data.likeUser ? props.post.data.likeUser.length : 0}</StyledSpanLike></StyledLink>
                 </StyledDivCtrl>
+
+                <StyledDivTime>
+                  <StyledCategory>
+                    {calc.categoryIdstr2Name(props.post.data.category, props.category)}
+                  </StyledCategory>
+                </StyledDivTime>
+
               </StyledDivHeaderInfo>
             </StyledDivHeaderMain>
           </StyledDivHeader>
