@@ -64,9 +64,17 @@ const StyledSpanAvatarTooltip = styled.span`
   margin-left: 10px;
 `
 const StyledDivAvatarInTooltip = styled.div`
+  padding-left: 10px;
   display:flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+`
+const StyledDivAvatarInTooltipText = styled.div`
+  padding-left: 10px;
+  display:flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
 `
 const StyledDivMain = styled.div`
   height: ${ItemHeight};
@@ -369,10 +377,10 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                     ?
                     <StyledDivAvatarInTooltip>
                       <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)} width='40px' radius='20px' />
-                      <div>
+                      <StyledDivAvatarInTooltipText>
                         <div>{v.author}</div>
                         <div>{props.words.cntnt_this_is_me}</div>
-                      </div>
+                      </StyledDivAvatarInTooltipText>
                     </StyledDivAvatarInTooltip>
                     :
                     <StyledDivAvatarInTooltip>
