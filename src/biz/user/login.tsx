@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { user as actionUser } from '@/redux/action'
 import ResetPwd from './resetpwd'
+const appConfig = require('../../../config')
 
 const StyledDivLogin = styled.div`
     // margin: 10px;
@@ -66,7 +67,7 @@ const Login = function (props) {
       <fieldset>
         <legend>使用GitHub登录</legend>
 
-        <a href="https://github.com/login/oauth/authorize?client_id=fa4dc7af97163e8d9837&state=123456&redirect_uri=http://localhost:3001/oauth/github/callback">
+        <a href={`https://github.com/login/oauth/authorize?client_id=${appConfig.oauth_github.client_id}&state=123456&redirect_uri=${appConfig.oauth_github.redirect_uri}`}>
           GitHub
         </a>
 
