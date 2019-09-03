@@ -6,9 +6,9 @@ import { detail as actionDetail } from '@/redux/action'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import { calc, time } from '@/tool'
-import { AvatarName } from '@/component/user'
+import { AvatarImg, AvatarName } from '@/component/user'
 import dialogPolyfill from 'dialog-polyfill'
-import {command} from '@/biz/common'
+import { command } from '@/biz/common'
 import ReactMde from "react-mde"
 import * as Showdown from "showdown";
 
@@ -33,7 +33,7 @@ const StyledDivList = styled.div`
   // background-color: #ffffff;
 `
 
-  const StyledDivMain = styled.div`
+const StyledDivMain = styled.div`
   // padding: 5px;  
   background-color: #ffffff;
 
@@ -43,7 +43,7 @@ const StyledDivList = styled.div`
   align-items: stretch;
   flex: 1 0 0%;
   `
-  const StyledDivCommentUpper = styled.div`
+const StyledDivCommentUpper = styled.div`
   // background-color: red;
   // display:flex;
   // flex-direction: column;
@@ -72,7 +72,7 @@ const StyledDivCommentMde = styled.div`
 const StyledDivInfo = styled.div`
   // background-color: yellow;
   height: ${CommentInfoHeight};
-  padding-left: 10px;
+  // padding-left: 10px;
   display:flex;
   justify-content: flex-start;
   align-items: center;
@@ -104,11 +104,20 @@ const StyledSpanAvatarTooltip = styled.span`
   margin-left: 10px;
 `
 const StyledDivAvatarInTooltip = styled.div`
+  padding-left: 10px;
   display:flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `
+const StyledDivAvatarInTooltipText = styled.div`
+  padding-left: 10px;
+  display:flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+`
 const StyledDivTime = styled.div`
+  padding-left: 5px;
   font-size: small;
   height: ${CommentInfoHeight};
   // background-color: #c3e383;
@@ -128,7 +137,7 @@ const StyledDivCtrl = styled.div`
   `
 const StyledSpanOp = styled.span`
   font-size: small;
-  margin-left: 10px;
+  padding-left: 5px;
   color: #777777;
   &:hover {
     color: #333333;
@@ -136,10 +145,10 @@ const StyledSpanOp = styled.span`
 `
 const StyledSpanLike = styled.span`
   font-size: small;
-  margin-left: 10px;
-  color: ${props=>props.color};
+  margin-left: 5px;
+  color: ${props => props.color};
   &:hover {
-    color: ${props=>props.hoverColor};
+    color: ${props => props.hoverColor};
   }
 `
 
@@ -180,7 +189,7 @@ function useIdAsKey(commentListResult) {
   return []
 }
 
-function usePrevious(value):any {
+function usePrevious(value): any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -191,7 +200,7 @@ interface IRouterProp {
   match: any,
 }
 const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props) {
-// function commentList(props) {
+  // function commentList(props) {
 
   useEffect(
     () => {
@@ -203,10 +212,10 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
   )
 
   // const [commentUpdate, setCommentUpdate] = useState('')
-  const [commentEdit, setCommentEdit] = useState({content:'', anonymous:false})
+  const [commentEdit, setCommentEdit] = useState({ content: '', anonymous: false })
 
   const { commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching } = props
-  const prevProps:IState2Prop = usePrevious({ commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching })
+  const prevProps: IState2Prop = usePrevious({ commentAdding, commentUpdatting, commentDeletting, commentPageCurrent, commentPageSize, commentAttaching })
 
   const [markdownTab, setMarkdownTab] = useState<"write" | "preview" | undefined>("write")
 
@@ -260,13 +269,13 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
   function openEdit(v) {
     console.log(v)
     setCommentEdit(v)
-    var detailCommentDialog:any = document.getElementById('detailCommentDialog');
+    var detailCommentDialog: any = document.getElementById('detailCommentDialog');
     detailCommentDialog!.showModal()
   }
 
   function handleLike(v) {
 
-    if(!props.user.isLogin){
+    if (!props.user.isLogin) {
       return
     }
 
@@ -280,12 +289,12 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
     // console.log(v.likeUser)
     // console.log(op)
     props.findByIdAndAttach({
-      _id:v._id, 
-      attachCmd:v.likeHasCurrentUser?command.ATTACH_ACTION.ATTACH_LIKE_CANCEL:command.ATTACH_ACTION.ATTACH_LIKE_SET
+      _id: v._id,
+      attachCmd: v.likeHasCurrentUser ? command.ATTACH_ACTION.ATTACH_LIKE_CANCEL : command.ATTACH_ACTION.ATTACH_LIKE_SET
     })
   }
 
-  function commentEditOnChange(e){
+  function commentEditOnChange(e) {
     console.log(e)
     console.log(commentEdit)
     setCommentEdit({ ...commentEdit, content: e })
@@ -300,22 +309,22 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
           <StyledDivUpdate>
             {/* <StyledTextarea type="text" name="comment" onChange={(e) => setCommentEdit({ ...commentEdit, content: e.target.value })} value={commentEdit.content} /><br /> */}
             <ReactMde
-                        value={commentEdit.content}
-                        // onChange={(e:any) => setComment(e.target.value)}
-                        onChange={commentEditOnChange}
-                        selectedTab={markdownTab}
-                        onTabChange={setMarkdownTab}
-                        generateMarkdownPreview={markdown =>
-                            Promise.resolve(converter.makeHtml(markdown))
-                        }
-                    />
+              value={commentEdit.content}
+              // onChange={(e:any) => setComment(e.target.value)}
+              onChange={commentEditOnChange}
+              selectedTab={markdownTab}
+              onTabChange={setMarkdownTab}
+              generateMarkdownPreview={markdown =>
+                Promise.resolve(converter.makeHtml(markdown))
+              }
+            />
           </StyledDivUpdate>
 
           <input type="submit" value={props.words.cmn_cancel} />
           <input type="submit" value={props.words.cntnt_submit} onClick={handleUpdate} />
           <label htmlFor="anonymous"><StyledSpanAnonymous>{props.words.cntnt_anonymous_publish}</StyledSpanAnonymous></label>
-                    <input type="checkbox" id="anonymous" name="anonymous"
-                        onChange={(e) => setCommentEdit({ ...commentEdit, anonymous: e.target.checked })} checked={commentEdit.anonymous} />
+          <input type="checkbox" id="anonymous" name="anonymous"
+            onChange={(e) => setCommentEdit({ ...commentEdit, anonymous: e.target.checked })} checked={commentEdit.anonymous} />
         </form>
       </StyledDialog>
       {
@@ -323,34 +332,41 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
           {/* <StyledDivContainerNoUse> */}
           {/* {JSON.stringify(v)} */}
 
-          <StyledDivAvatar>            
-            <StyledLink to={'/user/other/' + (v.authorId==props.user._id||v.anonymous===false?v.authorId:'anonymous')}>
+          <StyledDivAvatar>
+            <StyledLink to={'/user/other/' + (v.authorId == props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
               {/* <AvatarName src={'user/avatar/' + (v.anonymous===false?(v.fromUser[0] ? v.fromUser[0].avatarFileName : 'default.png'): v.authorId == props.user._id?'myanonymous.png':'anonymous.png')} 
                     size='small' name={v.anonymous===false?v.author:'anonymous'} /> */}
-              <AvatarName src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)} 
-                    size='small' name={v.anonymous===false?v.author:'anonymous'} />
+              {/* <AvatarName src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)} 
+                    size='small' name={v.anonymous===false?v.author:'anonymous'} /> */}
+              <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
+                width='40px' radius='20px'></AvatarImg>
             </StyledLink>
-            {v.anonymous !== false ?
-                <StyledSpanAvatarTooltip>
-                  {v.authorId == props.user._id 
-                    ?
-                    <StyledDivAvatarInTooltip>
-                      <AvatarName src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)}
-                        size='small' name={v.author} />
-                      <span>{props.words.cntnt_this_is_me}</span>
-                    </StyledDivAvatarInTooltip>
-                    :
-                    <StyledDivAvatarInTooltip>
-                      <AvatarName src={calc.calcAvatarPath(undefined, true, v.authorId == props.user._id)}
-                        size='small' name={v.author} />
-                      <span>{props.words.cntnt_this_is_anonymous}</span>
-                    </StyledDivAvatarInTooltip>
-                    //  <span>{props.words.cntnt_this_is_anonymous}</span>
-                  }
 
-                </StyledSpanAvatarTooltip>
-                : null
-              }
+            {v.anonymous !== false ?
+              <StyledSpanAvatarTooltip>
+                {v.authorId == props.user._id
+                  ?
+                  <StyledDivAvatarInTooltip>
+                    <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)} width='40px' radius='20px' />
+                    <StyledDivAvatarInTooltipText>
+                      <div>{v.author}</div>
+                      <div>{props.words.cntnt_this_is_me}</div>
+                    </StyledDivAvatarInTooltipText>
+                  </StyledDivAvatarInTooltip>
+                  :
+                  <StyledDivAvatarInTooltip>
+                    <AvatarImg src={calc.calcAvatarPath(undefined, true, v.authorId == props.user._id)} width='40px' radius='20px' />
+                    <div>
+                      <div>{v.author}</div>
+                      <div>{props.words.cntnt_this_is_anonymous}</div>
+                    </div>
+                  </StyledDivAvatarInTooltip>
+                  // <span>{props.words.cntnt_this_is_anonymous}</span>
+                }
+
+              </StyledSpanAvatarTooltip>
+              : null
+            }
           </StyledDivAvatar>
 
           <StyledDivMain>
@@ -363,9 +379,10 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
             </StyledDivCommentUpper>
 
             <StyledDivInfo>
-              {/* <StyledDivTime>
-                updated:{time.fromNow(v.updated)}
-              </StyledDivTime> */}
+              <StyledDivTime>
+                <StyledDivTime><StyledLink to={'/user/other/' + v.authorId}>{v.author}</StyledLink></StyledDivTime>
+              </StyledDivTime>
+
               <StyledDivTime>
                 {/*created:*/}{time.fromNow(v.created)}
               </StyledDivTime>
@@ -375,17 +392,17 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
 
                   {/* <StyledSpanOp onClick={() => openEdit(v)}>{props.words.cmn_update}</StyledSpanOp> */}
 
-                      <StyledLink to={'#'} onClick={() => openEdit(v)}>
-                        <StyledSpanOp>
-                          {props.words.cmn_update}                          
-                        </StyledSpanOp>
-                      </StyledLink>
+                  <StyledLink to={'#'} onClick={() => openEdit(v)}>
+                    <StyledSpanOp>
+                      {props.words.cmn_update}
+                    </StyledSpanOp>
+                  </StyledLink>
 
-                      <StyledLink to={'#'} onClick={() => handleDelete(v)}>
-                        <StyledSpanOp>
-                          {props.words.cmn_delete}                          
-                        </StyledSpanOp>
-                      </StyledLink>
+                  <StyledLink to={'#'} onClick={() => handleDelete(v)}>
+                    <StyledSpanOp>
+                      {props.words.cmn_delete}
+                    </StyledSpanOp>
+                  </StyledLink>
 
                   {/* <StyledSpanOp onClick={() => handleDelete(v)}>{props.words.cmn_delete}</StyledSpanOp> */}
                 </StyledDivCtrl>
@@ -393,7 +410,7 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
               }
 
               <StyledDivTime>
-                <StyledLink to={'#'} onClick={() => handleLike(v)}><StyledSpanLike color={v.likeHasCurrentUser?'#FF4500':'#777777'} hoverColor={v.likeHasCurrentUser?'#A52A2A':'#333333'}>{props.words.cntnt_like}{v.likeUser.length}</StyledSpanLike></StyledLink>
+                <StyledLink to={'#'} onClick={() => handleLike(v)}><StyledSpanLike color={v.likeHasCurrentUser ? '#FF4500' : '#777777'} hoverColor={v.likeHasCurrentUser ? '#A52A2A' : '#333333'}>{props.words.cntnt_like}{v.likeUser.length}</StyledSpanLike></StyledLink>
               </StyledDivTime>
 
             </StyledDivInfo>
@@ -426,7 +443,7 @@ interface IDispatch2Prop {
   findByIdAndAttach: (v?) => void,
 }
 
-const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   user: state.user,
   words: state.locale.words,
   commentPageSize: state.detail.commentPageSize,
@@ -439,7 +456,7 @@ const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
   commentAttaching: state.detail.commentAttaching,
 })
 
-const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   get: (v) => dispatch(actionDetail.Creator.detailCommentGet(v)),
   delete: (v) => dispatch(actionDetail.Creator.detailCommentDelete(v)),
   update: (v) => dispatch(actionDetail.Creator.detailCommentUpdate(v)),
@@ -452,7 +469,7 @@ const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispat
 
 export default withRouter(
   (connect(
-      mapStateToProps,
-      mapDispatchToProps
-  ) as any) (commentList)
+    mapStateToProps,
+    mapDispatchToProps
+  ) as any)(commentList)
 )

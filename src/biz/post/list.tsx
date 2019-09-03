@@ -14,7 +14,7 @@ import IconVote from '@/component/icon/vote.svg'
 
 // import { category as categoryCommon } from "../common"
 import { command } from '@/biz/common'
-import {ICategoryItem} from '@/redux/common'
+import { ICategoryItem } from '@/redux/common'
 
 const ItemHeight = '60px'
 const PostTitleHeight = '40px'
@@ -240,7 +240,7 @@ function useIdAsKey(postListResult) {
   return []
 }
 
-function usePrevious(value):any {
+function usePrevious(value): any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -249,10 +249,10 @@ function usePrevious(value):any {
 }
 
 const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
-// function postList(props) {
+  // function postList(props) {
 
   const { postAdding, postUpdatting, postDeletting, postPageCurrent, postPageSize, categoryCurrent, postAttaching } = props
-  const prevProps:IState2Prop = usePrevious({ postAdding, postUpdatting, postDeletting, postPageCurrent, postPageSize, categoryCurrent, postAttaching })
+  const prevProps: IState2Prop = usePrevious({ postAdding, postUpdatting, postDeletting, postPageCurrent, postPageSize, categoryCurrent, postAttaching })
 
   console.log('category 1')
   console.log(categoryCurrent)
@@ -320,7 +320,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
 
 
   function showExtendInfo(extend) {
-    
+
     console.log('showExtendInfo')
 
     var joinNum
@@ -336,7 +336,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
         var people = new Set()
         extend.voteData.forEach(v => {
           console.log(v)
-          v.forEach(vv =>{
+          v.forEach(vv => {
             people.add(vv._id)
           })
         });
@@ -368,12 +368,12 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
               <StyledLink to={'/user/other/' + (v.authorId == props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
                 {/* <AvatarName src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
                   size='small' name={v.anonymous === false ? v.author : 'anonymous'} /> */}
-                  <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)} 
-                      width='40px' radius='20px'></AvatarImg>
+                <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
+                  width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               {v.anonymous !== false ?
                 <StyledSpanAvatarTooltip>
-                  {v.authorId == props.user._id 
+                  {v.authorId == props.user._id
                     ?
                     <StyledDivAvatarInTooltip>
                       <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)} width='40px' radius='20px' />
@@ -400,7 +400,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
             </StyledDivAvatar>
 
             <StyledDivMain>
-            
+
               <StyledDivUpper>
                 {/* {JSON.stringify(v.fromUser[0])} */}
                 <StyledDivTitleText>
@@ -409,7 +409,6 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                   </StyledLink>
                 </StyledDivTitleText>
               </StyledDivUpper>
-
 
               <StyledDivLower>
 
@@ -442,7 +441,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                   </StyledDivTime>
                 </StyledDivInfo>
 
-                  <StyledDivInfo>
+                <StyledDivInfo>
                   {(props.user.role == 'bm' || props.user._id == v.authorId) ?
                     <StyledDivCtrl>
                       <StyledLink to={'#'} onClick={() => handleDelete(v)}>
@@ -510,7 +509,7 @@ interface IDispatch2Prop {
   postFindByIdAndAttach: (v?) => void,
 }
 
-const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   user: state.user,
   words: state.locale.words,
   postPageSize: state.post.postPageSize,
@@ -525,7 +524,7 @@ const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
   category: state.sys.category,
 })
 
-const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispatch) => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   get: (v) => dispatch(actionPost.Creator.postGet(v)),
   findByIdAndDelete: (v) => dispatch(actionPost.Creator.postFindByIdAndDelete(v)),
   findByIdAndUpdate: (v) => dispatch(actionPost.Creator.postFindByIdAndUpdate(v)),
@@ -537,7 +536,7 @@ const mapDispatchToProps:{(dispatch:Dispatch):IDispatch2Prop} = (dispatch:Dispat
 // )(postList))
 export default withRouter(
   (connect(
-      mapStateToProps,
-      mapDispatchToProps
-  ) as any) (postList)
+    mapStateToProps,
+    mapDispatchToProps
+  ) as any)(postList)
 )
