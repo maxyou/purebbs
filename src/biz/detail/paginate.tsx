@@ -25,14 +25,14 @@ function pageRound({current, ext, totalDocs, pageSize, nav}) {
     var maxRight = Math.ceil(totalDocs/pageSize)
     if(!maxRight) {maxRight=1}
 
-    console.log('maxRight')
-    console.log(maxRight)
+    // console.log('maxRight')
+    // console.log(maxRight)
 
     const ba = calc.calcPaginateArray(current, ext, maxRight)
     // console.log(current)
     // console.log(ext)
     // console.log(maxRight)
-    console.log(ba[1])
+    // console.log(ba[1])
 
     return (//待优化：将左右两个首尾按钮直接加在ba数组中
         <div>

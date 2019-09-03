@@ -41,28 +41,31 @@ const StyledSpanCategory = styled.span`
 const StyledLink = styled(Link)`
   text-decoration:none;
 `
-function usePrevious(value): any {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
+// function usePrevious(value): any {
+//   const ref = useRef();
+//   useEffect(() => {
+//     ref.current = value;
+//   });
+//   return ref.current;
+// }
 
 const board: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
 
-  const { category, categoryCurrent } = props
-  const prevProps: IState2Prop = usePrevious({ category, categoryCurrent })
+  // const { category, categoryCurrent } = props
+  // const prevProps: IState2Prop = usePrevious({ category, categoryCurrent })
 
   useEffect(
     () => {
-      if (
-        (!prevProps)
-        || (prevProps.category != props.category)
-        || (prevProps.categoryCurrent != props.categoryCurrent)
-      ) {
-        props.categoryGet()
-      }
+      console.log('board useEffect run categoryGet')
+      props.categoryGet()
+      // console.log()
+      // if (
+      //   (!prevProps)
+      //   || (prevProps.category != props.category)
+      //   || (prevProps.categoryCurrent != props.categoryCurrent)
+      // ) {
+      //   props.categoryGet()
+      // }
     }, []
   )
 

@@ -328,7 +328,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
 
   function showExtendInfo(extend) {
 
-    console.log('showExtendInfo')
+    // console.log('showExtendInfo')
 
     var joinNum
     var expireDate
@@ -342,12 +342,12 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
         expireDate = new Date(extend.addVote.expireTime)
         var people = new Set()
         extend.voteData.forEach(v => {
-          console.log(v)
+          // console.log(v)
           v.forEach(vv => {
             people.add(vv._id)
           })
         });
-        console.log(people)
+        // console.log(people)
         joinNum = people.size
         break
       default:

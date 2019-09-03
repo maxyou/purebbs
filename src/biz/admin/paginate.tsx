@@ -25,8 +25,8 @@ function pageRound({current, ext, totalDocs, pageSize, nav}) {
     var maxRight = Math.ceil(totalDocs/pageSize)
     if(!maxRight) {maxRight=1}
 
-    console.log('maxRight')
-    console.log(maxRight)
+    // console.log('maxRight')
+    // console.log(maxRight)
 
     const ba = calc.calcPaginateArray(current, ext, maxRight)
     // console.log(current)
