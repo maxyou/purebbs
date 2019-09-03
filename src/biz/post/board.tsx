@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { Component, useEffect, useRef } from 'react'
 import { Route, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { post as actionPost } from '@/redux/action'
+import { post as actionPost, sys as actionSys } from '@/redux/action'
+import { ICategoryItem } from '@/redux/common'
 
 const StyledDivCategory = styled.div`
     // background-color: lightgreen;
@@ -39,8 +41,30 @@ const StyledSpanCategory = styled.span`
 const StyledLink = styled(Link)`
   text-decoration:none;
 `
+function usePrevious(value): any {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
 
-function board(props) {
+const board: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
+
+  const { category, categoryCurrent } = props
+  const prevProps: IState2Prop = usePrevious({ category, categoryCurrent })
+
+  useEffect(
+    () => {
+      if (
+        (!prevProps)
+        || (prevProps.category != props.category)
+        || (prevProps.categoryCurrent != props.categoryCurrent)
+      ) {
+        props.categoryGet()
+      }
+    }, []
+  )
 
   function currentMatch(current, idStr){
     if(current==idStr){
@@ -64,26 +88,19 @@ function board(props) {
         </StyledSpanCategory>)
     }):null}
 
-
-      {/* <StyledDivCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.ALL.idStr)} 
-            selected={props.category==category.ALL.idStr}><StyledLink to={'#'}>{category.ALL.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.DEV_WEB.idStr)} 
-            selected={props.category==category.DEV_WEB.idStr}><StyledLink to={'#'}>{category.DEV_WEB.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.DEV_CLIENT.idStr)} 
-            selected={props.category==category.DEV_CLIENT.idStr}><StyledLink to={'#'}>{category.DEV_CLIENT.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.PM.idStr)} 
-            selected={props.category==category.PM.idStr}><StyledLink to={'#'}>{category.PM.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.JOB.idStr)} 
-            selected={props.category==category.JOB.idStr}><StyledLink to={'#'}>{category.JOB.name}</StyledLink></StyledSpanCategory>
-          <StyledSpanCategory onClick={()=>props.categoryNav(category.OTHER.idStr)} 
-            selected={props.category==category.OTHER.idStr}><StyledLink to={'#'}>{category.OTHER.name}</StyledLink></StyledSpanCategory>
-      </StyledDivCategory> */}
-      
     </StyledDivCategory>
   );
 }
-
+interface IState2Prop {
+  user: any,
+  words: any,  
+  categoryCurrent: string,
+  category: ICategoryItem[],
+}
+interface IDispatch2Prop {
+  categoryNav: (v?) => void,
+  categoryGet: (v?) => void,
+}
 const mapStateToProps = state => ({
   words: state.locale.words,
   user: state.user,
@@ -93,6 +110,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   categoryNav: (v) => dispatch(actionPost.Creator.postCategoryNav(v)),
+  categoryGet: (v) => dispatch(actionSys.Creator.categoryGet(v)),
 })
 export default connect(
   mapStateToProps,
