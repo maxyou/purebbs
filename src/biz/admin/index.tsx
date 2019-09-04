@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 // import {PageRound}from './paginate'
-import Add from './add'
 import Edit from './edit'
 import Page from './page'
 import styled from 'styled-components'
@@ -11,12 +10,8 @@ const StyledDiv = styled.div`
 `
 export default ({match}) => {
 
-    // const [current, setCurrent] = useState(10)
-
     return (
         <div>
-            {/* <PageRound current={current} ext={3} maxRight={20}></PageRound> */}
-            {/* <StyledDiv><PostAdd></PostAdd></StyledDiv> */}
            
             <Route path={`${match.path}/edit`} component={Edit} />
             <Route exact path={match.path} component={Page} />

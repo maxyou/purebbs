@@ -24,10 +24,10 @@ interface IState {
     words: object
 }
 const initState: IState = {
-    language: 'zh',
-    words: zh
+    language: 'en',
+    words: en
 }
-moment.locale('zh-cn')
+moment.locale('en-us')
 
 export default function locale(state: IState = initState, action: { type: string, payload: any }): IState {
 
