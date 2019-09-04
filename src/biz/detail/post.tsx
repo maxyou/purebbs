@@ -120,7 +120,7 @@ const StyledDivTime = styled.div`
   font-size: small;
   height: ${PostInfoHeight};  
   // padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 5px;
   // background-color: #c3e383;
   display:flex;
   justify-content: center;
@@ -128,8 +128,8 @@ const StyledDivTime = styled.div`
   flex: 0 0 auto;
 `
 const StyledDivCtrl = styled.div`
-  padding-left: 5px;
-  padding-right: 5px;
+  // padding-left: 5px;
+  // padding-right: 5px;
   // background-color: #ff7f7f;
   display:flex;
   justify-content: space-between;
@@ -145,6 +145,7 @@ border-radius:3px;
 `
 const StyledSpanOp = styled.span`
   font-size: small;
+  padding-left: 5px;
   // margin-left: 10px;
   color: #777777;
   &:hover {
@@ -153,6 +154,7 @@ const StyledSpanOp = styled.span`
 `
 const StyledSpanLike = styled.span`
   font-size: small;
+  padding-left: 5px;
   // margin-left: 10px;
   color: ${props => props.color};
   &:hover {
