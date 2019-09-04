@@ -20,8 +20,7 @@ todo:
 - @
 - upload picture
 
-server:
-[server](https://github.com/maxyou/purebbs-server)
+server repo:[server](https://github.com/maxyou/purebbs-server)
 
 
 ![](https://github.com/maxyou/purebbs/raw/master/post.PNG)
