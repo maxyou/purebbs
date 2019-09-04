@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Link, NavLink, Redirect, withRouter } from 'react-router-dom'
-import { user as actionUser, locale as actionLocale, sys as actionSys, post as actionPost } from '@/redux/action'
+import { user as actionUser, locale as actionLocale, sys as actionSys, post as actionPost, detail as actionDetail } from '@/redux/action'
 import { AvatarImg } from '@/component/user'
 // import {calc} from '@/tool'
 
@@ -104,6 +104,7 @@ interface IState2Prop {
     locale: any,
     sys: any,
     postPageSize: any,
+    commentPageSize: any,
 }
 interface IDispatch2Prop {
     userLogout: (v?) => void,
@@ -111,6 +112,7 @@ interface IDispatch2Prop {
     languageSet: (v) => void,
     categoryGet: (v?) => void,
     changePageSize: (v?) => void,
+    changeCommentPageSize: (v?) => void,
 }
 const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
     const { isLogin } = props
@@ -138,6 +140,7 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
         props.userLogout({ //退出时保存若干个性设置
             language: props.locale.language,
             postPageSize: props.postPageSize,
+            commentPageSize: props.commentPageSize,
         })
         // console.log('push to /post')
         // props.history.push('/post')
@@ -168,6 +171,9 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
             }
             if (setting.postPageSize) {
                 props.changePageSize(setting.postPageSize)
+            }
+            if (setting.commentPageSize) {
+                props.changeCommentPageSize(setting.commentPageSize)
             }
         }, [props.user]
     )
@@ -217,6 +223,7 @@ const mapStateToProps: { (state: any): IState2Prop } = (state) => ({ //todo: 似
     locale: state.locale,
     sys: state.sys,
     postPageSize: state.post.postPageSize,
+    commentPageSize: state.detail.commentPageSize,
 })
 
 const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
@@ -225,6 +232,7 @@ const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: 
     languageSet: (v) => dispatch(actionLocale.Creator.languageSet(v)),
     categoryGet: (v) => dispatch(actionSys.Creator.categoryGet(v)),
     changePageSize: (v) => dispatch(actionPost.Creator.postChangePageSize(v)),
+    changeCommentPageSize: (v) => dispatch(actionDetail.Creator.detailCommentChangePageSize(v)),
 })
 
 // const stateProps:any = connect(

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { user as actionUser, post as actionPost, locale as actionLocale } from '@/redux/action'
+import { user as actionUser, post as actionPost, locale as actionLocale, detail as actionDetail } from '@/redux/action'
 import ResetPwd from './resetpwd'
 const appConfig = require('../../../config')
 
@@ -38,6 +38,9 @@ const Login = function (props) {
       }
       if(setting.postPageSize){
         props.changePageSize(setting.postPageSize)
+      }
+      if(setting.commentPageSize){
+        props.changeCommentPageSize(setting.commentPageSize)
       }
       
       console.log('useEffect to redirect to /post')
@@ -103,6 +106,7 @@ const mapDispatchToProps = dispatch => ({
   login: (v) => dispatch(actionUser.Creator.userLogin(v)),
   changePageSize: (v) => dispatch(actionPost.Creator.postChangePageSize(v)),
   languageSet: (v) => dispatch(actionLocale.Creator.languageSet(v)),
+  changeCommentPageSize: (v) => dispatch(actionDetail.Creator.detailCommentChangePageSize(v)),
 })
 export default connect(
   mapStateToProps,
