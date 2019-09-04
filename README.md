@@ -20,8 +20,8 @@ todo:
 - @
 - upload picture
 
-![](https://example.com/your-image.png)
-![](https://example.com/your-image.png)
+![](https://github.com/maxyou/purebbs/raw/master/post.PNG)
+![](https://github.com/maxyou/purebbs/raw/master/detail.PNG)
 
 ## License<br>
 under [MIT License](http://www.opensource.org/licenses/MIT).

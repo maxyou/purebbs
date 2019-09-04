@@ -21,6 +21,7 @@ const zh_CN = {
     user_newPwdAgain: '再次输入新密码',
     user_inconsist_pwd_twice: '两次输入的密码不一致',
     user_register_email_optional: '(可选，用于重置密码)',
+    user_oauth_use_github: '使用GitHub登录',
 
     cmn_author: '作者',
     cmn_created: '创建于',

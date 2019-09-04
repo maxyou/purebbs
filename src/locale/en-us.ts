@@ -21,6 +21,7 @@ const en_US = {
     user_newPwdAgain: 'new password again',
     user_inconsist_pwd_twice: 'Inconsistent password entered twice',
     user_register_email_optional: '(optional. for reset password)',
+    user_oauth_use_github: 'login by GitHub',
 
     cmn_author: 'author',
     cmn_created: 'created',
