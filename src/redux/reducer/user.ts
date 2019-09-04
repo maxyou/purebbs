@@ -15,6 +15,7 @@ interface IState{
   resetPwdNewResult: object,
   other:object,
   board:string[],
+  setting:object,
 }
 
 const initState:IState = {
@@ -31,7 +32,8 @@ const initState:IState = {
   resetPwdResult: {},
   resetPwdNewResult: {},
   other:{},
-  board:[]
+  board:[], //忘记干什么用的了，可能不用了
+  setting:{},
 }
 
 
@@ -41,6 +43,7 @@ const getId:{(arg0:any):string} = (result) => result && result.data && result.da
 const getRole:{(arg0:any):string} = (result) => result && result.data && result.data.role || ''
 const getEmail:{(arg0:any):string} = (result) => result && result.data && result.data.email || ''
 const getCreated:{(arg0:any):string} = (result) => result && result.data && result.data.created || ''
+const getSetting:{(arg0:any):object} = (result) => result && result.data && result.data.setting || {}
 const getAvatarPath:{(arg0:any):string} = (result) => {
   
   let avatarPath:string|undefined
@@ -185,6 +188,7 @@ export default function user(state:IState = initState, action:{type:string, payl
         email: getEmail(action.payload),
         created: getCreated(action.payload),
         avatarPath: getAvatarPath(action.payload),
+        setting: getSetting(action.payload),
       }
 
     case actionUser.ACTION.USER_REGISTER_SUCCESS:
@@ -201,6 +205,7 @@ export default function user(state:IState = initState, action:{type:string, payl
         email: getEmail(action.payload),
         created: getCreated(action.payload),
         avatarPath: getAvatarPath(action.payload),
+        setting: getSetting(action.payload),
       }
     case actionUser.ACTION.USER_REGISTER_FAIL:
       // console.log('reducer: after user register')
@@ -225,6 +230,7 @@ export default function user(state:IState = initState, action:{type:string, payl
         email: getEmail(action.payload),
         created: getCreated(action.payload),
         avatarPath: getAvatarPath(action.payload),
+        setting: getSetting(action.payload),
       }
     case actionUser.ACTION.USER_LOGIN_FAIL:
       // console.log('reducer: after user login fail')

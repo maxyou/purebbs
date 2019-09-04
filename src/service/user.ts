@@ -14,9 +14,9 @@ export default {
     console.log('service user login')
     return axios.post('/user/login', user)
   },
-  logout(user:any) {
+  logout(v:any) {
     console.log('service user logout')
-    return axios.post('/user/logout', user)
+    return axios.post('/user/logout', v)
   },
   getStatus(v:any) {
     console.log('service user status')

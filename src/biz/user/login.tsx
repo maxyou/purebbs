@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { user as actionUser } from '@/redux/action'
+import { user as actionUser, post as actionPost, locale as actionLocale } from '@/redux/action'
 import ResetPwd from './resetpwd'
 const appConfig = require('../../../config')
 
@@ -29,6 +29,17 @@ const Login = function (props) {
   useEffect(() => {
     console.log('login useEffect')
     if (props.user.isLogin) {
+
+      let setting = props.user.setting
+      console.log('setting--------------')
+      console.log(setting)
+      if(setting.language){
+        props.languageSet(setting.language)
+      }
+      if(setting.postPageSize){
+        props.changePageSize(setting.postPageSize)
+      }
+      
       console.log('useEffect to redirect to /post')
       props.history.push('/post')
     }
@@ -89,7 +100,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: (v) => dispatch(actionUser.Creator.userLogin(v))
+  login: (v) => dispatch(actionUser.Creator.userLogin(v)),
+  changePageSize: (v) => dispatch(actionPost.Creator.postChangePageSize(v)),
+  languageSet: (v) => dispatch(actionLocale.Creator.languageSet(v)),
 })
 export default connect(
   mapStateToProps,
