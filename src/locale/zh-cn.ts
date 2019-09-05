@@ -40,6 +40,7 @@ const zh_CN = {
     cmn_yes: '是',
     cmn_no: '否',
     cmn_setting: '设置',
+    cmn_select: '选择',
 
     cntnt_title: '标题',
     cntnt_content: '内容',

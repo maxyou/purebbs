@@ -365,8 +365,6 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
                 <AvatarName src={'user/avatar/' + (props.post.data.fromUser[0] ? props.post.data.fromUser[0].avatarFileName : 'default.png')} size='small' name={props.post.data.author} />
               </StyledLink> */}
               <StyledLink to={'/user/other/' + (props.post.data.authorId == props.user._id || props.post.data.anonymous === false ? props.post.data.authorId : 'anonymous')}>
-                {/* <AvatarName src={'user/avatar/' + (props.post.data.anonymous === false ? (props.post.data.fromUser[0] ? props.post.data.fromUser[0].avatarFileName : 'default.png') :  props.post.data.authorId == props.user._id?'myanonymous.png':'anonymous.png')}
-                  size='small' name={props.post.data.anonymous === false ? props.post.data.author : 'anonymous'} /> */}
                   <AvatarImg src={calc.calcAvatarPath(props.post.data.fromUser[0], props.post.data.anonymous, props.post.data.authorId == props.user._id)}
                   width='40px' radius='20px'></AvatarImg>
               </StyledLink>

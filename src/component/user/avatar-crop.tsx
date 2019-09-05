@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {sys} from '@/tool'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css' // see installation section above for versions of NPM older than 3.0.0
@@ -51,13 +52,25 @@ class AvatarCrop extends Component<any, any> {
                     guides={false}
                     crop={this._crop.bind(this)} />
                 <div>
-                    <button onClick={this.onOk}>ok</button>
-                    <button onClick={this.onCancel}>cancel</button>
+                    <button onClick={this.onOk}>{this.props.words.cmn_select}</button>
+                    <button onClick={this.onCancel}>{this.props.words.cmn_cancel}</button>
                 </div>
             </div>
         );
     }
 }
+interface IState2Prop{
+    words: any,
+};
 
-export default AvatarCrop
+const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
+    words: state.locale.words,
+})
+
+
+export default connect(
+    mapStateToProps,    
+)(AvatarCrop)
+
+// export default AvatarCrop
   

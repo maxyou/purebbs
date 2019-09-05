@@ -40,6 +40,7 @@ const en_US = {
     cmn_yes: 'yes',
     cmn_no: 'no',
     cmn_setting: 'setting',
+    cmn_select: 'select',
 
     cntnt_title: 'title',
     cntnt_content: 'content',

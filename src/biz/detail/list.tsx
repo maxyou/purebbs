@@ -334,10 +334,6 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
 
           <StyledDivAvatar>
             <StyledLink to={'/user/other/' + (v.authorId == props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
-              {/* <AvatarName src={'user/avatar/' + (v.anonymous===false?(v.fromUser[0] ? v.fromUser[0].avatarFileName : 'default.png'): v.authorId == props.user._id?'myanonymous.png':'anonymous.png')} 
-                    size='small' name={v.anonymous===false?v.author:'anonymous'} /> */}
-              {/* <AvatarName src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)} 
-                    size='small' name={v.anonymous===false?v.author:'anonymous'} /> */}
               <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
                 width='40px' radius='20px'></AvatarImg>
             </StyledLink>

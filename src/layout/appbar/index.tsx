@@ -151,11 +151,10 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
     useEffect(
         () => {
             console.log('app bar useEffect')
-            if (!prevProps) {
-                console.log('app bar useEffect run categoryGet')
-                props.userGetStatus()
-                // props.categoryGet()
-            }
+            // if (!prevProps) {
+            //     console.log('app bar useEffect run categoryGet')
+            // }
+            props.userGetStatus()
         }, []
     )
 
