@@ -249,7 +249,7 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
       ) {
         props.detailPostGet({
           condition: { postId: props.match.params.id },
-          select: 'title content postId author authorId avatarFileName commentNum likeUser stickTop updated created extend category anonymous'
+          select: 'title content postId author authorId avatarFileName commentNum likeUser stickTop updated created extend category anonymous source oauth'
         })
       }
     }, [props.postUpdatting, props.postAttaching]
@@ -361,49 +361,20 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
           <StyledDivHeader>
 
             <StyledDivHeaderAvatar>
-              {/* <StyledLink to={'/user/other/' + props.post.data.authorId}>
-                <AvatarName src={'user/avatar/' + (props.post.data.fromUser[0] ? props.post.data.fromUser[0].avatarFileName : 'default.png')} size='small' name={props.post.data.author} />
-              </StyledLink> */}
               <StyledLink to={'/user/other/' + (props.post.data.authorId == props.user._id || props.post.data.anonymous === false ? props.post.data.authorId : 'anonymous')}>
-                  <AvatarImg src={calc.calcAvatarPath(props.post.data.fromUser[0], props.post.data.anonymous, props.post.data.authorId == props.user._id)}
+                  <AvatarImg src={calc.calcAvatarPath(props.post.data, props.post.data.anonymous, props.post.data.authorId == props.user._id)}
                   width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               
-              {/* {props.post.data.anonymous !== false ?
-                <StyledSpanAvatarTooltip>                  
-                  {props.post.data.authorId == props.user._id ?
-                    <StyledDivAvatarInTooltip>
-                      <AvatarName src={'user/avatar/' + (props.post.data.fromUser[0] ? props.post.data.fromUser[0].avatarFileName : 'default.png')}
-                        size='small' name={props.post.data.author} />
-                      <span>{props.words.cntnt_this_is_me}</span>
-                    </StyledDivAvatarInTooltip>
-                    : <span>{props.words.cntnt_this_is_anonymous}</span>
-                  }
-
-                </StyledSpanAvatarTooltip>
-                : null
-              } */}
               {props.post.data.anonymous !== false ?
-                <StyledSpanAvatarTooltip>
-                  {props.post.data.authorId == props.user._id
-                    ?
+                <StyledSpanAvatarTooltip>                  
                     <StyledDivAvatarInTooltip>
-                      <AvatarImg src={calc.calcAvatarPath(props.post.data.fromUser[0], false, props.post.data.authorId == props.user._id)} width='40px' radius='20px' />
+                      <AvatarImg src={calc.calcAvatarPath(props.post.data, false, props.post.data.authorId == props.user._id)} width='40px' radius='20px' />
                       <StyledDivAvatarInTooltipText>
                         <div>{props.post.data.author}</div>
-                        <div>{props.words.cntnt_this_is_me}</div>
+                        <div>{props.post.data.authorId == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
                       </StyledDivAvatarInTooltipText>
                     </StyledDivAvatarInTooltip>
-                    :
-                    <StyledDivAvatarInTooltip>
-                      <AvatarImg src={calc.calcAvatarPath(undefined, true, props.post.data.authorId == props.user._id)} width='40px' radius='20px' />
-                      <div>
-                        <div>{props.post.data.author}</div>
-                        <div>{props.words.cntnt_this_is_anonymous}</div>
-                      </div>
-                    </StyledDivAvatarInTooltip>
-                    // <span>{props.words.cntnt_this_is_anonymous}</span>
-                  }
 
                 </StyledSpanAvatarTooltip>
                 : null
