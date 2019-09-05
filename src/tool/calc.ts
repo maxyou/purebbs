@@ -21,8 +21,8 @@ export default {
 
     calcAvatarPath(
         user: any,
-        anonymous: boolean = false,
-        isMyself: boolean = false,
+        anonymous: boolean,
+        isMyself: boolean,
     ):string{
         if(anonymous){
             if(isMyself){
