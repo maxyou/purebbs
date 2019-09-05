@@ -5,6 +5,7 @@ import { extend as actionExtend } from '@/redux/action'
 import { detail as actionDetail } from '@/redux/action'
 import { AvatarImg } from '@/component/user';
 var moment = require('moment')
+import { calc, time } from '@/tool'
 
 const StyledDivVoteContainer = styled.div`
     // padding: 5px;    
@@ -44,7 +45,7 @@ const StyledDivItem = styled.div`
     flex: 1 0 auto;
 `
 const StyledDivOption = styled.div`
-    background-color: lightblue;
+    // background-color: lightblue;
     // padding: 10px;   
     // margin: 10px;
     // background-color: blue;
@@ -54,7 +55,7 @@ const StyledDivOption = styled.div`
     flex: 1 0 auto;
 `
 const StyledDivVoterQuery = styled.div`
-    background-color: lightgreen;
+    // background-color: lightgreen;
     padding: 5px;   
     // margin: 10px;
     // padding-left: 40px;  
@@ -63,8 +64,27 @@ const StyledDivVoterQuery = styled.div`
     // align-items: center;  
     flex: 1 0 auto;    
 `
+const SytledSpanVoter = styled.span`
+  position: relative;
+  :hover span{
+    visibility: visible;
+  }
 
-
+`
+const SytledSpanVoterTooltip = styled.span`
+  position: absolute;
+  z-index:1;
+//   top: -10px;
+//   left: 85%; 
+//   width: 160px;
+  background-color: #9f9;  
+  visibility: hidden;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  font-size: small;
+  margin-left: 10px;
+`
 function usePrevious(value): any {
     const ref = useRef();
     useEffect(() => {
@@ -108,6 +128,9 @@ function Vote(props) {
         _id: string,
         name: string,
         avatarFileName: string,
+        source: string,
+        oauth: object,
+        anonymous: boolean,
     }
 
     function getVoter(index): IVoter[] {
@@ -125,7 +148,14 @@ function Vote(props) {
 
                 console.log(JSON.stringify(voteData[index]))
                 voteData[index].forEach((v) => {
-                    voter.push({_id: v._id, name: v.name,avatarFileName: v.avatarFileName})
+                    voter.push({
+                        _id: v._id, 
+                        name: v.name,
+                        avatarFileName: v.avatarFileName,
+                        source:v.source,
+                        oauth:v.oauth,
+                        anonymous:v.anonymous,
+                    })
                 })
 
             }
@@ -333,7 +363,12 @@ function Vote(props) {
                                         {/* {JSON.stringify(getVoter(index))} */}
 
                                         {getVoter(index).map((vv) => {
-                                            return <AvatarImg width='30px' radius={'15px'} src={'user/avatar/' + vv.avatarFileName} />                                                
+                                            return <SytledSpanVoter>
+                                                <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(vv, vv.anonymous, vv._id == props.user._id)} />
+                                                <SytledSpanVoterTooltip>
+                                                    {vv.name}
+                                                </SytledSpanVoterTooltip>
+                                            </SytledSpanVoter>
                                         })}
                                     </StyledDivVoterQuery>
                                 </StyledDivItem>
