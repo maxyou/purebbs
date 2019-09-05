@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { extend as actionExtend } from '@/redux/action'
 import { detail as actionDetail } from '@/redux/action'
+import { AvatarImg } from '@/component/user';
 
 
 const StyledDivSetting = styled.div`
@@ -166,9 +167,10 @@ function Lineup(props) {
                 <span>{props.words.ext_already_lineupped}:</span>
                 <StyledDivSetting>
                     {props.extendFromServer.lineupData.map((v, index) =>
-                        <StyledDivColor setColor={index} key={index}>
-                            {/* <div> */}
-                            {index + 1}.{v.name}:{v.message}
+                        <StyledDivColor setColor={index} key={index}>                            
+                            {index + 1}.
+                            <AvatarImg width='30px' radius={'15px'} src={'user/avatar/'+v.avatarFileName} />
+                            {v.name}:{v.message}
                         </StyledDivColor>
                     )}
                 </StyledDivSetting>

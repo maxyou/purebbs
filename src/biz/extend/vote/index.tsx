@@ -3,31 +3,67 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { extend as actionExtend } from '@/redux/action'
 import { detail as actionDetail } from '@/redux/action'
+import { AvatarImg } from '@/component/user';
 var moment = require('moment')
 
+const StyledDivVoteContainer = styled.div`
+    // padding: 5px;    
+    // background-color: red;
+    `
+const StyledDivFieldsetContainer = styled.div`
+    // padding: 10px;   
+    // margin: 10px;
+    // width: 100%;
+    // position: relative;
+    // background-color: green;
+    // padding-left: 20px;   
+    // background-color: blue;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;  
+    flex: 1 0 auto;
+`
 const StyledDivSetting = styled.div`
+    // background-color: blue;
     padding-left: 20px;    
+    flex: 1 0 auto;
+`
+const StyledDivItem = styled.div`
+    // padding: 10px;   
+    // margin: 10px;
+    // width: 100%;
+    // position: relative;
+    // background-color: yellow;
+    // padding-left: 20px;   
+    // background-color: blue;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;  
+    flex: 1 0 auto;
 `
 const StyledDivOption = styled.div`
     background-color: lightblue;
-    padding-left: 20px;   
+    // padding: 10px;   
+    // margin: 10px;
     // background-color: blue;
     display:flex;
     justify-content: space-between;
     align-items: center;  
+    flex: 1 0 auto;
 `
-const StyledDivVoter = styled.div`
+const StyledDivVoterQuery = styled.div`
     background-color: lightgreen;
-    padding-left: 40px;  
+    padding: 5px;   
+    // margin: 10px;
+    // padding-left: 40px;  
+    // display:flex;
+    // justify-content: flex-start;
+    // align-items: center;  
+    flex: 1 0 auto;    
 `
 
-// const StyledDivOptions = styled.div`
-//     padding-left: 20px;   
-//     // background-color: blue;
-//     display:flex;
-//     justify-content: space-between;
-//     align-items: center;    
-// `
 
 function usePrevious(value): any {
     const ref = useRef();
@@ -68,10 +104,18 @@ function Vote(props) {
         }, [props.voteJoinning, props.voteQuitting]
     )
 
-    function getVoter(index) {
+    interface IVoter {
+        _id: string,
+        name: string,
+        avatarFileName: string,
+    }
+
+    function getVoter(index): IVoter[] {
 
         console.log('------get voter------')
         console.log(index)
+
+        var voter: IVoter[] = []
 
         if (props.extendFromServer && props.extendFromServer.voteData) {
             console.log('------get voter------1')
@@ -79,16 +123,15 @@ function Vote(props) {
             if (voteData[index]) {
                 console.log('------get voter------2')
 
-                var voter: string[] = []
                 console.log(JSON.stringify(voteData[index]))
                 voteData[index].forEach((v) => {
-                    voter.push(v.name)
+                    voter.push({_id: v._id, name: v.name,avatarFileName: v.avatarFileName})
                 })
 
-                return voter
             }
 
         }
+        return voter
     }
 
     function findMeInVoteData(voteData) {
@@ -233,10 +276,11 @@ function Vote(props) {
 
     }
     return (
-        <div>
+        <StyledDivVoteContainer>
             <fieldset>
                 <legend>{props.words.ext_vote}</legend>
 
+                {/* <StyledDivFieldsetContainer> */}
                 <span>{props.words.cmn_setting}</span>
                 <StyledDivSetting>
                     {/* <span>是否允许匿名:</span><input readOnly type="checkbox" id="anonymous" name="anonymous" checked={props.extendFromServer.addVote.anonymous} /> */}
@@ -252,61 +296,58 @@ function Vote(props) {
                 </StyledDivSetting>
 
                 <hr></hr>
-                {
-                    props.extendFromServer && props.extendFromServer.addVote ?
-                        props.extendFromServer.addVote.options.map((v, index) =>
-                            <div key={index}>
-                                <div>
-                                    <StyledDivOption>
-                                        <div>
-                                            {index + 1}.{v}
-                                        </div>
-                                        <div>
-                                            {
-                                                props.extendFromServer.addVote.ifMulti == 'single'
-                                                    ?
-                                                    <div>
+
+                <div>
+                    {
+                        props.extendFromServer && props.extendFromServer.addVote ?
+                            props.extendFromServer.addVote.options.map((v, index) =>
+                                <StyledDivItem key={index}>
+                                    <div>
+                                        <StyledDivOption>
+                                            <div>
+                                                {index + 1}.{v}
+                                            </div>
+                                            <div>
+                                                {
+                                                    props.extendFromServer.addVote.ifMulti == 'single'
+                                                        ?
                                                         <div>
-                                                            <input type="radio" value={index} name="single" onChange={(e) => radioChange(v, index, e)} checked={singleVote == index} />
-                                                        </div>
+                                                            <div>
+                                                                <input type="radio" value={index} name="single" onChange={(e) => radioChange(v, index, e)} checked={singleVote == index} />
+                                                            </div>
 
-                                                    </div>
-                                                    :
-                                                    <div>
+                                                        </div>
+                                                        :
                                                         <div>
-                                                            <input type="checkbox" value={index} name="multiple"
-                                                                onChange={(e) => checkboxChange(v, index, e)} checked={multiVote[index] ? true : false} />
+                                                            <div>
+                                                                <input type="checkbox" value={index} name="multiple"
+                                                                    onChange={(e) => checkboxChange(v, index, e)} checked={multiVote[index] ? true : false} />
+                                                            </div>
+
                                                         </div>
+                                                }
+                                            </div>
+                                        </StyledDivOption>
+                                    </div>
+                                    <StyledDivVoterQuery>
+                                        {/* {JSON.stringify(getVoter(index))} */}
 
-                                                    </div>
-                                            }
-                                        </div>
-                                    </StyledDivOption>
-                                </div>
-                                <StyledDivVoter>
-                                    {JSON.stringify(getVoter(index))}
-                                </StyledDivVoter>
-                            </div>
-                        )
-                        : null
-                }
-                {/* <hr></hr>
-                <span>{props.words.ext_already_voted}:</span>
-                <StyledDivSetting>
-                    {JSON.stringify(props.extendFromServer.voteData)}
-                </StyledDivSetting> */}
-
+                                        {getVoter(index).map((vv) => {
+                                            return <AvatarImg width='30px' radius={'15px'} src={'user/avatar/' + vv.avatarFileName} />                                                
+                                        })}
+                                    </StyledDivVoterQuery>
+                                </StyledDivItem>
+                            )
+                            : null
+                    }
+                </div>
                 <div>
                     {JoinQuitButton()}
                 </div>
-                {/* <hr></hr>
-                {JSON.stringify(singleVote)}                    
-                <hr></hr>
-                {JSON.stringify(multiVote)}                    
-                <hr></hr> */}
+                {/* </StyledDivFieldsetContainer> */}
             </fieldset>
 
-        </div>
+        </StyledDivVoteContainer>
     )
 }
 
