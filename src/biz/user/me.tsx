@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { AvatarImg } from '@/component/user'
 import { time } from '@/tool'
+import user from '@/redux/reducer/user';
 const StyledDivCard = styled.div`
     width:100%;
     height:150px;
@@ -24,7 +25,7 @@ const StyledDivCard = styled.div`
       <div>{props.words.user_role}: {props.user.role}</div>
       <div>{props.words.user_email}: {props.user.email}</div>
       <div>{props.words.cmn_created}: {time.fromNow(props.user.created)}</div>
-      <button onClick={gotoEdit}> {props.words.cmn_edit}</button>      
+      {props.user.source=='register'?<button onClick={gotoEdit}> {props.words.cmn_edit}</button>:null}
     </StyledDivCard>
   );
 }

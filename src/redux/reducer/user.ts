@@ -17,6 +17,8 @@ interface IState {
   other: object,
   board: string[],
   setting: object,
+  source: string,
+  oauth: object,
 }
 
 const initState: IState = {
@@ -36,6 +38,8 @@ const initState: IState = {
   other: {},
   board: [], //忘记干什么用的了，可能不用了
   setting: {},
+  source: 'register',
+  oauth: {}
 }
 
 
@@ -46,6 +50,8 @@ const getRole: { (arg0: any): string } = (result) => result && result.data && re
 const getEmail: { (arg0: any): string } = (result) => result && result.data && result.data.email || ''
 const getCreated: { (arg0: any): string } = (result) => result && result.data && result.data.created || ''
 const getSetting: { (arg0: any): object } = (result) => result && result.data && result.data.setting || {}
+const getSource: { (arg0: any): string } = (result) => result && result.data && result.data.source || 'register'
+const getOauth: { (arg0: any): object } = (result) => result && result.data && result.data.oauth || {}
 const getAvatarPath: { (arg0: any): string } = (result) => {
 
   let avatarPath: string | undefined
@@ -191,6 +197,8 @@ export default function user(state: IState = initState, action: { type: string, 
         created: getCreated(action.payload),
         avatarPath: getAvatarPath(action.payload),
         setting: getSetting(action.payload),
+        source: getSource(action.payload),
+        oauth: getOauth(action.payload),
       }
 
     case actionUser.ACTION.USER_REGISTER_SUCCESS:
@@ -208,6 +216,8 @@ export default function user(state: IState = initState, action: { type: string, 
         created: getCreated(action.payload),
         avatarPath: getAvatarPath(action.payload),
         setting: getSetting(action.payload),
+        source: getSource(action.payload),
+        oauth: getOauth(action.payload),
       }
     case actionUser.ACTION.USER_REGISTER_FAIL:
       // console.log('reducer: after user register')
@@ -233,6 +243,8 @@ export default function user(state: IState = initState, action: { type: string, 
         created: getCreated(action.payload),
         avatarPath: getAvatarPath(action.payload),
         setting: getSetting(action.payload),
+        source: getSource(action.payload),
+        oauth: getOauth(action.payload),
       }
     case actionUser.ACTION.USER_LOGIN_FAIL:
       // console.log('reducer: after user login fail')
