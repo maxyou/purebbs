@@ -186,7 +186,7 @@ function Lineup(props) {
                                     topLeft={{ top: '0px', left: '70px' }}
                                 ></UserTip>
                             </SytledSpanUserTipContainer>
-                            {v.name}:{v.message}
+                            {v.name}: {v.message}
                         </StyledDivColor>
                     )}
                 </StyledDivSetting>

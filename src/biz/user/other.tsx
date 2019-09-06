@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { AvatarImg } from '@/component/user'
-import { time } from '@/tool'
+import { calc, time } from '@/tool'
 import { user as actionUser } from '@/redux/action'
 
 const StyledDivCard = styled.div`
@@ -35,7 +35,7 @@ function other(props) {
         <legend>{props.words.user_personalInfo}</legend>
         {props.other.code == 0 ?
           <div>
-            <AvatarImg width='35px' src={'user/avatar/' + props.other.data.avatarFileName} />
+            <AvatarImg width='35px' src={calc.getAvatarPathFromUser(props.other.data)} />
             <div>{props.words.user_name}: {props.other.data.name}</div>
             <div>{props.words.user_role}: {props.other.data.role}</div>
             {/* <div>{props.words.user_email}:{props.user.email}</div> */}

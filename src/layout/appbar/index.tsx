@@ -160,7 +160,7 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
                 (!prevProps)
                 || (prevProps.userLogoutting == true && props.userLogoutting == false)
               ) {
-                console.log('app bar call userLogoutReset')
+                console.log('app bar call userLogoutReset after logout')
                 props.userLogoutReset()
             }
         }, [props.userLogoutting]
