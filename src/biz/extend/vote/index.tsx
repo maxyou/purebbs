@@ -71,12 +71,13 @@ const SytledSpanVoter = styled.span`
   }
 
 `
+
 const SytledSpanVoterTooltip = styled.span`
   position: absolute;
   z-index:1;
 //   top: -10px;
 //   left: 85%; 
-//   width: 160px;
+  width: 250px;
   background-color: #9f9;  
   visibility: hidden;
   text-align: center;
@@ -85,6 +86,20 @@ const SytledSpanVoterTooltip = styled.span`
   font-size: small;
   margin-left: 10px;
 `
+const StyledDivAvatarInTooltip = styled.div`
+  padding-left: 10px;
+  display:flex;
+  justify-content: flex-start;
+  align-items: center;
+`
+const StyledDivAvatarInTooltipText = styled.div`
+  padding-left: 10px;
+  display:flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+`
+
 function usePrevious(value): any {
     const ref = useRef();
     useEffect(() => {
@@ -149,12 +164,12 @@ function Vote(props) {
                 console.log(JSON.stringify(voteData[index]))
                 voteData[index].forEach((v) => {
                     voter.push({
-                        _id: v._id, 
+                        _id: v._id,
                         name: v.name,
                         avatarFileName: v.avatarFileName,
-                        source:v.source,
-                        oauth:v.oauth,
-                        anonymous:v.anonymous,
+                        source: v.source,
+                        oauth: v.oauth,
+                        anonymous: v.anonymous,
                     })
                 })
 
@@ -366,7 +381,13 @@ function Vote(props) {
                                             return <SytledSpanVoter>
                                                 <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(vv, vv.anonymous, vv._id == props.user._id)} />
                                                 <SytledSpanVoterTooltip>
-                                                    {vv.name}
+                                                    <StyledDivAvatarInTooltip>
+                                                        <AvatarImg src={calc.calcAvatarPath(vv, false, vv._id == props.user._id)} width='40px' radius='20px' />
+                                                        <StyledDivAvatarInTooltipText>
+                                                            <div>{vv.name}</div>
+                                                            <div>{vv._id == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
+                                                        </StyledDivAvatarInTooltipText>
+                                                    </StyledDivAvatarInTooltip>
                                                 </SytledSpanVoterTooltip>
                                             </SytledSpanVoter>
                                         })}
