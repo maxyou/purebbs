@@ -6,7 +6,7 @@ import { detail as actionDetail } from '@/redux/action'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import { calc, time } from '@/tool'
-import { AvatarImg, AvatarName } from '@/component/user'
+import { AvatarImg, UserTip } from '@/component/user'
 import dialogPolyfill from 'dialog-polyfill'
 import { command } from '@/biz/common'
 import ReactMde from "react-mde"
@@ -339,16 +339,21 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
             </StyledLink>
 
             {v.anonymous !== false ?
-              <StyledSpanAvatarTooltip>                
-                  <StyledDivAvatarInTooltip>
-                    <AvatarImg src={calc.calcAvatarPath(v, false, v.authorId == props.user._id)} width='40px' radius='20px' />
-                    <StyledDivAvatarInTooltipText>
-                      <div>{v.author}</div>
-                      <div>{v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
-                    </StyledDivAvatarInTooltipText>
-                  </StyledDivAvatarInTooltip>
-
-              </StyledSpanAvatarTooltip>
+              // <StyledSpanAvatarTooltip>                
+              //     <StyledDivAvatarInTooltip>
+              //       <AvatarImg src={calc.calcAvatarPath(v, false, v.authorId == props.user._id)} width='40px' radius='20px' />
+              //       <StyledDivAvatarInTooltipText>
+              //         <div>{v.author}</div>
+              //         <div>{v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
+              //       </StyledDivAvatarInTooltipText>
+              //     </StyledDivAvatarInTooltip>
+              // </StyledSpanAvatarTooltip>
+              <UserTip
+                    avatarPath={calc.calcAvatarPath(v, false, v.authorId == props.user._id)}
+                    name={v.author}
+                    intro={v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                    topLeft={{top:'0px',left:'70px'}}
+                  ></UserTip>
               : null
             }
           </StyledDivAvatar>

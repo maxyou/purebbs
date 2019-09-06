@@ -3,8 +3,16 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { extend as actionExtend } from '@/redux/action'
 import { detail as actionDetail } from '@/redux/action'
-import { AvatarImg } from '@/component/user';
+import { AvatarImg, UserTip } from '@/component/user';
 import { calc, time } from '@/tool'
+
+const SytledSpanUserTipContainer = styled.span`
+  position: relative;
+  :hover span{
+    visibility: visible;
+  }
+
+`
 
 const StyledDivSetting = styled.div`
     padding-left: 20px;    
@@ -167,9 +175,17 @@ function Lineup(props) {
                 <span>{props.words.ext_already_lineupped}:</span>
                 <StyledDivSetting>
                     {props.extendFromServer.lineupData.map((v, index) =>
-                        <StyledDivColor setColor={index} key={index}>                            
+                        <StyledDivColor setColor={index} key={index}>
                             {index + 1}.
-                            <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(v, v.anonymous, v._id == props.user._id)} />
+                            <SytledSpanUserTipContainer>
+                                <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(v, v.anonymous, v._id == props.user._id)} />
+                                <UserTip
+                                    avatarPath={calc.calcAvatarPath(v, false, v._id == props.user._id)}
+                                    name={v.name}
+                                    intro={v._id == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                                    topLeft={{ top: '0px', left: '70px' }}
+                                ></UserTip>
+                            </SytledSpanUserTipContainer>
                             {v.name}:{v.message}
                         </StyledDivColor>
                     )}

@@ -5,7 +5,7 @@ import { detail as actionDetail } from '@/redux/action'
 import { post as actionPost } from '@/redux/action'
 import { calc, time } from '@/tool'
 import styled from 'styled-components'
-import { AvatarImg, AvatarName } from '@/component/user'
+import { AvatarImg, UserTip } from '@/component/user'
 import * as Extend from '@/biz/extend'
 import { command } from '@/biz/common'
 import dialogPolyfill from 'dialog-polyfill'
@@ -367,16 +367,21 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
               </StyledLink>
               
               {props.post.data.anonymous !== false ?
-                <StyledSpanAvatarTooltip>                  
-                    <StyledDivAvatarInTooltip>
-                      <AvatarImg src={calc.calcAvatarPath(props.post.data, false, props.post.data.authorId == props.user._id)} width='40px' radius='20px' />
-                      <StyledDivAvatarInTooltipText>
-                        <div>{props.post.data.author}</div>
-                        <div>{props.post.data.authorId == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
-                      </StyledDivAvatarInTooltipText>
-                    </StyledDivAvatarInTooltip>
-
-                </StyledSpanAvatarTooltip>
+                // <StyledSpanAvatarTooltip>                  
+                //     <StyledDivAvatarInTooltip>
+                //       <AvatarImg src={calc.calcAvatarPath(props.post.data, false, props.post.data.authorId == props.user._id)} width='40px' radius='20px' />
+                //       <StyledDivAvatarInTooltipText>
+                //         <div>{props.post.data.author}</div>
+                //         <div>{props.post.data.authorId == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
+                //       </StyledDivAvatarInTooltipText>
+                //     </StyledDivAvatarInTooltip>
+                // </StyledSpanAvatarTooltip>
+                <UserTip
+                    avatarPath={calc.calcAvatarPath(props.post.data, false, props.post.data.authorId == props.user._id)}
+                    name={props.post.data.author}
+                    intro={props.post.data.authorId == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                    topLeft={{top:'0px',left:'70px'}}
+                  ></UserTip>
                 : null
               }
 

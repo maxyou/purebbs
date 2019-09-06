@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { extend as actionExtend } from '@/redux/action'
 import { detail as actionDetail } from '@/redux/action'
-import { AvatarImg } from '@/component/user';
+import { AvatarImg, UserTip } from '@/component/user'
 var moment = require('moment')
 import { calc, time } from '@/tool'
 
@@ -380,7 +380,7 @@ function Vote(props) {
                                         {getVoter(index).map((vv) => {
                                             return <SytledSpanVoter>
                                                 <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(vv, vv.anonymous, vv._id == props.user._id)} />
-                                                <SytledSpanVoterTooltip>
+                                                {/* <SytledSpanVoterTooltip>
                                                     <StyledDivAvatarInTooltip>
                                                         <AvatarImg src={calc.calcAvatarPath(vv, false, vv._id == props.user._id)} width='40px' radius='20px' />
                                                         <StyledDivAvatarInTooltipText>
@@ -388,7 +388,13 @@ function Vote(props) {
                                                             <div>{vv._id == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
                                                         </StyledDivAvatarInTooltipText>
                                                     </StyledDivAvatarInTooltip>
-                                                </SytledSpanVoterTooltip>
+                                                </SytledSpanVoterTooltip> */}
+                                                <UserTip
+                                                    avatarPath={calc.calcAvatarPath(vv, false, vv._id == props.user._id)}
+                                                    name={vv.name}
+                                                    intro={vv._id == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                                                    topLeft={{ top: '-10px', left: '50px' }}
+                                                ></UserTip>
                                             </SytledSpanVoter>
                                         })}
                                     </StyledDivVoterQuery>
