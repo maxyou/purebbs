@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { extend as actionExtend } from '@/redux/action'
 import { detail as actionDetail } from '@/redux/action'
 import { AvatarImg } from '@/component/user';
-
+import { calc, time } from '@/tool'
 
 const StyledDivSetting = styled.div`
     padding-left: 20px;    
@@ -169,7 +169,7 @@ function Lineup(props) {
                     {props.extendFromServer.lineupData.map((v, index) =>
                         <StyledDivColor setColor={index} key={index}>                            
                             {index + 1}.
-                            <AvatarImg width='30px' radius={'15px'} src={'user/avatar/'+v.avatarFileName} />
+                            <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(v, v.anonymous, v._id == props.user._id)} />
                             {v.name}:{v.message}
                         </StyledDivColor>
                     )}
