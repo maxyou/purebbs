@@ -179,8 +179,8 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
             console.log('app bar useEffect')
             
             let setting = props.user.setting
-            console.log('setting--------------')
-            console.log(setting)
+            // console.log('setting--------------')
+            // console.log(setting)
             if (setting.language) {
                 props.languageSet(setting.language)
             }

@@ -150,18 +150,18 @@ function Vote(props) {
 
     function getVoter(index): IVoter[] {
 
-        console.log('------get voter------')
-        console.log(index)
+        // console.log('------get voter------')
+        // console.log(index)
 
         var voter: IVoter[] = []
 
         if (props.extendFromServer && props.extendFromServer.voteData) {
-            console.log('------get voter------1')
+            // console.log('------get voter------1')
             var voteData = props.extendFromServer.voteData
             if (voteData[index]) {
-                console.log('------get voter------2')
+                // console.log('------get voter------2')
 
-                console.log(JSON.stringify(voteData[index]))
+                // console.log(JSON.stringify(voteData[index]))
                 voteData[index].forEach((v) => {
                     voter.push({
                         _id: v._id,
@@ -207,11 +207,11 @@ function Vote(props) {
         // var currentTime = Date.now()
         var currentTime = new Date()
         var expireTime = new Date(props.extendFromServer.addVote.expireTime)
-        console.log('---------JoinQuitButton---------compare time--------')
-        console.log(currentTime)
-        console.log(JSON.stringify(currentTime))
-        console.log(expireTime)
-        console.log(JSON.stringify(expireTime))
+        // console.log('---------JoinQuitButton---------compare time--------')
+        // console.log(currentTime)
+        // console.log(JSON.stringify(currentTime))
+        // console.log(expireTime)
+        // console.log(JSON.stringify(expireTime))
         // if(Date.now() > new Date(props.extendFromServer.addVote.expireTime).getTime()){
         if (currentTime > expireTime) {
             console.log('expired')
@@ -377,8 +377,8 @@ function Vote(props) {
                                     <StyledDivVoterQuery>
                                         {/* {JSON.stringify(getVoter(index))} */}
 
-                                        {getVoter(index).map((vv) => {
-                                            return <SytledSpanVoter>
+                                        {getVoter(index).map((vv, index) => {
+                                            return <SytledSpanVoter key={index}>
                                                 <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(vv, vv.anonymous, vv._id == props.user._id)} />
                                                 {/* <SytledSpanVoterTooltip>
                                                     <StyledDivAvatarInTooltip>

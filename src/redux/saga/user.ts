@@ -10,7 +10,7 @@ function* userGetStatus(action:IAction) {
     // console.log('====userGetStatus Sagas 1');
     var res = yield call(serviceUser.getStatus, action.payload)
     // console.log('====userGetStatus Sagas 2 res:'+JSON.stringify(res));
-    console.log(res);
+    // console.log(res);
     if(res.data.code===0){
         yield put({ type: actionUser.ACTION.USER_GET_STATUS_SUCCESS, payload: res.data })
         // console.log('====userGetStatus Sagas 3');
