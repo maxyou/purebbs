@@ -89,7 +89,7 @@ const StyledLink = styled(Link)`
 const StyledSelect = styled.select`
   margin: 10px;
 `
-function usePrevious(value) {
+function usePrevious(value):any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -97,8 +97,13 @@ function usePrevious(value) {
     return ref.current;
 }
 
+interface IPrevProps {
+    isLogin: boolean,
+    userLogoutting: boolean,
+}
 interface IState2Prop {
     isLogin: boolean,
+    userLogoutting: boolean,
     words: any,
     user: any,
     locale: any,
@@ -108,6 +113,7 @@ interface IState2Prop {
 }
 interface IDispatch2Prop {
     userLogout: (v?) => void,
+    userLogoutReset: (v?) => void,
     userGetStatus: (v?) => void,
     languageSet: (v) => void,
     categoryGet: (v?) => void,
@@ -115,8 +121,8 @@ interface IDispatch2Prop {
     changeCommentPageSize: (v?) => void,
 }
 const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
-    const { isLogin } = props
-    const prevProps = usePrevious({ isLogin })
+    const { isLogin, userLogoutting } = props
+    const prevProps:IState2Prop = usePrevious({ isLogin, userLogoutting })
 
     const StyledDivUserAvatarName = styled(StyledDivUserCtrl)`
         display:${props.isLogin ? 'flex' : 'none'}
@@ -147,7 +153,18 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
         // console.log('push to /post 2')
     }
 
-
+    useEffect(
+        () => {
+            console.log('app bar useEffect userLogoutReset')
+            if (
+                (!prevProps)
+                || (prevProps.userLogoutting == true && props.userLogoutting == false)
+              ) {
+                console.log('app bar call userLogoutReset')
+                props.userLogoutReset()
+            }
+        }, [props.userLogoutting]
+    )
     useEffect(
         () => {
             console.log('app bar useEffect')
@@ -157,7 +174,6 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
             props.userGetStatus()
         }, []
     )
-
     useEffect(
         () => {
             console.log('app bar useEffect')
@@ -217,8 +233,9 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
 
 const mapStateToProps: { (state: any): IState2Prop } = (state) => ({ //todo: 似乎意义不大？
     isLogin: state.user.isLogin,
-    words: state.locale.words,
+    userLogoutting: state.user.userLogoutting,
     user: state.user,
+    words: state.locale.words,
     locale: state.locale,
     sys: state.sys,
     postPageSize: state.post.postPageSize,
@@ -227,6 +244,7 @@ const mapStateToProps: { (state: any): IState2Prop } = (state) => ({ //todo: 似
 
 const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     userLogout: (v) => dispatch(actionUser.Creator.userLogout(v)),
+    userLogoutReset: (v) => dispatch(actionUser.Creator.userLogoutReset(v)),
     userGetStatus: (v) => dispatch(actionUser.Creator.userGetStatus(v)),
     languageSet: (v) => dispatch(actionLocale.Creator.languageSet(v)),
     categoryGet: (v) => dispatch(actionSys.Creator.categoryGet(v)),

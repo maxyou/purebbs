@@ -1,9 +1,10 @@
 import { user as actionUser } from '../action'
 
-interface IState{
+interface IState {
   isLogin: boolean,
   userUpdatting: boolean,
   userAvatarUpdatting: boolean,
+  userLogoutting: boolean,
   result: object,
   _id: string,
   name: string,
@@ -13,15 +14,16 @@ interface IState{
   avatarPath: string,
   resetPwdResult: object,
   resetPwdNewResult: object,
-  other:object,
-  board:string[],
-  setting:object,
+  other: object,
+  board: string[],
+  setting: object,
 }
 
-const initState:IState = {
+const initState: IState = {
   isLogin: false,
   userUpdatting: false,
   userAvatarUpdatting: false,
+  userLogoutting: false,
   result: {},
   _id: '',
   name: '',
@@ -31,37 +33,37 @@ const initState:IState = {
   avatarPath: '',
   resetPwdResult: {},
   resetPwdNewResult: {},
-  other:{},
-  board:[], //忘记干什么用的了，可能不用了
-  setting:{},
+  other: {},
+  board: [], //忘记干什么用的了，可能不用了
+  setting: {},
 }
 
 
-const getBoard:{(arg0:any):string[]} = (result) => result && result.data && result.data.board || []
-const getName:{(arg0:any):string} = (result) => result && result.data && result.data.name || ''
-const getId:{(arg0:any):string} = (result) => result && result.data && result.data._id || ''
-const getRole:{(arg0:any):string} = (result) => result && result.data && result.data.role || ''
-const getEmail:{(arg0:any):string} = (result) => result && result.data && result.data.email || ''
-const getCreated:{(arg0:any):string} = (result) => result && result.data && result.data.created || ''
-const getSetting:{(arg0:any):object} = (result) => result && result.data && result.data.setting || {}
-const getAvatarPath:{(arg0:any):string} = (result) => {
-  
-  let avatarPath:string|undefined
+const getBoard: { (arg0: any): string[] } = (result) => result && result.data && result.data.board || []
+const getName: { (arg0: any): string } = (result) => result && result.data && result.data.name || ''
+const getId: { (arg0: any): string } = (result) => result && result.data && result.data._id || ''
+const getRole: { (arg0: any): string } = (result) => result && result.data && result.data.role || ''
+const getEmail: { (arg0: any): string } = (result) => result && result.data && result.data.email || ''
+const getCreated: { (arg0: any): string } = (result) => result && result.data && result.data.created || ''
+const getSetting: { (arg0: any): object } = (result) => result && result.data && result.data.setting || {}
+const getAvatarPath: { (arg0: any): string } = (result) => {
 
-  if(result && result.data && result.data){
+  let avatarPath: string | undefined
+
+  if (result && result.data && result.data) {
     let data = result.data
-    if(data.source=='oauth'){
+    if (data.source == 'oauth') {
       avatarPath = data.oauth.avatarUrl
-    }else{
-      if(data.avatarFileName){
+    } else {
+      if (data.avatarFileName) {
         avatarPath = 'user/avatar/' + data.avatarFileName
-      } 
-    } 
+      }
+    }
   }
   return avatarPath || 'user/avatar/default.png'
 }
 
-export default function user(state:IState = initState, action:{type:string, payload:any}):IState {
+export default function user(state: IState = initState, action: { type: string, payload: any }): IState {
   switch (action.type) {
 
     case actionUser.ACTION.USER_GET_OTHER_INFO:
@@ -69,7 +71,7 @@ export default function user(state:IState = initState, action:{type:string, payl
       // console.log(action.payload)
       return {
         ...state,
-        other: {code:-1, message:'Waiting for server response...'},
+        other: { code: -1, message: 'Waiting for server response...' },
       }
     case actionUser.ACTION.USER_GET_OTHER_INFO_SUCCESS:
       // console.log('reducer: after user send new pwd')
@@ -91,7 +93,7 @@ export default function user(state:IState = initState, action:{type:string, payl
       // console.log(action.payload)
       return {
         ...state,
-        resetPwdNewResult: {code:-1, message:'A new password has been sent, waiting for the server to respond...'},
+        resetPwdNewResult: { code: -1, message: 'A new password has been sent, waiting for the server to respond...' },
       }
     case actionUser.ACTION.USER_RESET_PASSWORD_NEW_SUCCESS:
       // console.log('reducer: after user send new pwd')
@@ -113,7 +115,7 @@ export default function user(state:IState = initState, action:{type:string, payl
       // console.log(action.payload)
       return {
         ...state,
-        resetPwdResult: {code:-1, message:'A reset request has been sent and is waiting for a response from the server...'},
+        resetPwdResult: { code: -1, message: 'A reset request has been sent and is waiting for a response from the server...' },
       }
     case actionUser.ACTION.USER_RESET_PASSWORD_SUCCESS:
       // console.log('reducer: after user request reset pwd success')
@@ -241,6 +243,11 @@ export default function user(state:IState = initState, action:{type:string, payl
         result: action.payload,
       }
 
+    case actionUser.ACTION.USER_LOGOUT:
+      return {
+        ...state,
+        userLogoutting: true,
+      }
     case actionUser.ACTION.USER_LOGOUT_SUCCESS:
       // console.log('reducer: user logout')
       return { ...initState }

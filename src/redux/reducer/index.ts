@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 // import counter from './counter'
 import admin from './admin'
 import user from './user'
@@ -19,15 +19,13 @@ const appReducer = combineReducers({
     sys,
 })
 
-const rootReducer = (state:any, action:any) => {
+const rootReducer = (state: any, action: any) => {
+
     //https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store
-    
-    switch (action.type) {
-        case actionUser.ACTION.USER_LOGOUT:          
-            state = undefined
-        default:
-            return appReducer(state, action)
-      }
-  }
+    if (action.type === actionUser.ACTION.USER_LOGOUT_RESET) {
+        state = undefined
+    }
+    return appReducer(state, action)
+}
 
 export default rootReducer

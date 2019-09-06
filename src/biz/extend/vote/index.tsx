@@ -117,7 +117,7 @@ function Vote(props) {
                         //   condition: { postId: props.post.postId },
                         //   select: 'postId extend'
                         condition: { postId: props.post.data.postId },
-                        select: 'title content postId author authorId avatarFileName commentNum updated created extend anonymous'
+                        select: 'title content postId author authorId avatarFileName commentNum updated created extend anonymous source oauth'
                     })
                 }
             }

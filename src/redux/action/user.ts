@@ -7,6 +7,8 @@ const ACTION : {[index: string]: string} = {
     USER_LOGOUT: 'user_logout',
     USER_LOGOUT_SUCCESS: 'user_logout_success',
     USER_LOGOUT_FAIL: 'user_logout_fail',
+
+    USER_LOGOUT_RESET: 'user_logout_reset',
     
     USER_REGISTER: 'user_register',
     USER_REGISTER_SUCCESS: 'user_register_success',
@@ -57,6 +59,7 @@ const Creator:{[index: string]: {<T>(v:T):{type:string, payload: T}}} = {
     userOtherInfoGet: (v) => ({ type: ACTION.USER_GET_OTHER_INFO, payload: v }),
     userLogin: (v) => ({ type: ACTION.USER_LOGIN, payload: v }),
     userLogout: (v) => ({ type: ACTION.USER_LOGOUT, payload: v }),
+    userLogoutReset: (v) => ({ type: ACTION.USER_LOGOUT_RESET, payload: v }),
     userRegister: (v) => ({ type: ACTION.USER_REGISTER, payload: v }),
 }
 export default {
