@@ -94,7 +94,7 @@ const StyledSpanAvatarTooltip = styled.span`
   z-index:1;
   top: -10px;
   left: 85%; 
-  width: 160px;
+  width: 200px;
   background-color: #9f9;  
   visibility: hidden;
   text-align: center;
@@ -238,7 +238,7 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
             offset: props.commentPageSize * (props.commentPageCurrent - 1),
             limit: props.commentPageSize,
             sort: { created: -1 },
-            select: 'postId content author authorId updated created avatarFileName likeUser anonymous'
+            select: 'postId content author authorId updated created avatarFileName likeUser anonymous source oauth'
           }
         })
       }
@@ -334,31 +334,19 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
 
           <StyledDivAvatar>
             <StyledLink to={'/user/other/' + (v.authorId == props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
-              <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
+              <AvatarImg src={calc.calcAvatarPath(v, v.anonymous, v.authorId == props.user._id)}
                 width='40px' radius='20px'></AvatarImg>
             </StyledLink>
 
             {v.anonymous !== false ?
-              <StyledSpanAvatarTooltip>
-                {v.authorId == props.user._id
-                  ?
+              <StyledSpanAvatarTooltip>                
                   <StyledDivAvatarInTooltip>
-                    <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], false, v.authorId == props.user._id)} width='40px' radius='20px' />
+                    <AvatarImg src={calc.calcAvatarPath(v, false, v.authorId == props.user._id)} width='40px' radius='20px' />
                     <StyledDivAvatarInTooltipText>
                       <div>{v.author}</div>
-                      <div>{props.words.cntnt_this_is_me}</div>
+                      <div>{v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
                     </StyledDivAvatarInTooltipText>
                   </StyledDivAvatarInTooltip>
-                  :
-                  <StyledDivAvatarInTooltip>
-                    <AvatarImg src={calc.calcAvatarPath(undefined, true, v.authorId == props.user._id)} width='40px' radius='20px' />
-                    <div>
-                      <div>{v.author}</div>
-                      <div>{props.words.cntnt_this_is_anonymous}</div>
-                    </div>
-                  </StyledDivAvatarInTooltip>
-                  // <span>{props.words.cntnt_this_is_anonymous}</span>
-                }
 
               </StyledSpanAvatarTooltip>
               : null

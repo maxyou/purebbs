@@ -55,7 +55,7 @@ const StyledSpanAvatarTooltip = styled.span`
   z-index:1;
   top: -10px;
   left: 85%; 
-  width: 160px;
+  width: 200px;
   background-color: #9f9;  
   visibility: hidden;
   text-align: center;

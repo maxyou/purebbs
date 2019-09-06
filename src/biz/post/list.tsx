@@ -54,7 +54,7 @@ const StyledSpanAvatarTooltip = styled.span`
   z-index:1;
   top: 0px;
   left: 75%; 
-  width: 160px;
+  width: 200px;
   background-color: #9f9;  
   visibility: hidden;
   text-align: center;
@@ -379,26 +379,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                   width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               {v.anonymous !== false ?
-                <StyledSpanAvatarTooltip>
-                  {/* {v.authorId == props.user._id
-                    ?
-                    <StyledDivAvatarInTooltip>
-                      <AvatarImg src={calc.calcAvatarPath(v, false, true)} width='40px' radius='20px' />
-                      <StyledDivAvatarInTooltipText>
-                        <div>{v.author}</div>
-                        <div>{props.words.cntnt_this_is_me}</div>
-                      </StyledDivAvatarInTooltipText>
-                    </StyledDivAvatarInTooltip>
-                    :
-                    <StyledDivAvatarInTooltip>
-                      <AvatarImg src={calc.calcAvatarPath(v, false, false)} width='40px' radius='20px' />
-                      <div>
-                        <div>{v.author}</div>
-                        <div>{props.words.cntnt_this_is_anonymous}</div>
-                      </div>
-                    </StyledDivAvatarInTooltip>
-                    // <span>{props.words.cntnt_this_is_anonymous}</span>
-                  } */}
+                <StyledSpanAvatarTooltip>                 
                     <StyledDivAvatarInTooltip>
                       <AvatarImg src={calc.calcAvatarPath(v, false, v.authorId == props.user._id)} width='40px' radius='20px' />
                       <StyledDivAvatarInTooltipText>
