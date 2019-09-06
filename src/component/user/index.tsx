@@ -5,8 +5,10 @@
 import AvatarImg from './avatar-img'
 import AvatarName from './avatar-name'
 import AvatarCrop from './avatar-crop'
+import UserTip from './user-tooltip'
 export {
     AvatarImg,
     AvatarName,
     AvatarCrop,
+    UserTip,
 }

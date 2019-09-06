@@ -7,7 +7,7 @@ import { calc, time } from '@/tool'
 // import ErrorBoundary from '@/errorBoundary'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
-import { AvatarImg, AvatarName } from '@/component/user'
+import { AvatarImg, UserTip } from '@/component/user'
 
 import * as IconLineup from '@/component/icon/lineup.svg'
 import IconVote from '@/component/icon/vote.svg'
@@ -379,16 +379,21 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                   width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               {v.anonymous !== false ?
-                <StyledSpanAvatarTooltip>                 
-                    <StyledDivAvatarInTooltip>
-                      <AvatarImg src={calc.calcAvatarPath(v, false, v.authorId == props.user._id)} width='40px' radius='20px' />
-                      <StyledDivAvatarInTooltipText>
-                        <div>{v.author}</div>
-                        <div>{v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
-                      </StyledDivAvatarInTooltipText>
-                    </StyledDivAvatarInTooltip>
-
-                </StyledSpanAvatarTooltip>
+                // <StyledSpanAvatarTooltip>                 
+                //     <StyledDivAvatarInTooltip>
+                //       <AvatarImg src={calc.calcAvatarPath(v, false, v.authorId == props.user._id)} width='40px' radius='20px' />
+                //       <StyledDivAvatarInTooltipText>
+                //         <div>{v.author}</div>
+                //         <div>{v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}</div>
+                //       </StyledDivAvatarInTooltipText>
+                //     </StyledDivAvatarInTooltip>
+                // </StyledSpanAvatarTooltip>
+                  <UserTip
+                    avatarPath={calc.calcAvatarPath(v, false, v.authorId == props.user._id)}
+                    name={v.author}
+                    intro={v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                    topLeft={{top:'0px',left:'70px'}}
+                  ></UserTip>
                 : null
               }
 
