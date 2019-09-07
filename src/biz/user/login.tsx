@@ -79,7 +79,7 @@ const Login = function (props) {
 
       </fieldset>
       <fieldset>
-        <legend>{props.words.user_oauth_use_github}</legend>
+        <legend>{props.words.user_oauth_login}</legend>
 
         <a href={`https://github.com/login/oauth/authorize?client_id=${appConfig.oauth_github.client_id}&state=123456&redirect_uri=${appConfig.oauth_github.redirect_uri}`}>
           GitHub
