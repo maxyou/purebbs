@@ -139,21 +139,21 @@ export default function user(state: IState = initState, action: { type: string, 
       }
 
     case actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID:
-      // console.log('reducer: after user upload avatar')
+      console.log('edit----------reducer: after user upload avatar')
       // console.log(action.payload)
       return {
         ...state,
         userAvatarUpdatting: true,
       }
     case actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID_SUCCESS:
-      // console.log('reducer: after user upload avatar success')
+      console.log('edit----------reducer: after user upload avatar success')
       // console.log(action.payload)
       return {
         ...state,
         userAvatarUpdatting: false,
       }
     case actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID_FAIL:
-      // console.log('reducer: after user upload avatar fail')
+      console.log('edit----------reducer: after user upload avatar fail')
       // console.log(action.payload)
       return {
         ...state,

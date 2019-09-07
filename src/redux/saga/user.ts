@@ -87,7 +87,6 @@ function* userUpdateAvatar(action:IAction) {
     if(res.data.code===0){
         // console.log('====user upload avatar 3');
         yield put({ type: actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID_SUCCESS, payload: res.data })
-        yield put({ type: actionUser.ACTION.USER_GET_STATUS})
     }else{        
         // console.log('====user upload avatar 4');
         yield put({ type: actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID_FAIL, payload: res.data })
@@ -99,11 +98,11 @@ function* userUpdate(action:IAction) {
     // console.log('====post get 2'+JSON.stringify(res.data));
     if(res.data.code===0){
         // console.log('====user update 3');
-        yield put({ type: actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID_SUCCESS, payload: res.data })
-        yield put({ type: actionUser.ACTION.USER_GET_STATUS})
+        yield put({ type: actionUser.ACTION.USER_UPDATE_BY_ID_SUCCESS, payload: res.data })
+        // yield put({ type: actionUser.ACTION.USER_GET_STATUS})
     }else{        
         // console.log('====user update 4');
-        yield put({ type: actionUser.ACTION.USER_AVATAR_UPDATE_BY_ID_FAIL, payload: res.data })
+        yield put({ type: actionUser.ACTION.USER_UPDATE_BY_ID_FAIL, payload: res.data })
     }
 }
 

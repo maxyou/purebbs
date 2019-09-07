@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { AvatarImg } from '@/component/user'
 import { user as actionUser } from '@/redux/action'
 import { AvatarCrop } from '@/component/user'
+import { Dispatch } from 'redux';
 
 const StyledDivCard = styled.div`
     width:100%;
@@ -23,7 +25,8 @@ const StyledInput = styled.input`
     display: none;
     // background-color: lightblue;
 `
-function edit(props) {
+
+const edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
 
   const [cropDisplay, setCropDisplay] = useState('none')
   const [file, setFile] = useState<any>(null)
@@ -115,13 +118,28 @@ function edit(props) {
     </StyledDivCard>
   );
 }
+interface IProps extends RouteComponentProps<any>{
+  user: any,
+}
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  user: any,
+  words: any,
+}
+interface IDispatch2Prop {
+  findByIdAndUpdate: (v) => void,
+  findByIdAndUpdateAvatar: (v) => void,
+}
 
-const mapStateToProps = state => ({
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   user: state.user,
   words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   findByIdAndUpdate: (v) => dispatch(actionUser.Creator.userFindByIdAndUpdate(v)),
   findByIdAndUpdateAvatar: (v) => dispatch(actionUser.Creator.userAvatarFindByIdAndUpdate(v)),
 })

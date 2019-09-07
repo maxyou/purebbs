@@ -1,6 +1,9 @@
 
 export default {
 
+    reloadPage(){
+        window.location.reload(true); 
+    },
     defineCanvasToBlob() {
         if (!HTMLCanvasElement.prototype.toBlob) {
             Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
