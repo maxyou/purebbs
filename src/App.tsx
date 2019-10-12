@@ -1,11 +1,21 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { createStore, applyMiddleware, compose} from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from './redux/reducer';
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './redux/saga'
 import Layout from './layout'
+import ApolloClient from 'apollo-boost';
+import { sys } from '../config';
+import { ApolloProvider } from '@apollo/react-hooks';
+var urljoin = require('url-join');
+
+console.log(urljoin(sys.appHomepage, sys.graphql_endpoint))
+
+const client = new ApolloClient({
+  uri: urljoin(sys.appHomepage, sys.graphql_endpoint),
+});
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' as keyof typeof window] as typeof compose || compose;
@@ -29,8 +39,9 @@ class App extends Component<{}, {}> {
     return (
       <div>
         <Provider store={store}>
-          <Layout />
-          
+          <ApolloProvider client={client}>
+            <Layout />
+          </ApolloProvider>
         </Provider>
       </div>
     );

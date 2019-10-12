@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { AvatarImg } from '@/component/user'
+import Pagination from '@/component/pagination'
 import { calc, time } from '@/tool'
 import { user as actionUser } from '@/redux/action'
+import { Dispatch } from 'redux';
 
 const StyledDivCard = styled.div`
     // width:100%;
@@ -12,7 +14,7 @@ const StyledDivCard = styled.div`
     // background-color: #c2c456;
     `
 
-function other(props) {
+const other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
 
   console.log(props)
 
@@ -45,17 +47,32 @@ function other(props) {
           : null
         }
       </fieldset>
+      <Pagination></Pagination>
     </StyledDivCard>
   );
 }
 
 
-const mapStateToProps = state => ({
+interface IProps extends RouteComponentProps<any> {
+  user: any,
+}
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  other: any,
+  words: any,
+}
+interface IDispatch2Prop {
+  userOtherInfoGet: (v?) => void,
+}
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   other: state.user.other,
   words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   userOtherInfoGet: (v) => dispatch(actionUser.Creator.userOtherInfoGet(v)),
 })
 

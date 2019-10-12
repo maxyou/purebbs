@@ -34,14 +34,17 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.2",
     "@types/react": "^16.9.1",
     "@types/react-cropper": "^0.10.6",
     "@types/react-dom": "^16.8.5",
     "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.5",
+    "apollo-boost": "^0.4.4",
     "axios": "^0.19.0",
     "browser-cookies": "^1.2.0",
     "dialog-polyfill": "^0.5.0",
+    "graphql": "^14.5.8",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "next",
@@ -54,6 +57,7 @@
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
     "showdown": "^1.9.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "url-join": "^4.0.1"
   }
 }

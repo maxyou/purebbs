@@ -101,6 +101,7 @@ module.exports = {
                 `/sys`,
                 `/avatar`,
                 `/detail`,
+                `/graphql`,
                 `/post`
             ],
             target: 'http://localhost:3001',
