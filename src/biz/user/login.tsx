@@ -60,13 +60,13 @@ const Login = function (props) {
 
         <form style={{ display: 'inline' }} onSubmit={handleSubmit} method="post">
 
-          <span >{props.words.user_name}: </span>
+          <div >{props.words.user_name}: </div>
           <input type="text" name="name" onChange={e => setName(e.target.value)} value={name} /><br />
 
-          <span >{props.words.user_password}: </span>
+          <div >{props.words.user_password}: </div>
           <input type="password" name="password" onChange={e => setPassword(e.target.value)} value={password} /><br />
 
-          <span >{props.words.cmn_verifyCode}: </span>
+          <div >{props.words.cmn_verifyCode}: </div>
           <input type="text" name="code" onChange={e => setCode(e.target.value)} value={code} /><br />
 
           <img src={`/tool/verify?mt=${random}`} title="看不清？点击刷新"

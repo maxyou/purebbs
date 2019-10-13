@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { user as actionUser } from '@/redux/action'
 import ResetPwd from './resetpwd'
+const appConfig = require('../../../config')
 
 const StyledDivLogin = styled.div`
     // margin: 10px;
@@ -53,15 +54,15 @@ const Register = function (props) {
       <fieldset>
         <legend>{props.words.user_register}</legend>
         <form style={{ display: 'inline' }} onSubmit={handleSubmit} method="post">
-          <span >{props.words.user_name}: </span>
+          <div >{props.words.user_name}: </div>
           <input type="text" name="name" onChange={e => setName(e.target.value)} value={name} /><br />
-          <span >{props.words.user_password}: </span>
+          <div >{props.words.user_password}: </div>
           <input type="password" name="password" onChange={e => setPassword(e.target.value)} value={password} /><br />
-          <span >{props.words.user_passwordAgain}: </span>
+          <div >{props.words.user_passwordAgain}: </div>
           <input type="password" name="passwordAgain" onChange={e => setPasswordAgain(e.target.value)} value={passwordAgain} /><br />
-          <span >{props.words.user_email}: </span>
-          <input type="email" name="email" onChange={e => setEmail(e.target.value)} value={email} />{props.words.user_register_email_optional}<br />
-          <span >{props.words.cmn_verifyCode}: </span>
+          <div >{props.words.user_email}{props.words.user_register_email_optional}: </div>
+          <input type="email" name="email" onChange={e => setEmail(e.target.value)} value={email} /><br />
+          <div >{props.words.cmn_verifyCode}: </div>
           <input type="text" name="code" onChange={e => setCode(e.target.value)} value={code} /><br />
           <img src={`/tool/verify?mt=${random}`} title="看不清？点击刷新"
             onClick={(e:any) => e.target.src = ('/tool/verify?mt=' + Math.random())} /><br />
@@ -69,6 +70,14 @@ const Register = function (props) {
         </form>
         <div>{prompt}</div>
         <div>{props.user && props.user.result && props.user.result.message}</div>
+      </fieldset>
+      <fieldset>
+        <legend>{props.words.user_oauth_login}</legend>
+
+        <a href={`https://github.com/login/oauth/authorize?client_id=${appConfig.oauth_github.client_id}&state=123456&redirect_uri=${appConfig.oauth_github.redirect_uri}`}>
+          GitHub
+        </a>
+
       </fieldset>
       {/* <fieldset>
         <legend>{props.words.user_resetPassword}</legend>
