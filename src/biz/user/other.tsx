@@ -47,7 +47,8 @@ const other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = fun
           : null
         }
       </fieldset>
-      <PostList user={props.other}></PostList>
+      {props.other && props.other.data ?<PostList id={props.other.data._id}></PostList>:null}
+      
     </StyledDivCard>
   );
 }

@@ -6,7 +6,7 @@ import Edit from './edit'
 import Me from './me'
 import PwdEdit from './pwdedit'
 import Other from './other'
-
+import PostList from './postlist'
 const StyledDivTemp = styled.div`
     width: 100px;
     height: 100px;
@@ -34,6 +34,7 @@ function Info(props) {
                     <NavLink to='/user/password/edit'><button>{props.words.user_changePassword}</button></NavLink>
                 </fieldset>
                 : null}
+                
         </div>
     )
 }

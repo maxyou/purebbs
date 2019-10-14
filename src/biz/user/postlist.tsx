@@ -16,40 +16,30 @@ const StyledDivCard = styled.div`
     height:150px;
     // background-color: #c2c456;
     `
-
-const GQL_BOOKS = gql`
-  {
-    book{
-      title
-      author{
-        name
-      }
-    }
-  } 
-`;
 const GQL_POSTS = gql`
   query Posts($id: String!, $length: Int!){
     posts(id:$id, length:$length){
       title
-      id
+      postId
     }
   } 
 `;
 
-const postlist: React.FC<IProps> = function ({ user }: IProps) {
+const lastPostsLength = 30 //显示用户最后30条post
+const postlist: React.FC<IProps> = function ({ id }: IProps) {
 
     //显示最近50条post
     console.log('==========postlist user.id')
-    console.log(user)
+    console.log(id)
 
-    if(!user || !user.data){
+    if (!id) {
         return null
     }
 
-    const { loading, error, data, networkStatus } = useQuery(GQL_POSTS,{
-        variables:{
-            id: user.data._id,
-            length: 2
+    const { loading, error, data, networkStatus } = useQuery(GQL_POSTS, {
+        variables: {
+            id: id,
+            length: lastPostsLength
         }
     });
     // const [getDog, { loading, data }] = useLazyQuery(GQL_BOOKS);
@@ -63,26 +53,27 @@ const postlist: React.FC<IProps> = function ({ user }: IProps) {
 
     console.log('userQuery data:')
     console.log(data)
-    return data.posts.map(({ title, id }) => (
-        <div key={id}>
-            <p>
-                {id}: {title}
-            </p>
-        </div>
-    ));
 
-    // return (
-    //     <StyledDivCard>
-    //         <button onClick={() => getDog()}>
-    //             Click me!
-    //         </button>
-    //         {JSON.stringify(user)}
-    //     </StyledDivCard>
-    // );
+    return (
+
+        <fieldset>
+            <legend>{lastPostsLength}</legend>
+            {
+                data.posts.map(({ title, postId }) => (
+                    <div key={postId}>
+                        <p>
+                            {postId}: {title}
+                        </p>
+                    </div>
+                ))
+            }
+        </fieldset>
+    )
+
 }
 
 interface IProps extends RouteComponentProps<any> {
-    user: any,
+    id: string,
 }
 interface IRouterProp {
     history: any,
