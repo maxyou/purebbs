@@ -11,6 +11,16 @@ import { user as actionUser } from '@/redux/action'
 import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
+
+const StyledDivPost = styled.div`  
+  margin: 5px;
+  padding: 2px;
+  background-color: #fff;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;  
+`
+
 const StyledLink = styled(Link)`
   text-decoration:none;
 `
@@ -66,12 +76,14 @@ const postlist: React.FC<IProps & IState2Prop> = function (props) {
             {
                 data.posts.map(({ title, postId, created }) => (
                     <div key={postId}>
-                        <p>
+                        <StyledDivPost>
                             <StyledLink to={`/detail/${postId}`} >
-                            {title}
+                                {title}
                             </StyledLink>
-                            {time.fromNow(created)}
-                        </p>
+                            <span>
+                                {time.fromNow(created)}
+                            </span>
+                        </StyledDivPost>
                     </div>
                 ))
             }
