@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { AvatarImg } from '@/component/user'
@@ -11,6 +11,9 @@ import { user as actionUser } from '@/redux/action'
 import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
+const StyledLink = styled(Link)`
+  text-decoration:none;
+`
 const StyledDivCard = styled.div`
     width:100%;
     height:150px;
@@ -21,24 +24,26 @@ const GQL_POSTS = gql`
     posts(id:$id, length:$length){
       title
       postId
+      created
+      category
     }
   } 
 `;
 
 const lastPostsLength = 30 //显示用户最后30条post
-const postlist: React.FC<IProps> = function ({ id }: IProps) {
+const postlist: React.FC<IProps & IState2Prop> = function (props) {
 
     //显示最近50条post
     console.log('==========postlist user.id')
-    console.log(id)
+    console.log(props.id)
 
-    if (!id) {
+    if (!props.id) {
         return null
     }
 
     const { loading, error, data, networkStatus } = useQuery(GQL_POSTS, {
         variables: {
-            id: id,
+            id: props.id,
             length: lastPostsLength
         }
     });
@@ -57,12 +62,15 @@ const postlist: React.FC<IProps> = function ({ id }: IProps) {
     return (
 
         <fieldset>
-            <legend>{lastPostsLength}</legend>
+            <legend>{props.words.user_last_post_list}</legend>
             {
-                data.posts.map(({ title, postId }) => (
+                data.posts.map(({ title, postId, created }) => (
                     <div key={postId}>
                         <p>
-                            {postId}: {title}
+                            <StyledLink to={`/detail/${postId}`} >
+                            {title}
+                            </StyledLink>
+                            {time.fromNow(created)}
                         </p>
                     </div>
                 ))
