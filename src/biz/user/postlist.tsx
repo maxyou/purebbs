@@ -28,8 +28,8 @@ const GQL_BOOKS = gql`
   } 
 `;
 const GQL_POSTS = gql`
-  {
-    posts{
+  query Posts($id: String!, $length: Int!){
+    posts(id:$id, length:$length){
       title
       id
     }
@@ -39,8 +39,19 @@ const GQL_POSTS = gql`
 const postlist: React.FC<IProps> = function ({ user }: IProps) {
 
     //显示最近50条post
+    console.log('==========postlist user.id')
+    console.log(user)
 
-    const { loading, error, data, networkStatus } = useQuery(GQL_POSTS);
+    if(!user || !user.data){
+        return null
+    }
+
+    const { loading, error, data, networkStatus } = useQuery(GQL_POSTS,{
+        variables:{
+            id: user.data._id,
+            length: 2
+        }
+    });
     // const [getDog, { loading, data }] = useLazyQuery(GQL_BOOKS);
 
     if (loading) return <p>Loading...</p>;
