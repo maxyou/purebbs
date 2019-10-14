@@ -27,37 +27,47 @@ const GQL_BOOKS = gql`
     }
   } 
 `;
-const pagination: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
+const GQL_POSTS = gql`
+  {
+    posts{
+      title
+      id
+    }
+  } 
+`;
 
+const postlist: React.FC<IProps> = function ({ user }: IProps) {
 
-    // const { loading, error, data, networkStatus  } = useQuery(GQL_BOOKS);
-    const [getDog, { loading, data }] = useLazyQuery(GQL_BOOKS);
+    //显示最近50条post
+
+    const { loading, error, data, networkStatus } = useQuery(GQL_POSTS);
+    // const [getDog, { loading, data }] = useLazyQuery(GQL_BOOKS);
 
     if (loading) return <p>Loading...</p>;
-    // if (error) {
-    //     console.log('userQuery error:')
-    //     console.log(JSON.stringify(error))
-    //     return <p>Error :(</p>;
-    //     }
-        
+    if (error) {
+        console.log('userQuery error:')
+        console.log(JSON.stringify(error))
+        return <p>Error :(</p>;
+    }
+
     console.log('userQuery data:')
     console.log(data)
-    // return data.rates.map(({ currency, rate }) => (
-    //   <div key={currency}>
-    //     <p>
-    //       {currency}: {rate}
-    //     </p>
-    //   </div>
-    // ));
+    return data.posts.map(({ title, id }) => (
+        <div key={id}>
+            <p>
+                {id}: {title}
+            </p>
+        </div>
+    ));
 
-    return (
-        <StyledDivCard>
-            <button onClick={() => getDog()}>
-                Click me!
-            </button>
-            {JSON.stringify(data)}
-        </StyledDivCard>
-    );
+    // return (
+    //     <StyledDivCard>
+    //         <button onClick={() => getDog()}>
+    //             Click me!
+    //         </button>
+    //         {JSON.stringify(user)}
+    //     </StyledDivCard>
+    // );
 }
 
 interface IProps extends RouteComponentProps<any> {
@@ -81,9 +91,9 @@ const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: 
 
 })
 
-export default withRouter(
+export default withRouter<IProps, any>(
     (connect(
         mapStateToProps,
         mapDispatchToProps
-    ) as any)(pagination)
+    ) as any)(postlist)
 )

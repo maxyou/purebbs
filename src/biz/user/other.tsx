@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { AvatarImg } from '@/component/user'
-import Pagination from '@/component/pagination'
+import PostList from './postlist'
 import { calc, time } from '@/tool'
 import { user as actionUser } from '@/redux/action'
 import { Dispatch } from 'redux';
@@ -47,7 +47,7 @@ const other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = fun
           : null
         }
       </fieldset>
-      <Pagination></Pagination>
+      <PostList user={props.other}></PostList>
     </StyledDivCard>
   );
 }

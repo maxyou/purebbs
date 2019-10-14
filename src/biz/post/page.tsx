@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import PageRound from './paginate'
 import PostList from './list'
-import { Route, Link } from 'react-router-dom'
+import { NavLink, Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux';
 import { post as actionPost } from '@/redux/action'
 import Board from "./board"
 
@@ -60,7 +61,7 @@ const StyledSpanCategory = styled.span`
 const StyledLink = styled(Link)`
   text-decoration:none;
 `
-function page(props) {
+const page: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
 
   function handlePageJump(e){
     console.log(e.key)
@@ -91,8 +92,22 @@ function page(props) {
     </div>
   );
 }
-
-const mapStateToProps = state => ({
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  user: any,
+  words: any,
+  postPageSize: number,
+  postTotalDocs: number,
+}
+interface IDispatch2Prop {
+  changePageSize: (v?) => void,
+  categoryNav: (v?) => void,
+  nav: (v) => void,
+}
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   words: state.locale.words,
   user: state.user,
   postPageSize: state.post.postPageSize,
@@ -101,12 +116,15 @@ const mapStateToProps = state => ({
   // category: state.post.category,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   changePageSize: (v) => dispatch(actionPost.Creator.postChangePageSize(v)),
   categoryNav: (v) => dispatch(actionPost.Creator.postCategoryNav(v)),
   nav: (v) => dispatch(actionPost.Creator.postNav(v))
 })
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(page)
+
+export default withRouter(
+  (connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ) as any)(page)
+)
