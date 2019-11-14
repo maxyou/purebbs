@@ -24,8 +24,13 @@ server repo:
 - [server](https://github.com/maxyou/purebbs-server)
 
 
+### post page:
 ![](https://github.com/maxyou/purebbs/raw/master/post.PNG)
+
+### vote page:
 ![](https://github.com/maxyou/purebbs/raw/master/detail.PNG)
+
+### lineup page:
 ![](https://github.com/maxyou/purebbs/raw/master/detail2.PNG)
 
 ## License<br>
