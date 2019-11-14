@@ -26,6 +26,7 @@ server repo:
 
 ![](https://github.com/maxyou/purebbs/raw/master/post.PNG)
 ![](https://github.com/maxyou/purebbs/raw/master/detail.PNG)
+![](https://github.com/maxyou/purebbs/raw/master/detail2.PNG)
 
 ## License<br>
 under [MIT License](http://www.opensource.org/licenses/MIT).
