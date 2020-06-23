@@ -20,8 +20,9 @@ todo:
 - @
 - upload picture
 
-server repo:
+repos:
 - [server](https://github.com/maxyou/purebbs-server)
+- [android](https://github.com/maxyou/purebbs-android)
 
 
 ### post page:
