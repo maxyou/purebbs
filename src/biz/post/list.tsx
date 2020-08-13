@@ -21,7 +21,7 @@ const PostTitleHeight = '40px'
 const PostInfoHeight = '20px'
 
 const StyledDivCard = styled.div`
-  padding: 0.5px;
+  padding: 1.5px;
   // background-color: #ffffff;
   // list-style-type:none;
   // display:flex;
@@ -29,6 +29,19 @@ const StyledDivCard = styled.div`
   // align-items: center;  
 `
 const StyledDivContainer = styled.div`
+
+  &:hover{
+    position:relative;
+    left:-4px; 
+    top:-2px;
+    // border-top-width:0.2px;
+    // border-left-width:0px;
+    // border-right-width:0px;
+    // border-bottom-width:0px;
+    // border-style:solid;
+    // border-top-color:lightblue;
+  }
+
   display:flex;
   justify-content: flex-start;
   align-items: center;  
