@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "ecdddb1e809498558099";
+/******/ 	var hotCurrentHash = "941fb56f7ac16ee2d988";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -808,12 +808,12 @@
 var path = __webpack_require__(/*! path */ "./node_modules/path-browserify/index.js");
 var sys = {
     appRoot: path.resolve(__dirname),
-    appHomepage: 'http://localhost:3000',
+    appHomepage: 'http://purebbs.com',
     graphql_endpoint: '/graphql'
 };
 var oauth_github = {
-    client_id: 'fa4dc7af97163e8d9837',
-    redirect_uri: 'http://localhost:3001/oauth/github/callback'
+    client_id: 'ebae0c9426621b81909f',
+    redirect_uri: 'http://purebbs.com/oauth/github/callback'
 };
 module.exports = {
     sys: sys,
