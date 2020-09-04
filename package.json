@@ -56,7 +56,7 @@
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
-    "showdown": "^1.9.0",
+    "showdown": "^1.9.1",
     "styled-components": "^4.3.2",
     "url-join": "^4.0.1"
   }
