@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux'
-import {admin as actionAdmin} from '@/redux/action'
-import {calc} from '@/tool'
+import {admin as actionAdmin} from 'redux/action'
+import {calc} from 'tool'
 // console.log('actionAdmin-------')
 // console.log(actionAdmin)
 
@@ -19,7 +20,7 @@ const StyledPageRound = styled.div`
         height: 25px;
     }
 `
-function pageRound({current, ext, totalDocs, pageSize, nav}) {
+function pageRound({current, ext, totalDocs, pageSize, nav}:IState2Prop & IDispatch2Prop) {
 
     // if(!pageSize) {pageSize=10}
     var maxRight = Math.ceil(totalDocs/pageSize)
@@ -48,15 +49,23 @@ function pageRound({current, ext, totalDocs, pageSize, nav}) {
         </div>
     );
 }
-
-const mapStateToProps = state => ({
+interface IState2Prop {
+    ext: any,
+    current: number,
+    pageSize: number,
+    totalDocs: number,
+  }
+  interface IDispatch2Prop {
+    nav: (v:any) => void,
+  }
+  const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     ext: state.admin.userPaginateExt,
     current: state.admin.userPageCurrent,
     pageSize: state.admin.userPageSize,
     totalDocs: state.admin.userTotalDocs,
   })
   
-  const mapDispatchToProps = dispatch => ({
+  const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     nav: (v) => dispatch(actionAdmin.Creator.userNav(v))
   })
   export default connect(

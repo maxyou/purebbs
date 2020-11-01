@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Link, NavLink, Redirect, withRouter } from 'react-router-dom'
-import { user as actionUser, locale as actionLocale, sys as actionSys, post as actionPost, detail as actionDetail } from '@/redux/action'
-import { AvatarImg } from '@/component/user'
-// import {calc} from '@/tool'
+import { user as actionUser, locale as actionLocale, sys as actionSys, post as actionPost, detail as actionDetail } from 'redux/action'
+import { AvatarImg } from 'component/user'
+// import {calc} from 'tool'
 
 
 const AppbarHeight = '50px'
@@ -89,7 +89,7 @@ const StyledLink = styled(Link)`
 const StyledSelect = styled.select`
   margin: 10px;
 `
-function usePrevious(value):any {
+function usePrevious(value:any):any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -112,34 +112,34 @@ interface IState2Prop {
     commentPageSize: any,
 }
 interface IDispatch2Prop {
-    userLogout: (v?) => void,
-    userLogoutReset: (v?) => void,
-    userGetStatus: (v?) => void,
-    languageSet: (v) => void,
-    categoryGet: (v?) => void,
-    changePageSize: (v?) => void,
-    changeCommentPageSize: (v?) => void,
+    userLogout: (v?:any) => void,
+    userLogoutReset: (v?:any) => void,
+    userGetStatus: (v?:any) => void,
+    languageSet: (v:any) => void,
+    categoryGet: (v?:any) => void,
+    changePageSize: (v?:any) => void,
+    changeCommentPageSize: (v?:any) => void,
 }
 const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
     const { isLogin, userLogoutting } = props
     const prevProps:IState2Prop = usePrevious({ isLogin, userLogoutting })
 
     const StyledDivUserAvatarName = styled(StyledDivUserCtrl)`
-        display:${props.isLogin ? 'flex' : 'none'}
+        display:${props.isLogin ? 'flex' : 'none'};
         justify-content: center;
         align-items: center;
     `
     const StyledDivUserLogin = styled(StyledDivUserCtrl)`
-        display:${props.isLogin ? 'none' : 'flex'}
+        display:${props.isLogin ? 'none' : 'flex'};
     `
     const StyledDivUserRegister = styled(StyledDivUserCtrl)`
-        display:${props.isLogin ? 'none' : 'flex'}
+        display:${props.isLogin ? 'none' : 'flex'};
     `
     const StyledDivUserLogout = styled(StyledDivUserCtrl)`
-        display:${props.isLogin ? 'flex' : 'none'}
+        display:${props.isLogin ? 'flex' : 'none'};
     `
     const StyledDivUserAdmin = styled(StyledDivUserCtrl)`
-        display:${props.isLogin ? 'flex' : 'none'}
+        display:${props.isLogin ? 'flex' : 'none'};
     `
 
     function logout() {

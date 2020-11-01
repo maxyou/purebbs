@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { extend as actionExtend } from '@/redux/action'
-import { detail as actionDetail } from '@/redux/action'
-import { AvatarImg, UserTip } from '@/component/user'
+import { extend as actionExtend } from 'redux/action'
+import { detail as actionDetail } from 'redux/action'
+import { AvatarImg, UserTip } from 'component/user'
+import { calc, time } from 'tool'
+import {FieldSet} from 'component/style'
+
 var moment = require('moment')
-import { calc, time } from '@/tool'
 
 const StyledDivVoteContainer = styled.div`
     // padding: 5px;    
@@ -100,7 +103,7 @@ const StyledDivAvatarInTooltipText = styled.div`
   align-items: flex-start;
 `
 
-function usePrevious(value): any {
+function usePrevious(value:any): any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -109,12 +112,12 @@ function usePrevious(value): any {
 }
 
 
-function Vote(props) {
+function Vote(props:IState2Prop & IDispatch2Prop) {
 
     // const [message, setMessage] = useState('')
     const [anonymous, setAnonymous] = useState(false)
 
-    const [singleVote, setSingleVote] = useState(null)
+    const [singleVote, setSingleVote] = useState<number|null>(null)
     const [multiVote, setMultiVote] = useState<boolean[]>([])
 
 
@@ -148,7 +151,7 @@ function Vote(props) {
         anonymous: boolean,
     }
 
-    function getVoter(index): IVoter[] {
+    function getVoter(index:number): IVoter[] {
 
         // console.log('------get voter------')
         // console.log(index)
@@ -162,7 +165,7 @@ function Vote(props) {
                 // console.log('------get voter------2')
 
                 // console.log(JSON.stringify(voteData[index]))
-                voteData[index].forEach((v) => {
+                voteData[index].forEach((v:any) => {
                     voter.push({
                         _id: v._id,
                         name: v.name,
@@ -179,12 +182,12 @@ function Vote(props) {
         return voter
     }
 
-    function findMeInVoteData(voteData) {
+    function findMeInVoteData(voteData:any) {
 
         if (voteData) {
-            return voteData.some(function (item, index, array) {
+            return voteData.some(function (item:any, index:number, array:any) {
                 if (item) {
-                    return item.some(function (itemInner, index, array) {
+                    return item.some(function (itemInner:any, index:number, array:any) {
                         return itemInner._id == props.user._id
                     })
                 }
@@ -284,7 +287,7 @@ function Vote(props) {
             _id: props.post.data._id,
         })
     }
-    function radioChange(v, index, e) {
+    function radioChange(v:any, index:number, e:any) {
 
         if (props.extendFromServer.hasCtxUser || findMeInVoteData(props.extendFromServer.voteData)) {
             return
@@ -297,7 +300,7 @@ function Vote(props) {
 
         setSingleVote(index)
     }
-    function checkboxChange(v, index, e) {
+    function checkboxChange(v:any, index:number, e:any) {
 
         if (props.extendFromServer.hasCtxUser || findMeInVoteData(props.extendFromServer.voteData)) {
             return
@@ -322,7 +325,7 @@ function Vote(props) {
     }
     return (
         <StyledDivVoteContainer>
-            <fieldset>
+            <FieldSet.StyledFieldSet>
                 <legend>{props.words.ext_vote}</legend>
 
                 {/* <StyledDivFieldsetContainer> */}
@@ -345,7 +348,7 @@ function Vote(props) {
                 <div>
                     {
                         props.extendFromServer && props.extendFromServer.addVote ?
-                            props.extendFromServer.addVote.options.map((v, index) =>
+                            props.extendFromServer.addVote.options.map((v:any, index:number) =>
                                 <StyledDivItem key={index}>
                                     <div>
                                         <StyledDivOption>
@@ -407,14 +410,26 @@ function Vote(props) {
                     {JoinQuitButton()}
                 </div>
                 {/* </StyledDivFieldsetContainer> */}
-            </fieldset>
+            </FieldSet.StyledFieldSet>
 
         </StyledDivVoteContainer>
     )
 }
 
-
-const mapStateToProps = state => ({
+interface IState2Prop {
+    user: any,
+    words: any,
+    post: any,
+    voteJoinning: boolean,
+    voteQuitting: boolean,
+    extendFromServer: any
+  }
+  interface IDispatch2Prop {
+    extendVoteJoin: (v?:any) => void,
+    extendVoteQuit: (v?:any) => void,
+    detailPostGet: (v:any) => void,
+  }
+  const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     voteJoinning: state.extend.voteJoinning,
     voteQuitting: state.extend.voteQuitting,
     extendFromServer: state.extend.extendFromServer,
@@ -423,7 +438,7 @@ const mapStateToProps = state => ({
     words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     extendVoteJoin: (v) => dispatch(actionExtend.Creator.extendVoteJoin(v)),
     extendVoteQuit: (v) => dispatch(actionExtend.Creator.extendVoteQuit(v)),
     detailPostGet: (v) => dispatch(actionDetail.Creator.detailPostGet(v)),

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux';
-import { detail as actionDetail } from '@/redux/action'
-// import ErrorBoundary from '@/errorBoundary'
+import { detail as actionDetail } from 'redux/action'
+// import ErrorBoundary from 'errorBoundary'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
-import { calc, time } from '@/tool'
-import { AvatarImg, UserTip } from '@/component/user'
+import { calc, time } from 'tool'
+import { AvatarImg, UserTip } from 'component/user'
 import dialogPolyfill from 'dialog-polyfill'
-import { command } from '@/biz/common'
+import { command } from 'biz/common'
 import ReactMde from "react-mde"
 import * as Showdown from "showdown";
 
@@ -26,7 +26,7 @@ const CommentInfoHeight = '20px'
 const StyledDivList = styled.div`
   min-height: ${CommentTotalHeight}
   padding: 0.5px;
-  // margin: 0.5px;
+  margin-bottom: 5px;
   display:flex;
   justify-content: flex-start;
   align-items: stretch;  
@@ -143,7 +143,7 @@ const StyledSpanOp = styled.span`
     color: #333333;
   }
 `
-const StyledSpanLike = styled.span`
+const StyledSpanLike = styled.span<{hoverColor:string}>`
   font-size: small;
   margin-left: 5px;
   color: ${props => props.color};
@@ -181,15 +181,15 @@ const StyledSpanAnonymous = styled.span`
     font-size: small;
 `
 
-function useIdAsKey(commentListResult) {
+function useIdAsKey(commentListResult:any) {
   if (commentListResult && commentListResult.data && commentListResult.data.length >= 0) {
-    return commentListResult.data.map((v) => ({ ...v, key: v._id }))
+    return commentListResult.data.map((v:any) => ({ ...v, key: v._id }))
   }
   // console.log(array)
   return []
 }
 
-function usePrevious(value): any {
+function usePrevious(value:any): any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -199,15 +199,15 @@ function usePrevious(value): any {
 interface IRouterProp {
   match: any,
 }
-const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props) {
+const CommentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props) {
   // function commentList(props) {
 
   useEffect(
     () => {
-      var detailCommentDialog = document.getElementById('detailCommentDialog');
+      var detailCommentDialog:HTMLElement|null = document.getElementById('detailCommentDialog');
       // console.log('detailCommentDialog---------')
       // console.log(detailCommentDialog)
-      dialogPolyfill.registerDialog(detailCommentDialog);
+      dialogPolyfill.registerDialog(detailCommentDialog as HTMLDialogElement);      
     }, []
   )
 
@@ -248,8 +248,8 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
   const dataSource = useIdAsKey(props.commentListResult)
   // console.log(dataSource)
 
-  function handleDelete(v) {
-    if (confirm(`${props.words.cmn_confirmDelete}? ${v.content}`)) {
+  function handleDelete(v:any) {
+    if (window.confirm(`${props.words.cmn_confirmDelete}? ${v.content}`)) {
       props.delete(v)
       // alert("继续");
     } else {
@@ -258,7 +258,7 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
   }
 
   function handleUpdate() {
-    if (confirm(`${props.words.cmn_confirmUpdate}? ${commentEdit.content}`)) {
+    if (window.confirm(`${props.words.cmn_confirmUpdate}? ${commentEdit.content}`)) {
       props.update(commentEdit)
       // alert("继续");
     } else {
@@ -266,14 +266,14 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
     }
   }
 
-  function openEdit(v) {
+  function openEdit(v:any) {
     console.log(v)
     setCommentEdit(v)
     var detailCommentDialog: any = document.getElementById('detailCommentDialog');
     detailCommentDialog!.showModal()
   }
 
-  function handleLike(v) {
+  function handleLike(v:any) {
 
     if (!props.user.isLogin) {
       return
@@ -294,7 +294,7 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
     })
   }
 
-  function commentEditOnChange(e) {
+  function commentEditOnChange(e:any) {
     console.log(e)
     console.log(commentEdit)
     setCommentEdit({ ...commentEdit, content: e })
@@ -328,7 +328,7 @@ const commentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
         </form>
       </StyledDialog>
       {
-        dataSource.map((v) => <StyledDivList key={v.key}>
+        dataSource.map((v:any) => <StyledDivList key={v.key}>
           {/* <StyledDivContainerNoUse> */}
           {/* {JSON.stringify(v)} */}
 
@@ -426,10 +426,10 @@ interface IState2Prop {
   commentAttaching: boolean,
 }
 interface IDispatch2Prop {
-  get: (v?) => void,
-  delete: (v?) => void,
-  update: (v) => void,
-  findByIdAndAttach: (v?) => void,
+  get: (v?:any) => void,
+  delete: (v?:any) => void,
+  update: (v:any) => void,
+  findByIdAndAttach: (v?:any) => void,
 }
 
 const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
@@ -460,5 +460,5 @@ export default withRouter(
   (connect(
     mapStateToProps,
     mapDispatchToProps
-  ) as any)(commentList)
+  ) as any)(CommentList)
 )

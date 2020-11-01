@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { extend as actionExtend } from '@/redux/action'
-import { detail as actionDetail } from '@/redux/action'
-import { AvatarImg, UserTip } from '@/component/user';
-import { calc, time } from '@/tool'
+import { extend as actionExtend } from 'redux/action'
+import { detail as actionDetail } from 'redux/action'
+import { AvatarImg, UserTip } from 'component/user';
+import { calc, time } from 'tool'
+import { Dispatch } from 'redux';
+import {FieldSet} from 'component/style'
 
 const SytledSpanUserTipContainer = styled.span`
   position: relative;
@@ -17,7 +19,7 @@ const SytledSpanUserTipContainer = styled.span`
 const StyledDivSetting = styled.div`
     padding-left: 20px;    
 `
-const StyledDivColor = styled.div`
+const StyledDivColor = styled.div<{setColor:number}>`
     background-color:${props => {
         // console.log('StyledDivColor')
         // console.log(props)
@@ -32,7 +34,7 @@ const StyledDivColor = styled.div`
     }};
 `
 
-function usePrevious(value): any {
+function usePrevious(value:any): any {
     const ref = useRef();
     useEffect(() => {
         ref.current = value;
@@ -41,7 +43,7 @@ function usePrevious(value): any {
 }
 
 
-function Lineup(props) {
+function Lineup(props:IState2Prop & IDispatch2Prop) {
 
     const [message, setMessage] = useState('')
     const [anonymous, setAnonymous] = useState(false)
@@ -106,7 +108,7 @@ function Lineup(props) {
             )
         }
 
-        if (props.extendFromServer.hasCtxUser || props.extendFromServer.lineupData.some((v) => { return v._id == props.user._id })) {
+        if (props.extendFromServer.hasCtxUser || props.extendFromServer.lineupData.some((v:any) => { return v._id == props.user._id })) {
             console.log('quit button')
             return (
                 <div>
@@ -159,7 +161,7 @@ function Lineup(props) {
     }
     return (
         <div>
-            <fieldset>
+            <FieldSet.StyledFieldSet>
                 <legend>{props.words.ext_lineup}</legend>
 
                 <span>{props.words.cmd_setting}</span>
@@ -174,7 +176,7 @@ function Lineup(props) {
                 <hr></hr>
                 <span>{props.words.ext_already_lineupped}:</span>
                 <StyledDivSetting>
-                    {props.extendFromServer.lineupData.map((v, index) =>
+                    {props.extendFromServer.lineupData.map((v:any, index:number) =>
                         <StyledDivColor setColor={index} key={index}>
                             {index + 1}.
                             <SytledSpanUserTipContainer>
@@ -195,14 +197,26 @@ function Lineup(props) {
                     {JoinQuitButton()}
                 </div>
 
-            </fieldset>
+            </FieldSet.StyledFieldSet>
 
         </div>
     )
 }
 
-
-const mapStateToProps = state => ({
+interface IState2Prop {
+    user: any,
+    words: any,
+    post: any,
+    extendFromServer:any,
+    lineupQuitting:boolean,
+    lineupJoinning:boolean
+  }
+  interface IDispatch2Prop {
+    extendLineupJoin: (v?:any) => void,
+    extendLineupQuit: (v?:any) => void,
+    detailPostGet: (v:any) => void,
+  }
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     lineupJoinning: state.extend.lineupJoinning,
     lineupQuitting: state.extend.lineupQuitting,
     extendFromServer: state.extend.extendFromServer,
@@ -211,7 +225,7 @@ const mapStateToProps = state => ({
     words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     extendLineupJoin: (v) => dispatch(actionExtend.Creator.extendLineupJoin(v)),
     extendLineupQuit: (v) => dispatch(actionExtend.Creator.extendLineupQuit(v)),
     detailPostGet: (v) => dispatch(actionDetail.Creator.detailPostGet(v)),

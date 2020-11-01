@@ -157,6 +157,18 @@ export default {
         }
         // console.log(ba)
         return ba
+    },
+    getRandomColorString(){
+
+        var hex = Math.floor(Math.random() * Math.floor(0xffffff))
+        var hexStr = hex.toString(16)
+        
+        while (hexStr.length < 6) {
+            hexStr = "0" + hexStr;
+        }
+        
+        // console.log(hexStr)
+        return "#" + hexStr
     }
 
 }

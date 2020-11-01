@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import AvatarImg from './avatar-img'
 
-const StyledDivAvatarName = styled.div`
+const StyledDivAvatarName = styled.div<{size:string}>`
   height: ${props=>props.size};
   width: ${props=>props.size};
   display:flex;
@@ -11,20 +11,20 @@ const StyledDivAvatarName = styled.div`
   align-items: center;
 //   background-color: green;
   `
-  const StyledDivName = styled.div`
+  const StyledDivName = styled.div<{size:string}>`
   font-size: ${props=>props.size};
   height: 15px;
   color: #4F4F4F;
 //   background-color: red;
 `
 
-export default function AvatarName(props) {
+export default function AvatarName(props:any) {
     const {src, name, size, radius} = props
     console.log('AvatarName')
     console.log(name)
     console.log(src)
 
-    function size2Width(size){
+    function size2Width(size:string):string{
         switch(size){
             case 'small':
                 // console.log('size2Width(size) 45px')
@@ -32,21 +32,25 @@ export default function AvatarName(props) {
             case 'medium':
                 // console.log('size2Width(size) 55px')
                 return '60px'
+            default:
+                return '60px'
         }
     }
         
-    function size2ImgWidth(size){
+    function size2ImgWidth(size:string):string{
         switch(size){
             case 'small':
-            // console.log('size2ImgWidth(size) 35px')
-            return '35px'
+                // console.log('size2ImgWidth(size) 35px')
+                return '35px'
             case 'medium':
-            // console.log('size2ImgWidth(size) 45px')
-            return '45px'
+                // console.log('size2ImgWidth(size) 45px')
+                return '45px'
+            default:
+                return '45px'
         }
     }
 
-    function calcRadius(radius){
+    function calcRadius(radius:string):string{
         switch(radius){
             case 'small':
                 // console.log('calcRadius(size) 5px')
@@ -59,11 +63,13 @@ export default function AvatarName(props) {
             }
         }
 
-    function size2FontSize(size){
+    function size2FontSize(size:string):string{
         switch(size){
             case 'small':
                 return 'xx-small'
             case 'medium':
+                return 'x-small'
+            default:
                 return 'x-small'
         }
     }

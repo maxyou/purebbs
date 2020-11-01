@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { detail as actionDetail } from '@/redux/action'
-import { post as actionPost } from '@/redux/action'
-import { calc, time } from '@/tool'
+import { detail as actionDetail } from 'redux/action'
+import { post as actionPost } from 'redux/action'
+import { calc, time } from 'tool'
 import styled from 'styled-components'
-import { AvatarImg, UserTip } from '@/component/user'
-import * as Extend from '@/biz/extend'
-import { command } from '@/biz/common'
+import { AvatarImg, UserTip } from 'component/user'
+import * as Extend from 'biz/extend'
+import { command } from 'biz/common'
 import dialogPolyfill from 'dialog-polyfill'
 import ReactMde from "react-mde";
 import { Dispatch } from 'redux';
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 // import { category } from "../common"
-import {ICategoryItem} from '@/redux/common'
+import {ICategoryItem} from 'redux/common'
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -152,7 +152,7 @@ const StyledSpanOp = styled.span`
     color: #333333;
   }
 `
-const StyledSpanLike = styled.span`
+const StyledSpanLike = styled.span<{hoverColor:string}>`
   font-size: small;
   padding-left: 5px;
   // margin-left: 10px;
@@ -201,7 +201,7 @@ const StyledSpanAnonymous = styled.span`
     font-size: small;
 `
 
-function usePrevious(value):any {
+function usePrevious(value:any):any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -212,22 +212,22 @@ interface IRouterProp {
   history: any,
   match: any,
 }
-const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props) {
+const Post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props) {
 
   useEffect(
     () => {
-      var detailPostDialog = document.getElementById('detailPostDialog');
+      var detailPostDialog:HTMLElement|null = document.getElementById('detailPostDialog');
       // console.log('detailPostDialog---------')
       // console.log(detailPostDialog)
-      dialogPolyfill.registerDialog(detailPostDialog);
+      dialogPolyfill.registerDialog(detailPostDialog as HTMLDialogElement);
     }, []
   )
 
   const [postEdit, setPostEdit] = useState({ title: '', content: '', category: '', anonymous: false })
 
-  function handleDelete(v) {
+  function handleDelete(v:any) {
     console.log(props)
-    if (confirm(`${props.words.cmn_confirmDelete}? ${v.title}`)) {
+    if (window.confirm(`${props.words.cmn_confirmDelete}? ${v.title}`)) {
       props.findByIdAndDelete(v)
       props.history.push('/post')
       // alert("继续");
@@ -276,21 +276,21 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
 
 
   function handleUpdate() {
-    if (confirm(`${props.words.cmn_confirmUpdate}? ${postEdit.title}`)) {
+    if (window.confirm(`${props.words.cmn_confirmUpdate}? ${postEdit.title}`)) {
       props.findByIdAndUpdate(postEdit)
       // alert("继续");
     } else {
       // alert("再见");
     }
   }
-  function openEdit(v) {
+  function openEdit(v:any) {
     setPostEdit(v)
     console.log('openEdit')
     console.log(v)
     var detailPostDialog:any = document.getElementById('detailPostDialog');
     detailPostDialog!.showModal()
   }
-  function toggleStickTop(v) {
+  function toggleStickTop(v:any) {
     // v.stickTop = !v.stickTop
     props.findByIdAndAttach({
       _id: v._id,
@@ -304,7 +304,7 @@ const post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
     // console.log('------------postEdit.stickTop:'+postEdit.stickTop)
     // props.findByIdAndUpdate(postEdit)
   }
-  function handleLike(v) {
+  function handleLike(v:any) {
     if (!props.user.isLogin) {
       return
     }
@@ -451,10 +451,10 @@ interface IState2Prop {
   category: ICategoryItem[],
 }
 interface IDispatch2Prop {
-  detailPostGet: (v?) => void,
-  findByIdAndDelete: (v?) => void,
-  findByIdAndUpdate: (v) => void,
-  findByIdAndAttach: (v?) => void,
+  detailPostGet: (v?:any) => void,
+  findByIdAndDelete: (v?:any) => void,
+  findByIdAndUpdate: (v:any) => void,
+  findByIdAndAttach: (v?:any) => void,
 }
 
 const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
@@ -477,5 +477,5 @@ export default withRouter(
   (connect(
       mapStateToProps,
       mapDispatchToProps
-  ) as any) (post)
+  ) as any) (Post)
 )

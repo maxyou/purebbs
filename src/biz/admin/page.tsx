@@ -3,7 +3,9 @@ import PageRound from './paginate'
 import UserList from './list'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { admin as actionAdmin } from '@/redux/action'
+import { admin as actionAdmin } from 'redux/action'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { Dispatch } from 'redux';
 
 const DivPageNav = styled.div`
     display: flex;
@@ -15,9 +17,9 @@ const StyledInputJump = styled.input`
     // background-color: red;
     width:30px;
 `
-function page(props) {
+function page(props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
 
-  function handlePageJump(e) {
+  function handlePageJump(e:any) {
     console.log(e.key)
     console.log(e.target.value)
     if (e.key == 'Enter') {
@@ -42,8 +44,24 @@ function page(props) {
     </div>
   );
 }
-
-const mapStateToProps = state => ({
+interface IProps extends RouteComponentProps<any>{
+  
+}
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  words: any,
+  user: any,
+  userPageSize: number,
+  userTotalDocs: number
+}
+interface IDispatch2Prop {
+  changePageSize: (v:any) => void,
+  nav: (v:any) => void,
+}
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   words: state.locale.words,
   user: state.user,
   userPageSize: state.admin.userPageSize,
@@ -52,7 +70,7 @@ const mapStateToProps = state => ({
 
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   changePageSize: (v) => dispatch(actionAdmin.Creator.userChangePageSize(v)),
   nav: (v) => dispatch(actionAdmin.Creator.userNav(v))
 })

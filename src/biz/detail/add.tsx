@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { detail as actionDetail } from '@/redux/action'
+import { detail as actionDetail } from 'redux/action'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import ReactMde from "react-mde"
 import * as Showdown from "showdown"
+import { Dispatch } from 'redux';
 
 const converter = new Showdown.Converter({
     tables: true,
@@ -36,13 +37,13 @@ const StyledSpanAnonymous = styled.span`
     font-size: small;
 `
 
-function commentAdd(props) {
+function CommentAdd(props: IState2Prop & IDispatch2Prop & IRouterProp) {
 
     const [comment, setComment] = useState('')
     const [anonymous, setAnonymous] = useState(false)
     const [markdownTab, setMarkdownTab] = useState<"write" | "preview" | undefined>("write")
 
-    function handleSubmit(e) {
+    function handleSubmit(e:any) {
         e.preventDefault()
         // console.log('handleSubmit')
         // console.log(this.state.title)
@@ -90,14 +91,25 @@ function commentAdd(props) {
     )
 
 }
-
-const mapStateToProps = state => ({
+interface IRouterProp {
+    history: any,
+    match: any,
+  }
+interface IState2Prop {
+    user: any,
+    words: any,
+    addResult: any,
+  }
+interface IDispatch2Prop {
+    commentAdd: (v:any) => void,
+}
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     addResult: state.post.postAddResult,
     user: state.user,
     words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     commentAdd: (v) => dispatch(actionDetail.Creator.detailCommentAdd(v))
 })
 
@@ -105,5 +117,5 @@ export default withRouter(
     (connect(
         mapStateToProps,
         mapDispatchToProps
-    ) as any) (commentAdd)
+    ) as any) (CommentAdd)
   )

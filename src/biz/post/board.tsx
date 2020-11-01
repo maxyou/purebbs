@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { Component, useEffect, useRef } from 'react'
 import { Route, Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux'
-import { post as actionPost, sys as actionSys } from '@/redux/action'
-import { ICategoryItem } from '@/redux/common'
+import { post as actionPost, sys as actionSys } from 'redux/action'
+import { ICategoryItem } from 'redux/common'
 
 const StyledDivCategory = styled.div`
     // background-color: lightgreen;
@@ -14,7 +15,7 @@ const StyledDivCategory = styled.div`
     justify-content: flex-start;
     align-items: flex-end;
 `
-const StyledSpanCategory = styled.span`
+const StyledSpanCategory = styled.span<{selected:boolean}>`
     // background-color: lightyellow;
     // border:2px solid #dede00;
     // border-radius:
@@ -25,6 +26,15 @@ const StyledSpanCategory = styled.span`
         return '0px solid #dede00'
       }
     }};
+    :hover {
+      border: ${props=>{
+        if(props.selected){
+          return '1px solid #00f'
+        }else{
+          return '1px dashed #00f'
+        }
+      }};
+    }
     margin-right: 20px;
     width: 60px;
     font-size: ${props=>{
@@ -49,7 +59,7 @@ const StyledLink = styled(Link)`
 //   return ref.current;
 // }
 
-const board: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
+const Board: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
 
   // const { category, categoryCurrent } = props
   // const prevProps: IState2Prop = usePrevious({ category, categoryCurrent })
@@ -69,7 +79,7 @@ const board: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Pr
     }, []
   )
 
-  function currentMatch(current, idStr){
+  function currentMatch(current:string, idStr:string){
     if(current==idStr){
       return true
     }
@@ -101,21 +111,21 @@ interface IState2Prop {
   category: ICategoryItem[],
 }
 interface IDispatch2Prop {
-  categoryNav: (v?) => void,
-  categoryGet: (v?) => void,
+  categoryNav: (v?:any) => void,
+  categoryGet: (v?:any) => void,
 }
-const mapStateToProps = state => ({
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   words: state.locale.words,
   user: state.user,
   category: state.sys.category,
   categoryCurrent: state.post.categoryCurrent,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   categoryNav: (v) => dispatch(actionPost.Creator.postCategoryNav(v)),
   categoryGet: (v) => dispatch(actionSys.Creator.categoryGet(v)),
 })
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(board)
+)(Board)

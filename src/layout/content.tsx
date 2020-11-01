@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components'
 import { Switch, BrowserRouter, HashRouter, Route, Redirect } from 'react-router-dom'
-import Post from '@/biz/post'
-import Detail from '@/biz/detail'
-import Login from '@/biz/user/login'
-import Register from '@/biz/user/register'
-import NewPwd from '@/biz/user/resetpwdnew'
-import User from '@/biz/user'
-import Admin from '@/biz/admin'
-import {NotFound} from '@/biz/common'
+import Post from 'biz/post'
+import Detail from 'biz/detail'
+import Login from 'biz/user/login'
+import Register from 'biz/user/register'
+import NewPwd from 'biz/user/resetpwdnew'
+import User from 'biz/user'
+import Admin from 'biz/admin'
+import {NotFound} from 'biz/common'
 
 // const StyledDivAppbar = styled.div`
 //     height: 60px;
@@ -19,7 +19,7 @@ import {NotFound} from '@/biz/common'
 //     background-color: lightblue;
 // `
 
-const Content = function (props) {
+const Content = function () {
 
     return (
         <div>

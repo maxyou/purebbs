@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import actionPost from '@/redux/action/post'
-import { post as actionPost, locale as actionLocale } from '@/redux/action'
+// import actionPost from 'redux/action/post'
+import { post as actionPost, locale as actionLocale } from 'redux/action'
 import styled from 'styled-components'
 import { Route, Link } from 'react-router-dom'
 import ReactMde from "react-mde"
 import * as Showdown from "showdown"
 import "react-mde/lib/styles/css/react-mde-all.css"
 import { Add as AddExtend } from "../extend"
-import {ICategoryItem} from '@/redux/common'
+import {ICategoryItem} from 'redux/common'
 import { Dispatch } from 'redux';
-import { calc, time } from '@/tool'
+import { calc, time } from 'tool'
 
 const StyledDivHeader = styled.div`    
     // height: 30px;
@@ -73,7 +73,7 @@ class PostAdd extends React.Component<IState2Prop & IDispatch2Prop & IRouterProp
         anonymous: false,
         markdownTab: 'write'
     };
-    constructor(props) {
+    constructor(props:IState2Prop & IDispatch2Prop & IRouterProp) {
         super(props)
 
         console.log('------------PostAdd----------------')
@@ -105,7 +105,7 @@ class PostAdd extends React.Component<IState2Prop & IDispatch2Prop & IRouterProp
         }
     }
 
-    handleSubmit(e) {
+    handleSubmit(e:any) {
         e.preventDefault()
         console.log('handleSubmit')
 
@@ -126,20 +126,20 @@ class PostAdd extends React.Component<IState2Prop & IDispatch2Prop & IRouterProp
         })
         this.props.history.goBack()
     }
-    handleCancel(e) {
+    handleCancel(e:any) {
         e.preventDefault()
         console.log('handleCancel')
         // console.log(this.props)
         this.props.history.goBack()
     }
-    handleTitleChange(e) {
+    handleTitleChange(e:any) {
         this.setState({ title: e.target.value })
     }
 
-    handleMarkdownChange(e) {
+    handleMarkdownChange(e:any) {
         this.setState({ content: e })
     }
-    setMarkdownTab(e) {
+    setMarkdownTab(e:any) {
         console.log(e)
         this.setState({ markdownTab: e })
     }

@@ -5,7 +5,7 @@ import { NavLink, Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux';
-import { post as actionPost } from '@/redux/action'
+import { post as actionPost } from 'redux/action'
 import Board from "./board"
 
 const DivPageHead = styled.div`
@@ -13,7 +13,7 @@ const DivPageHead = styled.div`
     display: flex;
     justify-content: space-between;
     `
-const DivPageAdd = styled.div`
+const DivPageAdd = styled.div<{isLogin:boolean}>`
   visibility: ${props => props.isLogin ? 'visible' : 'hidden'};
 `
 const StyledDivPageCrtl = styled.div`
@@ -34,7 +34,7 @@ const StyledDivCategory = styled.div`
     justify-content: flex-start;
     align-items: flex-end;
 `
-const StyledSpanCategory = styled.span`
+const StyledSpanCategory = styled.span<{selected:boolean}>`
     // background-color: lightyellow;
     // border:2px solid #dede00;
     // border-radius:
@@ -63,7 +63,7 @@ const StyledLink = styled(Link)`
 `
 const page: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
 
-  function handlePageJump(e){
+  function handlePageJump(e:{target:any, key:string}){
     console.log(e.key)
     console.log(e.target.value)
     if(e.key=='Enter'){
@@ -103,9 +103,9 @@ interface IState2Prop {
   postTotalDocs: number,
 }
 interface IDispatch2Prop {
-  changePageSize: (v?) => void,
-  categoryNav: (v?) => void,
-  nav: (v) => void,
+  changePageSize: (v?:any) => void,
+  categoryNav: (v?:any) => void,
+  nav: (v:any) => void,
 }
 const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   words: state.locale.words,

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux';
 import { withRouter, Link } from 'react-router-dom'
-import { user as actionUser } from '@/redux/action'
-import { time } from '@/tool'
+import { user as actionUser } from 'redux/action'
+import { time } from 'tool'
+import {FieldSet} from 'component/style'
 
 const StyledDivLogin = styled.div`
     // margin: 10px;
@@ -14,9 +16,9 @@ const StyledDivLogin = styled.div`
     // justify-content: space-around;
     // background-color: lightblue;
 `
-const ResetPassword = function (props) {
+const ResetPassword = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
 
-  function handleSubmit(e) {
+  function handleSubmit(e:any) {
     e.preventDefault()
     props.resetPassword({ name: name })
   }
@@ -56,7 +58,7 @@ const ResetPassword = function (props) {
 
   return (
     <StyledDivLogin>
-      <fieldset>
+      <FieldSet.StyledFieldSet>
         <legend>{props.words.user_resetPassword}</legend>
         <form style={{ display: 'inline' }} onSubmit={handleSubmit} method="post">
           <span>{props.words.user_name}:</span>
@@ -67,17 +69,28 @@ const ResetPassword = function (props) {
         <input type="submit" value="向我发送重置邮件" /><br />         */}
         </form>
         {message}
-      </fieldset>
+      </FieldSet.StyledFieldSet>
     </StyledDivLogin>
   );
 }
 
-const mapStateToProps = state => ({
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  user: any,
+  words: any,
+}
+interface IDispatch2Prop {
+  resetPassword: (v?:any) => void,
+}
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   words: state.locale.words,
   user: state.user,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   resetPassword: (v) => dispatch(actionUser.Creator.userResetPassword(v))
 })
 

@@ -3,25 +3,26 @@ import { useState, useEffect, useRef } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { AvatarImg } from '@/component/user'
-import { time } from '@/tool'
-import { sys } from '@/tool'
+import { AvatarImg } from 'component/user'
+import { time } from 'tool'
+import { sys } from 'tool'
 import { Dispatch } from 'redux';
-import { user as actionUser } from '@/redux/action'
+import { user as actionUser } from 'redux/action'
+import {FieldSet} from 'component/style'
 
 const StyledDivCard = styled.div`
     width:100%;
     height:150px;
     // background-color: #c2c456;
     `
-function usePrevious(value): any {
+function usePrevious(value:any): any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
   });
   return ref.current;
 }
-const me: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
+const Me: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
 
   const { userAvatarUpdatting, userUpdatting } = props
   const prevProps: IState2Prop = usePrevious({ userAvatarUpdatting, userUpdatting })
@@ -81,7 +82,7 @@ interface IState2Prop {
   userUpdatting: boolean,
 }
 interface IDispatch2Prop {
-  userGetStatus: (v?) => void,
+  userGetStatus: (v?:any) => void,
 }
 const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   user: state.user,
@@ -98,5 +99,5 @@ export default withRouter(
   (connect(
     mapStateToProps,
     mapDispatchToProps
-  ) as any)(me)
+  ) as any)(Me)
 )

@@ -87,6 +87,8 @@ const en_US = {
     ext_join_lineup: 'join lineup',
     ext_lineup_message: 'lineup message',
 
+    statistic_top_user: 'Top Users',
+    statistic_category_post_num: 'Category Proportion',
   }    
   export default en_US;
   

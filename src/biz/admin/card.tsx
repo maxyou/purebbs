@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { admin as actionAdmin } from '@/redux/action'
+import { admin as actionAdmin } from 'redux/action'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { AvatarImg } from '@/component/user'
-import { time } from '@/tool'
+import { AvatarImg } from 'component/user'
+import { time } from 'tool'
 import { Dispatch } from 'redux';
+import {FieldSet} from 'component/style'
+
 const StyledDivCard = styled.div`
     width:100%;
     height:170px;
@@ -21,7 +23,7 @@ const card: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
 
   return (
     <StyledDivCard>
-      <fieldset>
+      <FieldSet.StyledFieldSet>
         <legend>{props.user.name}</legend>
 
         <div>{props.words.user_avatar}:<AvatarImg width='35px' src={'user/avatar/' + props.user.avatarFileName} /></div>
@@ -30,7 +32,7 @@ const card: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
         <div>{props.words.user_email}:{props.user.email}</div>
         <div>{props.words.cmn_created}:{time.fromNow(props.user.created)}</div>
         {props.user.name == 'admin' ? null : <button onClick={gotoEdit}>{props.words.cmn_edit}</button>}
-      </fieldset>
+      </FieldSet.StyledFieldSet>
     </StyledDivCard>
   );
 }
@@ -46,7 +48,7 @@ interface IState2Prop {
   words: any,
 }
 interface IDispatch2Prop {
-  edit: (v?) => void,
+  edit: (v:any) => void,
 }
 
 const mapStateToProps: { (arg0: any): IState2Prop } = state => ({

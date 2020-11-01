@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
-import { admin as actionAdmin } from '@/redux/action'
+import { admin as actionAdmin } from 'redux/action'
 import styled from 'styled-components'
 import { Link, withRouter } from 'react-router-dom'
 import { Dispatch } from 'redux';
@@ -12,15 +12,15 @@ const StyledDivList = styled.div`
 `
 
 
-function useIdAsKey(userListResult) {
+function useIdAsKey(userListResult:any) {
   if (userListResult && userListResult.data && userListResult.data.length >= 0) {
-    return userListResult.data.map((v) => ({ ...v, key: v._id }))
+    return userListResult.data.map((v:any) => ({ ...v, key: v._id }))
   }
   // console.log(array)
   return []
 }
 
-function usePrevious(value):any {
+function usePrevious(value:any):any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -29,7 +29,7 @@ function usePrevious(value):any {
 }
 
 
-const userList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
+const UserList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
 
   const { userAdding, userUpdatting, userDeletting, userPageCurrent, userPageSize } = props
   const prevProps:IState2Prop = usePrevious({ userAdding, userUpdatting, userDeletting, userPageCurrent, userPageSize })
@@ -65,7 +65,7 @@ const userList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
   return (
     <div>
         {
-          dataSource.map((v) => <StyledDivList key={v.key}>
+          dataSource.map((v:any) => <StyledDivList key={v.key}>
             <Card user={v}></Card>
           </StyledDivList>)
         }
@@ -85,9 +85,9 @@ interface IState2Prop {
 
 }
 interface IDispatch2Prop {
-  get: (v?) => void,
-  findByIdAndDelete: (v?) => void,
-  findByIdAndUpdate: (v) => void,
+  get: (v?:any) => void,
+  findByIdAndDelete: (v?:any) => void,
+  findByIdAndUpdate: (v:any) => void,
 }
 
 const mapStateToProps:{(arg0:any):IState2Prop} = state => ({
@@ -110,5 +110,5 @@ export default withRouter(
   (connect(
       mapStateToProps,
       mapDispatchToProps
-  ) as any) (userList)
+  ) as any) (UserList)
 )

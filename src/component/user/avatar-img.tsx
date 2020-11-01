@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledImg = styled.img`
+const StyledImg = styled.img<{width:string, height:string,radius:string}>`
     width: ${props => props.width};
     height: ${props => props.height?props.height:props.width};
     border-radius: ${props => props.radius};
     // border:1px solid #dede00;
 `
 
-export default function AvatarImg({src, width, height='', radius=''}) {
+export default function AvatarImg({src, width, height='', radius=''}:any) {
     // console.log('AvatarImg')
     // console.log(src)
     // console.log(width)

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Dispatch } from 'redux';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Route, NavLink, Redirect, withRouter } from 'react-router-dom'
@@ -7,6 +8,8 @@ import Me from './me'
 import PwdEdit from './pwdedit'
 import Other from './other'
 import PostList from './postlist'
+import {FieldSet} from 'component/style'
+
 const StyledDivTemp = styled.div`
     width: 100px;
     height: 100px;
@@ -21,18 +24,18 @@ const StyledDivTemp = styled.div`
 //         </StyledDivTemp>
 //     )
 // }
-function Info(props) {
+function Info(props: IState2Prop & IDispatch2Prop) {
     return (
         <div>
-            <fieldset>
+            <FieldSet.StyledFieldSet>
                 <legend>{props.words.user_personalInfo}</legend>
                 <Me></Me>
-            </fieldset>
+            </FieldSet.StyledFieldSet>
             {props.user.source == 'register' ?
-                <fieldset>
+                <FieldSet.StyledFieldSet>
                     <legend>{props.words.user_personalSecurity}</legend>
                     <NavLink to='/user/password/edit'><button>{props.words.user_changePassword}</button></NavLink>
-                </fieldset>
+                </FieldSet.StyledFieldSet>
                 : null}
                 
         </div>
@@ -55,13 +58,18 @@ function User() {
     );
 }
 
-
-const mapStateToProps = state => ({
+interface IState2Prop {
+    user: any,
+    words: any,
+  }
+  interface IDispatch2Prop {
+  }
+  const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     user: state.user,
     words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     // edit: (v) => dispatch(actionAdmin.Creator.userEdit(v)),
 })
 

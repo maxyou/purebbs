@@ -8,7 +8,12 @@ const StyledDiv = styled.div`
     margin: 10px;
     border:2px solid #dede00;
 `
-export default ({match}) => {
+interface IRouterProp {
+    history: any,
+    match: any,
+    location: any,
+}
+export default ({match}:IRouterProp) => {
 
     return (
         <div>

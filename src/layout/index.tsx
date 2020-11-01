@@ -6,6 +6,8 @@ import { Switch, BrowserRouter, HashRouter, Route, Redirect } from 'react-router
 import Appbar from './appbar'
 import Content from './content'
 
+import * as Info from '../info'
+
 const DivLayout = styled.div`
     // padding: 15px;
     // background-color: #F8F8FF;
@@ -47,7 +49,7 @@ const GridAppbar = styled.div`
 const GridContent = styled.div`
     // padding: 5px;
     margin: 0 10px 10px 0;
-    background-color: lightblue; 
+    background-color: #E1FFFF;
     border: 0.5px solid #dddddd;
     min-height: 500px;
     grid-area: ct;
@@ -55,7 +57,7 @@ const GridContent = styled.div`
 const GridNotify = styled.div`
     // padding: 5px;
     min-height: 300px;
-    background-color: #fCDC9C; 
+    background-color: #FFFFF0; 
     margin: 0 0 10px 0;
     grid-area: nf;
 `
@@ -68,20 +70,22 @@ const GridFooter = styled.div`
 const StyledDivInfo = styled.div`
   height: 100%;
   font-size: small;
-  // background-color: #c3e383;
-  display:flex;
+//   background-color: #6789df;
+  position: relative;
+//   display:flex;
 //   flex-direction:column;
-  justify-content: center;
-  align-items: center;
+//   justify-content: center;
+//   align-items: center;
 `
 
 function Footer() {
     return <div>footer</div>
 }
-function Info() {
+function Infomation() {
     return(
         <StyledDivInfo>
-            <span>infomation</span>        
+            <Info.Chart.TopUser></Info.Chart.TopUser>
+            <Info.Chart.CategoryPostNum></Info.Chart.CategoryPostNum>
         </StyledDivInfo>
     ) 
 }
@@ -94,7 +98,7 @@ export default () => {
                     <GridWrapper>                        
                         <GridAppbar><Appbar></Appbar></GridAppbar>
                         <GridContent><Content></Content></GridContent>
-                        <GridNotify><Info></Info></GridNotify>
+                        <GridNotify><Infomation></Infomation></GridNotify>
                         <GridFooter><Footer></Footer></GridFooter>
                     </GridWrapper>
                 </DivLayout>

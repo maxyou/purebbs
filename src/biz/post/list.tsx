@@ -2,19 +2,19 @@ import * as React from 'react'
 import { Component, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux';
-import { post as actionPost } from '@/redux/action'
-import { calc, time } from '@/tool'
-// import ErrorBoundary from '@/errorBoundary'
+import { post as actionPost } from 'redux/action'
+import { calc, time } from 'tool'
+// import ErrorBoundary from 'errorBoundary'
 import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
-import { AvatarImg, UserTip } from '@/component/user'
+import { AvatarImg, UserTip } from 'component/user'
 
-import * as IconLineup from '@/component/icon/lineup.svg'
-import IconVote from '@/component/icon/vote.svg'
+import IconLineup from 'component/icon/lineup.svg'
+import IconVote from 'component/icon/vote.svg'
 
 // import { category as categoryCommon } from "../common"
-import { command } from '@/biz/common'
-import { ICategoryItem } from '@/redux/common'
+import { command } from 'biz/common'
+import { ICategoryItem } from 'redux/common'
 
 const ItemHeight = '60px'
 const PostTitleHeight = '40px'
@@ -221,6 +221,8 @@ const StyledDivTime = styled.span`
   `
   
   const StyledCategory = styled.div`
+  padding-left: 2px;
+  padding-right: 2px;
   // background-color: #93e3c3;
   // padding: 2px;
   border:1px solid;
@@ -242,7 +244,7 @@ const StyledSpanStickTop = styled.span`
   background-color: #ccffcc;
   border-radius: 5px;
 `
-const StyledSpanLike = styled.span`
+const StyledSpanLike = styled.span<{hoverColor:string}>`
   font-size: small;
   margin-left: 10px;
   color: ${props => props.color};
@@ -252,15 +254,15 @@ const StyledSpanLike = styled.span`
 `
 
 
-function useIdAsKey(postListResult) {
+function useIdAsKey(postListResult:any):any {
   if (postListResult && postListResult.data && postListResult.data.length >= 0) {
-    return postListResult.data.map((v) => ({ ...v, key: v._id }))
+    return postListResult.data.map((v:any) => ({ ...v, key: v._id }))
   }
   // console.log(array)
   return []
 }
 
-function usePrevious(value): any {
+function usePrevious(value:any): any {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -268,7 +270,7 @@ function usePrevious(value): any {
   return ref.current;
 }
 
-const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
+const PostList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Prop & IDispatch2Prop) {
   // function postList(props) {
 
   const { postAdding, postUpdatting, postDeletting, postPageCurrent, postPageSize, categoryCurrent, postAttaching } = props
@@ -304,8 +306,8 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
     }, [props.postAdding, props.postUpdatting, props.postDeletting, props.postPageCurrent, props.postPageSize, props.categoryCurrent, props.postAttaching]
   )
 
-  function handleDelete(v) {
-    if (confirm(`${props.words.cmn_confirmDelete}? ${v.title}`)) {
+  function handleDelete(v:any) {
+    if (window.confirm(`${props.words.cmn_confirmDelete}? ${v.title}`)) {
       props.findByIdAndDelete(v)
       // alert("继续");
     } else {
@@ -313,7 +315,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
     }
   }
 
-  function handleLike(v) {
+  function handleLike(v:any) {
 
     if (!props.user.isLogin) {
       return
@@ -325,7 +327,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
     })
   }
 
-  function getExtendIcon(v) {
+  function getExtendIcon(v:string) {
 
     switch (v) {
       case 'lineup':
@@ -339,7 +341,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
   }
 
 
-  function showExtendInfo(extend) {
+  function showExtendInfo(extend:any) {
 
     // console.log('showExtendInfo')
 
@@ -354,9 +356,9 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
       case 'vote':
         expireDate = new Date(extend.addVote.expireTime)
         var people = new Set()
-        extend.voteData.forEach(v => {
+        extend.voteData.forEach((v:any) => {
           // console.log(v)
-          v.forEach(vv => {
+          v.forEach((vv:any) => {
             people.add(vv._id)
           })
         });
@@ -380,7 +382,7 @@ const postList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
   return (
     <div>
       {
-        dataSource.map((v) => <StyledDivCard key={v.key}>
+        dataSource.map((v:any) => <StyledDivCard key={v.key}>
 
           <StyledDivContainer>
 
@@ -520,10 +522,10 @@ interface IState2Prop {
   category: ICategoryItem[],
 }
 interface IDispatch2Prop {
-  get: (v?) => void,
-  findByIdAndDelete: (v?) => void,
-  findByIdAndUpdate: (v) => void,
-  postFindByIdAndAttach: (v?) => void,
+  get: (v?:any) => void,
+  findByIdAndDelete: (v?:any) => void,
+  findByIdAndUpdate: (v:any) => void,
+  postFindByIdAndAttach: (v?:any) => void,
 }
 
 const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
@@ -555,5 +557,5 @@ export default withRouter(
   (connect(
     mapStateToProps,
     mapDispatchToProps
-  ) as any)(postList)
+  ) as any)(PostList)
 )

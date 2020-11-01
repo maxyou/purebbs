@@ -7,8 +7,10 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from './redux/saga'
 import Layout from './layout'
 import ApolloClient from 'apollo-boost';
-import { sys } from '../config';
+import { sys } from './config';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 var urljoin = require('url-join');
 
 console.log(urljoin(sys.appHomepage, sys.graphql_endpoint))
@@ -18,12 +20,12 @@ const client = new ApolloClient({
 });
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' as keyof typeof window] as typeof compose || compose;
+// const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' as keyof typeof window] as typeof compose || compose;
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducers,
-  composeEnhancers(
+  composeWithDevTools(
     applyMiddleware(sagaMiddleware)
   )
 )

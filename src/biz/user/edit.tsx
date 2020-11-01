@@ -3,16 +3,17 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { AvatarImg } from '@/component/user'
-import { user as actionUser } from '@/redux/action'
-import { AvatarCrop } from '@/component/user'
+import { AvatarImg } from 'component/user'
+import { user as actionUser } from 'redux/action'
+import { AvatarCrop } from 'component/user'
 import { Dispatch } from 'redux';
+import {FieldSet} from 'component/style'
 
 const StyledDivCard = styled.div`
     width:100%;
     // background-color: white;
     `
-const StyledDivCrop = styled.div`
+const StyledDivCrop = styled.div<{display:string}>`
     width: 100%;
     // height: 450px;
     // position: absolute;
@@ -26,7 +27,7 @@ const StyledInput = styled.input`
     // background-color: lightblue;
 `
 
-const edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
+const Edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
 
   const [cropDisplay, setCropDisplay] = useState('none')
   const [file, setFile] = useState<any>(null)
@@ -35,14 +36,14 @@ const edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
   const [email, setEmail] = useState(props.user.email || '')
 
 
-  function createFormData(cropBlob) {
+  function createFormData(cropBlob:any) {
     let data = new FormData()
     data.append('file', cropBlob)
     data.append('_id', props.user._id)
     return data
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e:any) {
     e.preventDefault();
     console.log('handleSubmit + findByIdAndUpdate')
     props.findByIdAndUpdate(
@@ -62,14 +63,14 @@ const edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
     console.log('handleSubmit + findByIdAndUpdate---3')
   }
 
-  function handleCancel(e) {
+  function handleCancel(e:any) {
     e.preventDefault();
     console.log('handleSubmit + props.history.goBack()----1')
     props.history.goBack()
     console.log('handleSubmit + props.history.goBack()----2')
   }
 
-  function onSelectFile(e) {
+  function onSelectFile(e:any) {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () => {
@@ -79,7 +80,7 @@ const edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
       reader.readAsDataURL(e.target.files[0]);
     }
   }
-  function onCropBlob(cropBlob) {
+  function onCropBlob(cropBlob:any) {
     console.log('onCropFile---1')
     setCropDisplay('none')
     console.log('onCropFile---2')
@@ -92,14 +93,14 @@ const edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
   return (
     <StyledDivCard>
         You can update avatar and email.
-      <fieldset>
+      <FieldSet.StyledFieldSet>
         {/* <legend>{props.words.user_personalInfoUpdate}</legend> */}
         <legend>{props.user.name}</legend>
         
         {/* <div>{props.words.user_name}: {props.user.name}</div> */}
 
         <div><label htmlFor="theinput" >{props.words.user_avatar}: <AvatarImg width='45px' src={cropBlob ? URL.createObjectURL(cropBlob) : props.user.avatarPath} /></label>
-          <StyledInput type="file" onChange={onSelectFile} onClick={(e) => e.target.value = ''} id='theinput' /></div>
+          <StyledInput type="file" onChange={onSelectFile} onClick={(e:any) => e.target.value = ''} id='theinput' /></div>
 
         <div><StyledDivCrop display={cropDisplay} >
           <AvatarCrop file={file} onCropBlob={onCropBlob} onCancel={() => setCropDisplay('none')}></AvatarCrop>
@@ -114,7 +115,7 @@ const edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
           <input type="submit" onClick={handleCancel} value={props.words.cmn_cancel} />
           <input type="submit" value={props.words.cntnt_submit} />
         </form></div>
-      </fieldset>
+      </FieldSet.StyledFieldSet>
     </StyledDivCard>
   );
 }
@@ -130,8 +131,8 @@ interface IState2Prop {
   words: any,
 }
 interface IDispatch2Prop {
-  findByIdAndUpdate: (v) => void,
-  findByIdAndUpdateAvatar: (v) => void,
+  findByIdAndUpdate: (v:any) => void,
+  findByIdAndUpdateAvatar: (v:any) => void,
 }
 
 const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
@@ -148,5 +149,5 @@ export default withRouter(
   (connect(
       mapStateToProps,
       mapDispatchToProps
-  ) as any) (edit)
+  ) as any) (Edit)
 )

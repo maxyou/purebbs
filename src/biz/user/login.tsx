@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { user as actionUser, post as actionPost, locale as actionLocale, detail as actionDetail } from '@/redux/action'
+import { Dispatch } from 'redux';
+import { user as actionUser, post as actionPost, locale as actionLocale, detail as actionDetail } from 'redux/action'
 import ResetPwd from './resetpwd'
-const appConfig = require('../../../config')
+import {FieldSet} from 'component/style'
+
+const appConfig = require('../../config')
 
 const StyledDivLogin = styled.div`
     // margin: 10px;
@@ -14,9 +17,9 @@ const StyledDivLogin = styled.div`
     // justify-content: space-around;
     // background-color: lightblue;
 `
-const Login = function (props) {
+const Login = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
 
-  function handleSubmit(e) {
+  function handleSubmit(e:any) {
     console.log('login submit')
     e.preventDefault()
     props.login({ name: name, password: password, code: code })
@@ -55,7 +58,7 @@ const Login = function (props) {
 
   return (
     <StyledDivLogin>
-      <fieldset>
+      <FieldSet.StyledFieldSet>
         <legend>{props.words.user_login}</legend>
 
         <form style={{ display: 'inline' }} onSubmit={handleSubmit} method="post">
@@ -77,32 +80,45 @@ const Login = function (props) {
 
         <div>{props.user && props.user.result && props.user.result.message}</div>
 
-      </fieldset>
-      <fieldset>
+      </FieldSet.StyledFieldSet>
+      <FieldSet.StyledFieldSet>
         <legend>{props.words.user_oauth_login}</legend>
 
         <a href={`https://github.com/login/oauth/authorize?client_id=${appConfig.oauth_github.client_id}&state=123456&redirect_uri=${appConfig.oauth_github.redirect_uri}`}>
           GitHub
         </a>
 
-      </fieldset>
-      {/* <fieldset>
+      </FieldSet.StyledFieldSet>
+      {/* <FieldSet.StyledFieldSet>
         <legend>{props.words.user_resetPassword}</legend> */}
 
         <ResetPwd></ResetPwd>
 
-      {/* </fieldset> */}
+      {/* </FieldSet.StyledFieldSet> */}
 
     </StyledDivLogin>
   );
 }
-
-const mapStateToProps = state => ({
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  user: any,
+  words: any,
+}
+interface IDispatch2Prop {
+  login: (v?:any) => void,
+  changePageSize: (v?:any) => void,
+  languageSet: (v:any) => void,
+  changeCommentPageSize: (v:any) => void,
+}
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   user: state.user,
   words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
   login: (v) => dispatch(actionUser.Creator.userLogin(v)),
   changePageSize: (v) => dispatch(actionPost.Creator.postChangePageSize(v)),
   languageSet: (v) => dispatch(actionLocale.Creator.languageSet(v)),

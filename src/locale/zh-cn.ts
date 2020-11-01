@@ -86,6 +86,9 @@ const zh_CN = {
     ext_quit_lineup: '退出接龙',
     ext_join_lineup: '加入接龙',
     ext_lineup_message: '接龙留言',
+
+    statistic_top_user: '最活跃用户',
+    statistic_category_post_num: '板块占比',
   }
   export default zh_CN;
   

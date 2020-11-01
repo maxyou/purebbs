@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
-import { detail as actionDetail } from '@/redux/action'
+import { detail as actionDetail } from 'redux/action'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { time } from '@/tool'
+import { time } from 'tool'
 import { Dispatch } from 'redux';
 
-const notFound: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
+const NotFound: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
 
     console.log('not found params:')
     console.log(props)
@@ -66,5 +66,5 @@ export default withRouter(
     (connect(
         mapStateToProps,
         mapDispatchToProps
-    ) as any)(notFound)
+    ) as any)(NotFound)
 )

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { extend as actionExtend } from '@/redux/action'
-// import { AddLineup, AddVote } from '@/biz/extend'
+import { extend as actionExtend } from 'redux/action'
+// import { AddLineup, AddVote } from 'biz/extend'
 import Lineup from './lineup'
 import Vote from './vote'
-
+import { Dispatch } from 'redux';
+import {FieldSet} from 'component/style'
 
 const StyledDivExtendChoose = styled.div`
     background-color: lightgreen;
@@ -13,7 +14,7 @@ const StyledDivExtendChoose = styled.div`
     justify-content: space-between;
     align-items: center;    
 `
-function switchExtendChoice(choice){
+function switchExtendChoice(choice:string){
     console.log(choice)
     switch(choice){
         case 'vote':         
@@ -23,7 +24,7 @@ function switchExtendChoice(choice){
     }
 
 }
-function Home(props) {    
+function Home(props: IState2Prop & IDispatch2Prop) {    
 
     useEffect(() => {
         
@@ -41,14 +42,23 @@ function Home(props) {
         </div>
     )
 }
-
-const mapStateToProps = state => ({
+interface IState2Prop {
+    user: any,
+    words: any,
+    extendFromServer: any,
+  }
+  interface IDispatch2Prop {
+    extendServerDataInit: (v?:any) => void,
+    init: (v?:any) => void,
+    update: (v:any) => void,
+  }
+  const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     user: state.user,
     words: state.locale.words,
     extendFromServer: state.extend.extendFromServer,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     extendServerDataInit: (v) => dispatch(actionExtend.Creator.extendServerDataInit(v)),
     init: (v) => dispatch(actionExtend.Creator.extendAddChoiceInit(v)),
     update: (v) => dispatch(actionExtend.Creator.extendAddChoiceUpdate(v)),

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux';
 import List from './list'
 import PageRound from './paginate'
 import styled from 'styled-components'
-import { detail as actionDetail } from '@/redux/action'
+import { detail as actionDetail } from 'redux/action'
 
 const StyledDivComment = styled.div`
     margin-top: 10px;
@@ -26,7 +27,7 @@ const StyledDivPageCrtl = styled.div`
     justify-content: flex-end;
     align-items: center;
 `
-const StyledDivPageRound = styled.div`
+const StyledDivPageRound = styled.div<{show:boolean}>`
     // background-color: red;
     display:${(props) => props.show ? 'flex' : 'none'}
     // display:flex;
@@ -39,7 +40,7 @@ const StyledInputJump = styled.input`
     // background-color: red;
     width:30px;
 `
-function comment(props) {
+function comment(props: IState2Prop & IDispatch2Prop) {
   
   // const onChange = (e) => { e.target.value}
 
@@ -51,7 +52,7 @@ function comment(props) {
     console.log('blue')
   }
 
-  function handlePageJump(e){
+  function handlePageJump(e:any){
     console.log(e.key)
     console.log(e.target.value)
     if(e.key=='Enter'){
@@ -82,14 +83,27 @@ function comment(props) {
   );
 }
 
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  commentListResult: any,
+  commentPageSize: number,
+  commentTotalDocs: number,
+}
+interface IDispatch2Prop {
+  changePageSize: (v?:any) => void,
+  nav: (v:any) => void,
+}
 
-const mapStateToProps = state => ({
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   commentListResult: state.detail.commentListResult,
   commentPageSize: state.detail.commentPageSize,
   commentTotalDocs: state.detail.commentTotalDocs,
 })
 
-const mapDispatchToProps = dispatch => ({  
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({ 
   changePageSize: (v) => dispatch(actionDetail.Creator.detailCommentChangePageSize(v)),
   nav: (v) => dispatch(actionDetail.Creator.detailCommentNav(v))
 })

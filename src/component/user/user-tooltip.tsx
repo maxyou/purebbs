@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import AvatarImg from './avatar-img'
 
-const StyledSpanAvatarTooltip = styled.span`
+const StyledSpanAvatarTooltip = styled.span<{top:string, left:string}>`
   position: absolute;
   z-index:1;
 
@@ -33,7 +33,7 @@ const StyledDivAvatarInTooltipText = styled.div`
   align-items: flex-start;
 `
 
-const UserTip = (props) => {
+const UserTip = (props:any) => {
 
     const { avatarPath, name, intro, topLeft } = props
 

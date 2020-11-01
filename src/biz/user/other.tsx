@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { AvatarImg } from '@/component/user'
+import { AvatarImg } from 'component/user'
 import PostList from './postlist'
-import { calc, time } from '@/tool'
-import { user as actionUser } from '@/redux/action'
+import { calc, time } from 'tool'
+import { user as actionUser } from 'redux/action'
 import { Dispatch } from 'redux';
+import {FieldSet} from 'component/style'
 
 const StyledDivCard = styled.div`
     // width:100%;
@@ -14,7 +15,7 @@ const StyledDivCard = styled.div`
     // background-color: #c2c456;
     `
 
-const other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
+const Other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = function (props: IState2Prop & IDispatch2Prop & IProps & IRouterProp) {
 
   console.log(props)
 
@@ -33,7 +34,7 @@ const other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = fun
 
   return (
     <StyledDivCard>
-      <fieldset>
+      <FieldSet.StyledFieldSet>
         <legend>{props.words.user_personalInfo}</legend>
         {props.other.code == 0 ?
           <div>
@@ -46,7 +47,7 @@ const other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = fun
           </div>
           : null
         }
-      </fieldset>
+      </FieldSet.StyledFieldSet>
       {props.other && props.other.data ?<PostList id={props.other.data._id}></PostList>:null}
       
     </StyledDivCard>
@@ -66,7 +67,7 @@ interface IState2Prop {
   words: any,
 }
 interface IDispatch2Prop {
-  userOtherInfoGet: (v?) => void,
+  userOtherInfoGet: (v?:any) => void,
 }
 const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   other: state.user.other,
@@ -82,5 +83,5 @@ export default withRouter(
   (connect(
       mapStateToProps,
       mapDispatchToProps
-  ) as any) (other)
+  ) as any) (Other)
 )

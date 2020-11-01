@@ -1,8 +1,9 @@
 import React from 'react'
+import { Dispatch } from 'redux';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import {detail as actionDetail} from '@/redux/action'
-import {calc} from '@/tool'
+import {detail as actionDetail} from 'redux/action'
+import {calc} from 'tool'
 // console.log('actionPost-------')
 // console.log(actionPost)
 
@@ -19,7 +20,7 @@ const StyledPageRound = styled.div`
         height: 25px;
     }
 `
-function pageRound({current, ext, totalDocs, pageSize, nav}) {
+function pageRound({current, ext, totalDocs, pageSize, nav}: IState2Prop & IDispatch2Prop) {
 
     // if(!pageSize) {pageSize=10}
     var maxRight = Math.ceil(totalDocs/pageSize)
@@ -48,15 +49,23 @@ function pageRound({current, ext, totalDocs, pageSize, nav}) {
         </div>
     );
 }
-
-const mapStateToProps = state => ({
+interface IState2Prop {
+    ext: any,
+    current: number,
+    pageSize: number,
+    totalDocs: number,
+  }
+  interface IDispatch2Prop {
+    nav: (v:any) => void,
+  }
+  const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     ext: state.detail.commentPaginateExt,
     current: state.detail.commentPageCurrent,
     pageSize: state.detail.commentPageSize,
     totalDocs: state.detail.commentTotalDocs,
   })
   
-  const mapDispatchToProps = dispatch => ({
+  const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     nav: (v) => dispatch(actionDetail.Creator.detailCommentNav(v))
   })
   export default connect(

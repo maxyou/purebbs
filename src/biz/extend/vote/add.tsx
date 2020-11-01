@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { extend as actionExtend } from '@/redux/action'
+import { extend as actionExtend } from 'redux/action'
+import {FieldSet} from 'component/style'
+
 var moment = require('moment');
 
 const StyledInput = styled.input`
     width: 400px;
 `
 
-
-function add(props) {
+function Add(props: IState2Prop & IDispatch2Prop) {
 
     // const [ifMulti, setIfMulti] = useState('single')
 
@@ -24,8 +26,8 @@ function add(props) {
     }, [])
 
     // const [options, setOptions] = useState([''])
-    function changeOptions(v, index) {
-        var newOptions = props.addVote.options.map((option, position) => {
+    function changeOptions(v:string, index:number) {
+        var newOptions = props.addVote.options.map((option:string, position:number) => {
             if (position == index) {
                 return v
             } else {
@@ -35,20 +37,20 @@ function add(props) {
         // setOptions(newOptions)
         props.update({ ...props.addVote, options: newOptions })
     }
-    function deleteOption(index) {
+    function deleteOption(index:number) {
         if (props.addVote.options.length == 1) {
             props.update({ ...props.addVote, options: [''] })
             return
         }
-        var newOptions = props.addVote.options.filter((option, position) => {
+        var newOptions = props.addVote.options.filter((option:string, position:number) => {
             return position != index
         })
         // setOptions(newOptions)
         props.update({ ...props.addVote, options: newOptions })
     }
-    function insertOption(index) {
+    function insertOption(index:number) {
         var newOptions:string[] = []
-        props.addVote.options.forEach((option, position) => {
+        props.addVote.options.forEach((option:string, position:number) => {
             newOptions.push(option)
             if (index == position) {
                 newOptions.push('')
@@ -60,7 +62,7 @@ function add(props) {
 
     return (
         <div>
-            <fieldset>
+            <FieldSet.StyledFieldSet>
                 <legend>{props.words.ext_setup_vote}</legend>
                 <div>
                     <label htmlFor="anonymous">{props.words.ext_allow_anonymous}</label>
@@ -87,31 +89,40 @@ function add(props) {
                 <span>{props.words.ext_vote_options}</span>
                 {
                     props.addVote && props.addVote.options ?
-                        props.addVote.options.map((v, index) => {
+                        props.addVote.options.map((v:any, index:number) => {
                             return (<div key={index}>
-                                {index + 1}: <StyledInput type="text" name={index} onChange={e => changeOptions(e.target.value, index)} value={v} />
+                                {index + 1}: <StyledInput type="text" name={String(index)} onChange={e => changeOptions(e.target.value, index)} value={v} />
                                 <button onClick={() => deleteOption(index)}>{props.words.cmn_delete}</button>
                                 <button onClick={() => insertOption(index)}>{props.words.cmn_insert}</button>
                             </div>)
                         })
                         : null
                 }
-            </fieldset>
+            </FieldSet.StyledFieldSet>
             {/* {JSON.stringify(vote)} */}
         </div>
     )
 }
 
-const mapStateToProps = state => ({
+interface IState2Prop {
+    addVote: any,
+    words: any,
+  }
+  interface IDispatch2Prop {
+    init: (v?:any) => void,
+    update: (v?:any) => void,
+  }
+
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
     words: state.locale.words,
     addVote: state.extend.addVote, //由于addVote相关设置信息要提供给post.add发送到服务器，所以将其提升到redux.extend中
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
     init: (v) => dispatch(actionExtend.Creator.extendAddVoteInit(v)),
     update: (v) => dispatch(actionExtend.Creator.extendAddVoteUpdate(v)),
 })
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(add)
+)(Add)

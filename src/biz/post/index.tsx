@@ -8,7 +8,12 @@ import { Route, Link } from 'react-router-dom'
 //     margin: 10px;
 //     border:2px solid #dede00;
 // `
-export default ({match}) => {
+interface IRouterProp {
+    history: any,
+    match: any,
+    location: any,
+}
+export default ({match}:IRouterProp) => {
 
     // const [current, setCurrent] = useState(10)
 

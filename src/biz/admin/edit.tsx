@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import PostList from './list'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import styled from 'styled-components'
-import { AvatarImg } from '@/component/user'
-import { admin as actionAdmin } from '@/redux/action'
-import { AvatarCrop } from '@/component/user'
+import { AvatarImg } from 'component/user'
+import { admin as actionAdmin } from 'redux/action'
+import { AvatarCrop } from 'component/user'
+import { Dispatch } from 'redux';
+import {FieldSet} from 'component/style'
 
 const StyledDivCard = styled.div`
     width:100%;
     background-color: white;
     `
-const StyledDivCrop = styled.div`
+const StyledDivCrop = styled.div<{display:string}>`
     width: 100%;
     // height: 450px;
     // position: absolute;
-    display: ${props => props.display};    
+    display: ${props => props.display};
     // background-color: red;
 `
 const StyledInput = styled.input`
@@ -24,7 +26,7 @@ const StyledInput = styled.input`
     display: none;
     // background-color: lightblue;
 `
-function edit(props) {
+function Edit(props:IState2Prop & IDispatch2Prop  & IProps & IRouterProp) {
 
   const [cropDisplay, setCropDisplay] = useState('none')
   const [file, setFile] = useState<any>(null)
@@ -33,14 +35,14 @@ function edit(props) {
   const [email, setEmail] = useState(props.userEdit.email || '')
 
 
-  function createFormData(cropBlob) {
+  function createFormData(cropBlob:any) {
     let data = new FormData()
     data.append('file', cropBlob)
     data.append('_id', props.userEdit._id)
     return data
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e:any) {
     e.preventDefault();
     console.log('handleSubmit + findByIdAndUpdate')
     props.findByIdAndUpdate(
@@ -60,14 +62,14 @@ function edit(props) {
     console.log('handleSubmit + findByIdAndUpdate---3')
   }
 
-  function handleCancel(e) {
+  function handleCancel(e:any) {
     e.preventDefault();
     console.log('handleSubmit + props.history.goBack()----1')
     props.history.goBack()
     console.log('handleSubmit + props.history.goBack()----2')
   }
 
-  function onSelectFile(e) {
+  function onSelectFile(e:any) {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () => {
@@ -77,7 +79,7 @@ function edit(props) {
       reader.readAsDataURL(e.target.files[0]);
     }
   }
-  function onCropBlob(cropBlob) {
+  function onCropBlob(cropBlob:any) {
     console.log('onCropFile---1')
     setCropDisplay('none')
     console.log('onCropFile---2')
@@ -89,12 +91,12 @@ function edit(props) {
 
   return (
     <StyledDivCard>
-      <fieldset>
+      <FieldSet.StyledFieldSet>
         <legend>{props.userEdit.name}</legend>
         {/* <div>{props.userEdit.name}</div> */}
 
         <div><label htmlFor="theinput" >{props.words.user_avatar}:<AvatarImg width='45px' src={cropBlob ? URL.createObjectURL(cropBlob) : 'user/avatar/' + props.userEdit.avatarFileName} /></label>
-          <StyledInput type="file" onChange={onSelectFile} onClick={(e) => e.target.value = ''} id='theinput' /></div>
+          <StyledInput type="file" onChange={onSelectFile} onClick={(e) => (e.target as any).value = ''} id='theinput' /></div>
 
         <div><StyledDivCrop display={cropDisplay} >
           <AvatarCrop file={file} onCropBlob={onCropBlob} onCancel={() => setCropDisplay('none')}></AvatarCrop>
@@ -112,24 +114,39 @@ function edit(props) {
           <input type="submit" value={props.words.cntnt_submit} />
           {/* <input type="submit" value={'confirm'} /> */}
         </form></div>
-      </fieldset>
+      </FieldSet.StyledFieldSet>
     </StyledDivCard>
   );
 }
+interface IProps extends RouteComponentProps<any>{
+  // user: any,
+}
+interface IRouterProp {
+  history: any,
+  match: any,
+}
+interface IState2Prop {
+  userEdit: any,
+  words: any,
+}
+interface IDispatch2Prop {
+  findByIdAndUpdate: (v:any) => void,
+  findByIdAndUpdateAvatar: (v:any) => void,
+}
 
-const mapStateToProps = state => ({
+const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   userEdit: state.admin.userEdit,
   words: state.locale.words,
 })
 
-const mapDispatchToProps = dispatch => ({
-  findByIdAndUpdate: (v) => dispatch(actionAdmin.Creator.userFindByIdAndUpdate(v)),
-  findByIdAndUpdateAvatar: (v) => dispatch(actionAdmin.Creator.userAvatarFindByIdAndUpdate(v)),
+const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({
+  findByIdAndUpdate: (v:any) => dispatch(actionAdmin.Creator.userFindByIdAndUpdate(v)),
+  findByIdAndUpdateAvatar: (v:any) => dispatch(actionAdmin.Creator.userAvatarFindByIdAndUpdate(v)),
 })
 
 export default withRouter(
   (connect(
       mapStateToProps,
       mapDispatchToProps
-  ) as any) (edit)
+  ) as any) (Edit)
 )

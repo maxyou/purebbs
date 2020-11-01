@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {sys} from '@/tool'
+import {sys} from 'tool'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Cropper from 'react-cropper'
@@ -9,7 +9,7 @@ import 'cropperjs/dist/cropper.css' // see installation section above for versio
 
 class AvatarCrop extends Component<any, any> {
 
-    constructor(props) {
+    constructor(props:any) {
         super(props)
         this.state = {
             src: '',
@@ -18,12 +18,12 @@ class AvatarCrop extends Component<any, any> {
     myRef:any = React.createRef()
 
 
-    onOk = e => {
+    onOk = (e:any) => {
         console.log(this.myRef.current.cropper.getCroppedCanvas());
         
         sys.defineCanvasToBlob()
 
-        this.myRef.current.cropper.getCroppedCanvas().toBlob((blob) => {
+        this.myRef.current.cropper.getCroppedCanvas().toBlob((blob:any) => {
 
             // const data = new FormData()
             // data.append('file', blob)
@@ -32,7 +32,7 @@ class AvatarCrop extends Component<any, any> {
           });
     }
 
-    onCancel = e => {
+    onCancel = (e:any) => {
         console.log('onCancel')
         this.props.onCancel()
     }
