@@ -32,7 +32,7 @@ repos:
 ![](https://github.com/maxyou/purebbs/raw/master/vote.PNG)
 
 ### lineup page:
-![](https://github.com/maxyou/purebbs/raw/master/liveup.PNG)
+![](https://github.com/maxyou/purebbs/raw/master/lineup.PNG)
 
 ## License<br>
 under [MIT License](http://www.opensource.org/licenses/MIT).
