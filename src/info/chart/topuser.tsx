@@ -55,18 +55,11 @@ const TopUser = (props: IState2Prop & IDispatch2Prop) => { 
             // console.log('===============data in setTimeout=========')
             // console.log(data)
             myChart.setOption({
-                // backgroundColor: '#cfa0a0',
-                grid: {
-                    // left: '2%',
-                    // right: '2%',
-                    // bottom: '2%',
-                    // top: '2%',
-                    // containLabel: true
-                },
                 tooltip: {
                 },
                 title: {
-                    text: props.words.statistic_top_user
+                    text: props.words.statistic_top_user,
+                    top: 10
                 },                
                 yAxis: {
                     type: 'value',

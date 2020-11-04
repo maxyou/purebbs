@@ -42,7 +42,7 @@ const CategoryPostNum = (props: IState2Prop & IDispatch2Prop) => { 
     }
         
     // console.log('========================userQuery get data:')
-    console.log(data)
+    // console.log(data)
 
 //     console.log('========= in Chart ==================')
 
@@ -71,7 +71,8 @@ const CategoryPostNum = (props: IState2Prop & IDispatch2Prop) => { 
             myChart.setOption(
                 {
                     title: {
-                        text: props.words.statistic_category_post_num
+                        text: props.words.statistic_category_post_num,
+                        top: 20,
                     },                
                     tooltip: {
                         trigger: 'item',

@@ -17,13 +17,13 @@ const getCategory = (result:any) => (result && result.data && result.data.catego
 export default function sys(state:IState = initState, action:{type:string, payload:any}):IState {
   switch (action.type) {
     case actionSys.ACTION.SYS_CATEGORY_GET:
-      console.log('sys category get')
+    // console.log('sys category get')
       return { ...state, categoryLoading: true }
     case actionSys.ACTION.SYS_CATEGORY_GET_SUCCESS:
-      console.log('sys category get success')
+    // console.log('sys category get success')
       return { ...state, categoryGetResult: action.payload, category:getCategory(action.payload), categoryLoading: false }
     case actionSys.ACTION.SYS_CATEGORY_GET_FAIL:
-      console.log('sys category get success')
+    // console.log('sys category get success')
       return { ...state, categoryLoading: false }
 
     default:

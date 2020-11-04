@@ -13,11 +13,11 @@ interface IDispatch2Prop {
 
 function PageRound({ current, ext, totalDocs, pageSize, nav }: IState2Prop & IDispatch2Prop) {
 
-    console.log('-------------pageRound---------------')
-    console.log(current)
-    console.log(ext)
-    console.log(totalDocs)
-    console.log(pageSize)
+    // console.log('-------------pageRound---------------')
+    // console.log(current)
+    // console.log(ext)
+    // console.log(totalDocs)
+    // console.log(pageSize)
     // if(!pageSize) {pageSize=10}
     var maxRight = Math.ceil(totalDocs / pageSize)
     if (!maxRight) { maxRight = 1 }

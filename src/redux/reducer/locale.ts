@@ -6,7 +6,7 @@ var moment = require('moment');
 
 function mapLanguage(language:string) {
     const code = language.substring(0, 2)
-    console.log('mapLanguage:' + code)
+  // console.log('mapLanguage:' + code)
     switch (code) {
         case 'en':
             moment.locale('en-us');
@@ -34,11 +34,11 @@ export default function locale(state: IState = initState, action: { type: string
     switch (action.type) {
 
         case actionLocale.ACTION.LANGUAGE_SET:
-            console.log('reducer: after locale set')
-            console.log(action.payload)
+          // console.log('reducer: after locale set')
+          // console.log(action.payload)
             return { ...state, language: action.payload, words: mapLanguage(action.payload) }
         case actionLocale.ACTION.LANGUAGE_RESET:
-            console.log('reducer: after locale reset')
+          // console.log('reducer: after locale reset')
             return { ...initState }
 
         default:

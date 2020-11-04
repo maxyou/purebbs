@@ -15,7 +15,7 @@ const StyledDivExtendChoose = styled.div`
     align-items: center;    
 `
 function switchExtendChoice(choice:string){
-    console.log(choice)
+    // console.log(choice)
     switch(choice){
         case 'vote':         
             return <Vote></Vote>

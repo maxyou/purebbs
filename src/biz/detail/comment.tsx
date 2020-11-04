@@ -44,17 +44,17 @@ function comment(props: IState2Prop & IDispatch2Prop) {
   
   // const onChange = (e) => { e.target.value}
 
-  if (props.commentListResult && (props.commentListResult.totalDocs > props.commentPageSize)) {
-    console.log('yellow')
-    console.log(props.commentListResult.data.length)
-  } else {
-    console.log(props.commentPageSize)
-    console.log('blue')
-  }
+  // if (props.commentListResult && (props.commentListResult.totalDocs > props.commentPageSize)) {
+  //   console.log('yellow')
+  //   console.log(props.commentListResult.data.length)
+  // } else {
+  //   console.log(props.commentPageSize)
+  //   console.log('blue')
+  // }
 
   function handlePageJump(e:any){
-    console.log(e.key)
-    console.log(e.target.value)
+    // console.log(e.key)
+    // console.log(e.target.value)
     if(e.key==='Enter'){
       props.nav(e.target.value)
       e.target.value=''
