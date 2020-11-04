@@ -35,7 +35,7 @@ function pageRound({current, ext, totalDocs, pageSize, nav}: IState2Prop & IDisp
     // console.log(maxRight)
     // console.log(ba[1])
 
-    return (//待优化：将左右两个首尾按钮直接加在ba数组中
+    return (
         <div>
             
             {ba[0]==1?null:<span><button onClick={()=>nav(1)} >1</button>{ba[0]==2?null:<span>...</span>}</span>}
