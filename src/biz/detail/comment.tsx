@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux';
 import List from './list'
-import PageRound from './paginate'
 import styled from 'styled-components'
 import { detail as actionDetail } from 'redux/action'
+import { PageRound } from '../../component/widget'
 
 const StyledDivComment = styled.div`
     margin-top: 10px;
@@ -65,7 +65,8 @@ function comment(props: IState2Prop & IDispatch2Prop) {
     <StyledDivComment>
       <StyledDivPageCrtl>
         <StyledDivPageRound show={props.commentListResult && (props.commentListResult.totalDocs > props.commentPageSize)}>
-          <PageRound></PageRound>
+          {/* <PageRound></PageRound> */}
+          <PageRound current={props.commentPageCurrent} ext={props.commentPaginateExt} totalDocs={props.commentTotalDocs} pageSize={props.commentPageSize} nav={props.nav}></PageRound>
         </StyledDivPageRound>
         {props.commentTotalDocs/props.commentPageSize>10?<StyledInputJump type="text" name="jump" onKeyDown={handlePageJump} />:null}
         {/* <StyledInputJump type="text" name="jump" onKeyDown={handlePageJump} /> */}
@@ -91,6 +92,8 @@ interface IState2Prop {
   commentListResult: any,
   commentPageSize: number,
   commentTotalDocs: number,
+  commentPaginateExt: number,
+  commentPageCurrent: number,
 }
 interface IDispatch2Prop {
   changePageSize: (v?:any) => void,
@@ -101,6 +104,8 @@ const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   commentListResult: state.detail.commentListResult,
   commentPageSize: state.detail.commentPageSize,
   commentTotalDocs: state.detail.commentTotalDocs,
+  commentPaginateExt: state.detail.commentPaginateExt,
+  commentPageCurrent: state.detail.commentPageCurrent,
 })
 
 const mapDispatchToProps: { (dispatch: Dispatch): IDispatch2Prop } = (dispatch: Dispatch) => ({ 

@@ -39,7 +39,8 @@ export default function post(state:IState = initState, action:{type:string, payl
 
     case actionPost.ACTION.POST_NAV:
       console.log('post nav in reducer')
-      return { ...state, postPageCurrent: action.payload }
+      return { ...state, postPageCurrent: parseInt(action.payload) }
+      // return { ...state, postPageCurrent: parseInt(action.payload) }
     case actionPost.ACTION.POST_CHANGE_PAGE_SIZE:
       console.log('post change page size in reducer')
       return { ...state, postPageSize: parseInt(action.payload) }

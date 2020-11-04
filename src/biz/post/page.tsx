@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PageRound from './paginate'
+import { PageRound } from '../../component/widget'
 import PostList from './list'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
@@ -79,7 +79,7 @@ const page: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
         {/* {props.user.isLogin?<Link to={`${props.match.url}/add`}><button>{props.words.cntnt_addPost}</button></Link>:null}         */}
         <DivPageAdd isLogin={props.user.isLogin}><Link to={`${props.match.url}/add`}><button>{props.words.cntnt_addPost}</button></Link></DivPageAdd>
         <StyledDivPageCrtl>
-          <PageRound></PageRound>
+          <PageRound current={props.postPageCurrent} ext={props.postPaginateExt} totalDocs={props.postTotalDocs} pageSize={props.postPageSize} nav={props.nav}></PageRound>
           {props.postTotalDocs/props.postPageSize>3?<StyledInputJump type="text" name="jump" onKeyDown={handlePageJump} />:null}
           <select onChange={(e) => { props.changePageSize(e.target.value) }} value={'' + props.postPageSize}>
             <option value='10'>10</option>
@@ -101,6 +101,8 @@ interface IState2Prop {
   words: any,
   postPageSize: number,
   postTotalDocs: number,
+  postPageCurrent: number,
+  postPaginateExt: number,
 }
 interface IDispatch2Prop {
   changePageSize: (v?:any) => void,
@@ -111,8 +113,9 @@ const mapStateToProps: { (arg0: any): IState2Prop } = state => ({
   words: state.locale.words,
   user: state.user,
   postPageSize: state.post.postPageSize,
-  // postPageCurrent: state.post.postPageCurrent,
+  postPageCurrent: state.post.postPageCurrent,
   postTotalDocs: state.post.postTotalDocs,
+  postPaginateExt: state.post.postPaginateExt,
   // category: state.post.category,
 })
 

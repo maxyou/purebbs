@@ -120,18 +120,23 @@ export default {
     //       return ''
     //     }
     //   },
-    calcPaginateArray(current = 1, ext = 2, maxRight: number) {
+    calcPaginateArray(current:number = 1, ext:number = 2, maxRight: number) {
+        console.log('------------calcPaginateArray---------------')
+        console.log(typeof current)
+        console.log(current)
+        console.log(ext)
+        console.log(maxRight)
         // required:
         //  current <= maxright
 
-        let ba = [current]
+        let ba:number[] = [current]
         for (let i = 0; i < ext; i++) {
             ba.push((current + 1) + i)
         }
         for (let i = 0; i < ext; i++) {
             ba.unshift((current - 1) - i)
         }
-        // console.log(ba)
+        console.log(ba)
         while (1) {
             if (ba[0] < 1) {
                 ba.shift()
@@ -143,7 +148,7 @@ export default {
                 break
             }
         }
-        // console.log(ba)
+        console.log(ba)
         while (1) {
             if (ba[ba.length - 1] > maxRight) {
                 ba.pop()
@@ -155,7 +160,7 @@ export default {
                 break
             }
         }
-        // console.log(ba)
+        console.log(ba)
         return ba
     },
     getRandomColorString(){
