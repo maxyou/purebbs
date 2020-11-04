@@ -28,7 +28,7 @@ function Add(props: IState2Prop & IDispatch2Prop) {
     // const [options, setOptions] = useState([''])
     function changeOptions(v:string, index:number) {
         var newOptions = props.addVote.options.map((option:string, position:number) => {
-            if (position == index) {
+            if (position === index) {
                 return v
             } else {
                 return option
@@ -38,12 +38,12 @@ function Add(props: IState2Prop & IDispatch2Prop) {
         props.update({ ...props.addVote, options: newOptions })
     }
     function deleteOption(index:number) {
-        if (props.addVote.options.length == 1) {
+        if (props.addVote.options.length === 1) {
             props.update({ ...props.addVote, options: [''] })
             return
         }
         var newOptions = props.addVote.options.filter((option:string, position:number) => {
-            return position != index
+            return position !== index
         })
         // setOptions(newOptions)
         props.update({ ...props.addVote, options: newOptions })
@@ -52,7 +52,7 @@ function Add(props: IState2Prop & IDispatch2Prop) {
         var newOptions:string[] = []
         props.addVote.options.forEach((option:string, position:number) => {
             newOptions.push(option)
-            if (index == position) {
+            if (index === position) {
                 newOptions.push('')
             }
         })

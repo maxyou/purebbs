@@ -22,7 +22,7 @@ const Register = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
   function handleSubmit(e:any) {
     e.preventDefault()
     
-    if(password!=passwordAgain){
+    if(password!==passwordAgain){
       setPrompt(props.words.user_inconsist_pwd_twice)
       return
     }else{

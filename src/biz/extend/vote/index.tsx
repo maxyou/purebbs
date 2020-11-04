@@ -128,8 +128,8 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
         () => {
             if (prevProps) {
                 if (
-                    (prevProps.voteJoinning == true && props.voteJoinning == false)
-                    || (prevProps.voteQuitting == true && props.voteQuitting == false)
+                    (prevProps.voteJoinning === true && props.voteJoinning === false)
+                    || (prevProps.voteQuitting === true && props.voteQuitting === false)
                 ) {
                     props.detailPostGet({
                         //   condition: { postId: props.post.postId },
@@ -188,7 +188,7 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
             return voteData.some(function (item:any, index:number, array:any) {
                 if (item) {
                     return item.some(function (itemInner:any, index:number, array:any) {
-                        return itemInner._id == props.user._id
+                        return itemInner._id === props.user._id
                     })
                 }
             })
@@ -239,7 +239,7 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
             )
         }
 
-        if (props.extendFromServer.hasCtxUser || props.extendFromServer && props.extendFromServer.voteData && findMeInVoteData(props.extendFromServer.voteData)) {
+        if (props.extendFromServer.hasCtxUser || (props.extendFromServer && props.extendFromServer.voteData && findMeInVoteData(props.extendFromServer.voteData))) {
             return (
                 <div>
                     <hr></hr>
@@ -334,8 +334,8 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
                     {/* <span>是否允许匿名:</span><input readOnly type="checkbox" id="anonymous" name="anonymous" checked={props.extendFromServer.addVote.anonymous} /> */}
                     <span>{props.words.ext_if_allow_anonymous}:{props.extendFromServer.addVote.anonymous ? <span>{props.words.cmn_yes}</span> : <span>{props.words.cmn_no}</span>}</span>
                     <div>
-                        <input readOnly type="radio" value="single" name="ifMulti" checked={props.extendFromServer.addVote.ifMulti == 'single'} />{props.words.ext_vote_single}
-                        <input readOnly type="radio" value="multiple" name="ifMulti" checked={props.extendFromServer.addVote.ifMulti == 'multiple'} />{props.words.ext_vote_multiple}
+                        <input readOnly type="radio" value="single" name="ifMulti" checked={props.extendFromServer.addVote.ifMulti === 'single'} />{props.words.ext_vote_single}
+                        <input readOnly type="radio" value="multiple" name="ifMulti" checked={props.extendFromServer.addVote.ifMulti === 'multiple'} />{props.words.ext_vote_multiple}
                     </div>
                     <div>
                         {/* <span>截止时间:</span>{new Date(props.extendFromServer.addVote.expireTime)}<br />                             */}
@@ -357,11 +357,11 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
                                             </div>
                                             <div>
                                                 {
-                                                    props.extendFromServer.addVote.ifMulti == 'single'
+                                                    props.extendFromServer.addVote.ifMulti === 'single'
                                                         ?
                                                         <div>
                                                             <div>
-                                                                <input type="radio" value={index} name="single" onChange={(e) => radioChange(v, index, e)} checked={singleVote == index} />
+                                                                <input type="radio" value={index} name="single" onChange={(e) => radioChange(v, index, e)} checked={singleVote === index} />
                                                             </div>
 
                                                         </div>
@@ -382,7 +382,7 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
 
                                         {getVoter(index).map((vv, index) => {
                                             return <SytledSpanVoter key={index}>
-                                                <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(vv, vv.anonymous, vv._id == props.user._id)} />
+                                                <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(vv, vv.anonymous, vv._id === props.user._id)} />
                                                 {/* <SytledSpanVoterTooltip>
                                                     <StyledDivAvatarInTooltip>
                                                         <AvatarImg src={calc.calcAvatarPath(vv, false, vv._id == props.user._id)} width='40px' radius='20px' />
@@ -393,9 +393,9 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
                                                     </StyledDivAvatarInTooltip>
                                                 </SytledSpanVoterTooltip> */}
                                                 <UserTip
-                                                    avatarPath={calc.calcAvatarPath(vv, false, vv._id == props.user._id)}
+                                                    avatarPath={calc.calcAvatarPath(vv, false, vv._id === props.user._id)}
                                                     name={vv.name}
-                                                    intro={vv._id == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                                                    intro={vv._id === props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
                                                     topLeft={{ top: '-10px', left: '50px' }}
                                                 ></UserTip>
                                             </SytledSpanVoter>

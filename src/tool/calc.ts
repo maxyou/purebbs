@@ -24,7 +24,7 @@ export default {
         return path.join(API_PATH_AVATAR, fileName)
     },
     getAvatarPathFromUser(user: any) {
-        if (user.source == 'oauth') {
+        if (user.source === 'oauth') {
             return user.oauth.avatarUrl
         } else {//暂时认为只有 oauth 及 register 两类                
             if (user.avatarFileName) {
@@ -46,7 +46,7 @@ export default {
                 return API_PATH_AVATAR + 'anonymous.png'
             }
         } else {
-            if (user.source == 'oauth') {
+            if (user.source === 'oauth') {
                 return user.oauth.avatarUrl
             } else {//暂时认为只有 oauth 及 register 两类                
                 if (user.avatarFileName) {
@@ -102,7 +102,7 @@ export default {
         for (let v in category) {
             // console.log(v)
             // console.log(category[v].idStr)
-            if (category[v].idStr == idStr) {
+            if (category[v].idStr === idStr) {
                 found = category[v].name
                 // console.log(found)
                 // return true

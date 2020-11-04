@@ -43,22 +43,22 @@ const initState: IState = {
 }
 
 
-const getBoard: { (arg0: any): string[] } = (result) => result && result.data && result.data.board || []
-const getName: { (arg0: any): string } = (result) => result && result.data && result.data.name || ''
-const getId: { (arg0: any): string } = (result) => result && result.data && result.data._id || ''
-const getRole: { (arg0: any): string } = (result) => result && result.data && result.data.role || ''
-const getEmail: { (arg0: any): string } = (result) => result && result.data && result.data.email || ''
-const getCreated: { (arg0: any): string } = (result) => result && result.data && result.data.created || ''
-const getSetting: { (arg0: any): object } = (result) => result && result.data && result.data.setting || {}
-const getSource: { (arg0: any): string } = (result) => result && result.data && result.data.source || 'register'
-const getOauth: { (arg0: any): object } = (result) => result && result.data && result.data.oauth || {}
+const getBoard: { (arg0: any): string[] } = (result) => (result && result.data && result.data.board) || []
+const getName: { (arg0: any): string } = (result) => (result && result.data && result.data.name) || ''
+const getId: { (arg0: any): string } = (result) => (result && result.data && result.data._id) || ''
+const getRole: { (arg0: any): string } = (result) => (result && result.data && result.data.role) || ''
+const getEmail: { (arg0: any): string } = (result) => (result && result.data && result.data.email) || ''
+const getCreated: { (arg0: any): string } = (result) => (result && result.data && result.data.created) || ''
+const getSetting: { (arg0: any): object } = (result) => (result && result.data && result.data.setting) || {}
+const getSource: { (arg0: any): string } = (result) => (result && result.data && result.data.source) || 'register'
+const getOauth: { (arg0: any): object } = (result) => (result && result.data && result.data.oauth) || {}
 const getAvatarPath: { (arg0: any): string } = (result) => {
 
   let avatarPath: string | undefined
 
   if (result && result.data && result.data) {
     let data = result.data
-    if (data.source == 'oauth') {
+    if (data.source === 'oauth') {
       avatarPath = data.oauth.avatarUrl
     } else {
       if (data.avatarFileName) {
@@ -187,7 +187,7 @@ export default function user(state: IState = initState, action: { type: string, 
       // console.log(action.payload)
       return {
         ...state,
-        isLogin: action.payload.code == 0 ? true : false,
+        isLogin: action.payload.code === 0 ? true : false,
         result: action.payload,
         board: getBoard(action.payload),
         name: getName(action.payload),

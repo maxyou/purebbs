@@ -109,7 +109,7 @@ class PostAdd extends React.Component<IState2Prop & IDispatch2Prop & IRouterProp
         e.preventDefault()
         console.log('handleSubmit')
 
-        if (!this.state.title || this.state.title.length == 0) {
+        if (!this.state.title || this.state.title.length === 0) {
             alert('must have title')
             return
         }

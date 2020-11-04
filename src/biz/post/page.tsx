@@ -66,7 +66,7 @@ const page: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
   function handlePageJump(e:{target:any, key:string}){
     console.log(e.key)
     console.log(e.target.value)
-    if(e.key=='Enter'){
+    if(e.key==='Enter'){
       props.nav(e.target.value)
       e.target.value=''
     }
@@ -80,7 +80,7 @@ const page: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
         <DivPageAdd isLogin={props.user.isLogin}><Link to={`${props.match.url}/add`}><button>{props.words.cntnt_addPost}</button></Link></DivPageAdd>
         <StyledDivPageCrtl>
           <PageRound></PageRound>
-          {props.postTotalDocs/props.postPageSize>10?<StyledInputJump type="text" name="jump" onKeyDown={handlePageJump} />:null}
+          {props.postTotalDocs/props.postPageSize>3?<StyledInputJump type="text" name="jump" onKeyDown={handlePageJump} />:null}
           <select onChange={(e) => { props.changePageSize(e.target.value) }} value={'' + props.postPageSize}>
             <option value='10'>10</option>
             <option value='20'>20</option>

@@ -38,11 +38,11 @@ const UserList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
     () => {
       if (
         (!prevProps)
-        || (prevProps.userAdding == true && props.userAdding == false)
-        || (prevProps.userUpdatting == true && props.userUpdatting == false)
-        || (prevProps.userDeletting == true && props.userDeletting == false)
-        || (prevProps.userPageCurrent != props.userPageCurrent)
-        || (prevProps.userPageSize != props.userPageSize)
+        || (prevProps.userAdding === true && props.userAdding === false)
+        || (prevProps.userUpdatting === true && props.userUpdatting === false)
+        || (prevProps.userDeletting === true && props.userDeletting === false)
+        || (prevProps.userPageCurrent !== props.userPageCurrent)
+        || (prevProps.userPageSize !== props.userPageSize)
       ) {
         props.get({
           query: {

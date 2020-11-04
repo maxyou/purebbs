@@ -12,7 +12,7 @@ const initState:IState = {
   category:[]
 }
 
-const getCategory = (result:any) => result && result.data && result.data.category || []
+const getCategory = (result:any) => (result && result.data && result.data.category) || []
 
 export default function sys(state:IState = initState, action:{type:string, payload:any}):IState {
   switch (action.type) {

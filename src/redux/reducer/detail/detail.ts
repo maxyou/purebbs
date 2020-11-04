@@ -70,14 +70,14 @@ export default function detail(state:IState = initState, action:{type:string, pa
     case actionDetail.ACTION.DETAIL_COMMENT_GET_SUCCESS:
       console.log('detail post get success')
 
-      if (action.payload.data.length == 0 && action.payload.totalDocs != 0) { //说明当前page没有数据，超过了最后一页，需要倒回最后一页
+      if (action.payload.data.length === 0 && action.payload.totalDocs !== 0) { //说明当前page没有数据，超过了最后一页，需要倒回最后一页
         var base = Math.floor(action.payload.totalDocs / state.commentPageSize)
         // console.log('------------calc new current---------------')
         // console.log(action.payload.totalDocs)
         // console.log(state.commentPageSize)
         // console.log(base)
         var mod = action.payload.totalDocs % state.commentPageSize
-        if (mod != 0) {
+        if (mod !== 0) {
           base++
         }
         console.log('new current:' + base)

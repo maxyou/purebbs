@@ -284,17 +284,17 @@ const PostList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
     () => {
       if (
         (!prevProps)
-        || (prevProps.postAdding == true && props.postAdding == false)
-        || (prevProps.postUpdatting == true && props.postUpdatting == false)
-        || (prevProps.postAttaching == true && props.postAttaching == false)
-        || (prevProps.postDeletting == true && props.postDeletting == false)
-        || (prevProps.postPageCurrent != props.postPageCurrent)
-        || (prevProps.postPageSize != props.postPageSize)
-        || (prevProps.categoryCurrent != props.categoryCurrent)
+        || (prevProps.postAdding === true && props.postAdding === false)
+        || (prevProps.postUpdatting === true && props.postUpdatting === false)
+        || (prevProps.postAttaching === true && props.postAttaching === false)
+        || (prevProps.postDeletting === true && props.postDeletting === false)
+        || (prevProps.postPageCurrent !== props.postPageCurrent)
+        || (prevProps.postPageSize !== props.postPageSize)
+        || (prevProps.categoryCurrent !== props.categoryCurrent)
       ) {
         console.log()
         props.get({
-          query: !props.categoryCurrent || props.categoryCurrent == props.category[0].idStr ? {} : { category: props.categoryCurrent },
+          query: !props.categoryCurrent || props.categoryCurrent === props.category[0].idStr ? {} : { category: props.categoryCurrent },
           options: {
             offset: props.postPageSize * (props.postPageCurrent - 1),
             limit: props.postPageSize,
@@ -387,10 +387,10 @@ const PostList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
           <StyledDivContainer>
 
             <StyledDivAvatar>
-              <StyledLink to={'/user/other/' + (v.authorId == props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
+              <StyledLink to={'/user/other/' + (v.authorId === props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
                 {/* <AvatarImg src={calc.calcAvatarPath(v.fromUser[0], v.anonymous, v.authorId == props.user._id)}
                   width='40px' radius='20px'></AvatarImg> */}
-                <AvatarImg src={calc.calcAvatarPath(v, v.anonymous, v.authorId == props.user._id)}
+                <AvatarImg src={calc.calcAvatarPath(v, v.anonymous, v.authorId === props.user._id)}
                   width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               {v.anonymous !== false ?
@@ -404,9 +404,9 @@ const PostList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                 //     </StyledDivAvatarInTooltip>
                 // </StyledSpanAvatarTooltip>
                   <UserTip
-                    avatarPath={calc.calcAvatarPath(v, false, v.authorId == props.user._id)}
+                    avatarPath={calc.calcAvatarPath(v, false, v.authorId === props.user._id)}
                     name={v.author}
-                    intro={v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                    intro={v.authorId === props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
                     topLeft={{top:'0px',left:'70px'}}
                   ></UserTip>
                 : null
@@ -457,7 +457,7 @@ const PostList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
                 </StyledDivInfo>
 
                 <StyledDivInfo>
-                  {(props.user.role == 'bm' || props.user._id == v.authorId) ?
+                  {(props.user.role === 'bm' || props.user._id === v.authorId) ?
                     <StyledDivCtrl>
                       <StyledLink to={'#'} onClick={() => handleDelete(v)}>
                         <StyledSpanOp>
@@ -496,7 +496,7 @@ const PostList: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState
               </StyledDivExendIcon>
               : null}
 
-            <StyledDivCmtnum><StyledSpanNum hidden={v.commentNum == 0}>{v.commentNum} {props.words.cntnt_commentNum}</StyledSpanNum></StyledDivCmtnum>
+            <StyledDivCmtnum><StyledSpanNum hidden={v.commentNum === 0}>{v.commentNum} {props.words.cntnt_commentNum}</StyledSpanNum></StyledDivCmtnum>
 
           </StyledDivContainer>
 

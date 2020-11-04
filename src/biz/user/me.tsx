@@ -38,10 +38,10 @@ const Me: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = functi
       // console.log(props.userAvatarUpdatting)
       // console.log('------------------------me')
       if (prevProps) {
-        if(prevProps.userAvatarUpdatting == true && props.userAvatarUpdatting == false){
+        if(prevProps.userAvatarUpdatting === true && props.userAvatarUpdatting === false){
           sys.reloadPage()
         }
-        if(prevProps.userUpdatting == true && props.userUpdatting == false){          
+        if(prevProps.userUpdatting === true && props.userUpdatting === false){          
           // console.log('me------------------------')
           // console.log('find userUpdatting from true to false')
           // console.log('------------------------me')
@@ -63,7 +63,7 @@ const Me: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = functi
       <div>{props.words.user_role}: {props.user.role}</div>
       <div>{props.words.user_email}: {props.user.email}</div>
       <div>{props.words.cmn_created}: {time.fromNow(props.user.created)}</div>
-      {props.user.source == 'register' ? <button onClick={gotoEdit}> {props.words.cmn_edit}</button> : null}
+      {props.user.source === 'register' ? <button onClick={gotoEdit}> {props.words.cmn_edit}</button> : null}
     </StyledDivCard>
   );
 }

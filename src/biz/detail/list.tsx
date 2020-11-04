@@ -223,12 +223,12 @@ const CommentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
     () => {
       if (
         (!prevProps)
-        || (prevProps.commentAdding == true && props.commentAdding == false)
-        || (prevProps.commentAttaching == true && props.commentAttaching == false)
-        || (prevProps.commentUpdatting == true && props.commentUpdatting == false)
-        || (prevProps.commentDeletting == true && props.commentDeletting == false)
-        || (prevProps.commentPageCurrent != props.commentPageCurrent)
-        || (prevProps.commentPageSize != props.commentPageSize)
+        || (prevProps.commentAdding === true && props.commentAdding === false)
+        || (prevProps.commentAttaching === true && props.commentAttaching === false)
+        || (prevProps.commentUpdatting === true && props.commentUpdatting === false)
+        || (prevProps.commentDeletting === true && props.commentDeletting === false)
+        || (prevProps.commentPageCurrent !== props.commentPageCurrent)
+        || (prevProps.commentPageSize !== props.commentPageSize)
       ) {
         props.get({
           query: {
@@ -333,8 +333,8 @@ const CommentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
           {/* {JSON.stringify(v)} */}
 
           <StyledDivAvatar>
-            <StyledLink to={'/user/other/' + (v.authorId == props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
-              <AvatarImg src={calc.calcAvatarPath(v, v.anonymous, v.authorId == props.user._id)}
+            <StyledLink to={'/user/other/' + (v.authorId === props.user._id || v.anonymous === false ? v.authorId : 'anonymous')}>
+              <AvatarImg src={calc.calcAvatarPath(v, v.anonymous, v.authorId === props.user._id)}
                 width='40px' radius='20px'></AvatarImg>
             </StyledLink>
 
@@ -349,9 +349,9 @@ const CommentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
               //     </StyledDivAvatarInTooltip>
               // </StyledSpanAvatarTooltip>
               <UserTip
-                    avatarPath={calc.calcAvatarPath(v, false, v.authorId == props.user._id)}
+                    avatarPath={calc.calcAvatarPath(v, false, v.authorId === props.user._id)}
                     name={v.author}
-                    intro={v.authorId == props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                    intro={v.authorId === props.user._id? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
                     topLeft={{top:'0px',left:'70px'}}
                   ></UserTip>
               : null
@@ -376,7 +376,7 @@ const CommentList: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = functi
                 {/*created:*/}{time.fromNow(v.created)}
               </StyledDivTime>
 
-              {(props.user.role == 'bm' || props.user._id == v.authorId) ?
+              {(props.user.role === 'bm' || props.user._id === v.authorId) ?
                 <StyledDivCtrl>
 
                   {/* <StyledSpanOp onClick={() => openEdit(v)}>{props.words.cmn_update}</StyledSpanOp> */}

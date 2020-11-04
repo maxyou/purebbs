@@ -56,8 +56,8 @@ function Lineup(props:IState2Prop & IDispatch2Prop) {
         () => {
             if (prevProps) {
                 if (
-                    (prevProps.lineupJoinning == true && props.lineupJoinning == false)
-                    || (prevProps.lineupQuitting == true && props.lineupQuitting == false)
+                    (prevProps.lineupJoinning === true && props.lineupJoinning === false)
+                    || (prevProps.lineupQuitting === true && props.lineupQuitting === false)
                 ) {
                     props.detailPostGet({
                         //   condition: { postId: props.post.postId },
@@ -108,7 +108,7 @@ function Lineup(props:IState2Prop & IDispatch2Prop) {
             )
         }
 
-        if (props.extendFromServer.hasCtxUser || props.extendFromServer.lineupData.some((v:any) => { return v._id == props.user._id })) {
+        if (props.extendFromServer.hasCtxUser || props.extendFromServer.lineupData.some((v:any) => { return v._id === props.user._id })) {
             console.log('quit button')
             return (
                 <div>
@@ -180,11 +180,11 @@ function Lineup(props:IState2Prop & IDispatch2Prop) {
                         <StyledDivColor setColor={index} key={index}>
                             {index + 1}.
                             <SytledSpanUserTipContainer>
-                                <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(v, v.anonymous, v._id == props.user._id)} />
+                                <AvatarImg width='30px' radius={'15px'} src={calc.calcAvatarPath(v, v.anonymous, v._id === props.user._id)} />
                                 <UserTip
-                                    avatarPath={calc.calcAvatarPath(v, false, v._id == props.user._id)}
+                                    avatarPath={calc.calcAvatarPath(v, false, v._id === props.user._id)}
                                     name={v.name}
-                                    intro={v._id == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                                    intro={v._id === props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
                                     topLeft={{ top: '0px', left: '70px' }}
                                 ></UserTip>
                             </SytledSpanUserTipContainer>

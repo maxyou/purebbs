@@ -58,10 +58,10 @@ export default function admin(state:IState = initState, action:{type:string, pay
     case actionAdmin.ACTION.ADMIN_USER_GET_SUCCESS:
       console.log('user get success')
 
-      if (action.payload.data.length == 0 && action.payload.totalDocs != 0) { //说明当前page没有数据，超过了最后一页，需要倒回最后一页
+      if (action.payload.data.length === 0 && action.payload.totalDocs !== 0) { //说明当前page没有数据，超过了最后一页，需要倒回最后一页
         var base = Math.floor(action.payload.totalDocs / state.userPageSize)
         var mod = action.payload.totalDocs % state.userPageSize
-        if (mod != 0) {
+        if (mod !== 0) {
           base++
         }
         console.log('new current:' + base)

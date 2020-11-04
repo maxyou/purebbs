@@ -23,7 +23,7 @@ const ResetPasswordNew = function (props: IState2Prop & IDispatch2Prop & IRouter
   function handleSubmit(e:any) {
     e.preventDefault()
 
-    if (password != passwordAgain) {
+    if (password !== passwordAgain) {
       setPrompt(props.words.user_inconsist_pwd_twice)
       return
     } else {
@@ -49,7 +49,7 @@ const ResetPasswordNew = function (props: IState2Prop & IDispatch2Prop & IRouter
 
       setMessage(props.user.resetPwdNewResult.message)
 
-      if (props.user.resetPwdNewResult.code == 0) {
+      if (props.user.resetPwdNewResult.code === 0) {
         console.log('useEffect to redirect to /post')
         backToHome();
       }

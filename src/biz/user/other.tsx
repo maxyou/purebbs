@@ -36,7 +36,7 @@ const Other: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = fun
     <StyledDivCard>
       <FieldSet.StyledFieldSet>
         <legend>{props.words.user_personalInfo}</legend>
-        {props.other.code == 0 ?
+        {props.other.code === 0 ?
           <div>
             <AvatarImg width='35px' src={calc.getAvatarPathFromUser(props.other.data)} />
             <div>{props.words.user_name}: {props.other.data.name}</div>

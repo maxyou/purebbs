@@ -18,7 +18,7 @@ interface IState {
 const initState:IState = {
   postPageSize: 10,
   postPageCurrent: 1,
-  postPaginateExt: 5,
+  postPaginateExt: 3,
   postTotalDocs: 0,
   postAddResult: 'please add post',
   postListResult: {},
@@ -60,14 +60,14 @@ export default function post(state:IState = initState, action:{type:string, payl
     case actionPost.ACTION.POST_GET_SUCCESS:
       console.log('post get success')
 
-      if (action.payload.data.length == 0 && action.payload.totalDocs != 0) { //说明当前page没有数据，超过了最后一页，需要倒回最后一页
+      if (action.payload.data.length === 0 && action.payload.totalDocs !== 0) { //说明当前page没有数据，超过了最后一页，需要倒回最后一页
         var base = Math.floor(action.payload.totalDocs / state.postPageSize)
         console.log(action.payload.totalDocs)
         console.log(state.postPageSize)
         console.log(base)
         var mod = action.payload.totalDocs % state.postPageSize
         console.log(mod)
-        if (mod != 0) {
+        if (mod !== 0) {
           base++
         }
         console.log('new current:' + base)

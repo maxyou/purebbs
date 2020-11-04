@@ -54,7 +54,7 @@ const CategoryPostNum = (props: IState2Prop & IDispatch2Prop) => { 
         }
         
         for(const c of props.category){
-            if(c.idStr == idStr){
+            if(c.idStr === idStr){
                 return c.name
             }
         }

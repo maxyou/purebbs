@@ -127,7 +127,7 @@ export default function extend(state:IState = initState, action:{type:string, pa
     case actionExtend.ACTION.EXTEND_DATA_GET_SUCCESS:
       // console.log('extend data get success')
       // console.log(action.payload)
-      return { ...state, extendFromServer: (action.payload && action.payload.code==0 && action.payload.data)? action.payload.data.extend:null}
+      return { ...state, extendFromServer: (action.payload && action.payload.code===0 && action.payload.data)? action.payload.data.extend:null}
     case actionExtend.ACTION.EXTEND_SERVER_DATA_INIT:
       // console.log('extend data get success')
       // console.log(action.payload)

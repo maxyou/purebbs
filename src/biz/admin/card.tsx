@@ -31,7 +31,7 @@ const card: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
         <div>{props.words.user_role}:{props.user.role}</div>
         <div>{props.words.user_email}:{props.user.email}</div>
         <div>{props.words.cmn_created}:{time.fromNow(props.user.created)}</div>
-        {props.user.name == 'admin' ? null : <button onClick={gotoEdit}>{props.words.cmn_edit}</button>}
+        {props.user.name === 'admin' ? null : <button onClick={gotoEdit}>{props.words.cmn_edit}</button>}
       </FieldSet.StyledFieldSet>
     </StyledDivCard>
   );

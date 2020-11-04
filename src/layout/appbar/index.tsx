@@ -158,7 +158,7 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
             console.log('app bar useEffect userLogoutReset')
             if (
                 (!prevProps)
-                || (prevProps.userLogoutting == true && props.userLogoutting == false)
+                || (prevProps.userLogoutting === true && props.userLogoutting === false)
               ) {
                 console.log('app bar call userLogoutReset after logout')
                 props.userLogoutReset()
@@ -209,7 +209,7 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
                     <StyledDivUserName><StyledLink to='/user'>{props.user.name}</StyledLink></StyledDivUserName>
                 </StyledDivUserAvatarName>
 
-                {props.user.role == 'admin' ? <StyledDivUserAdmin><StyledLink to='/admin'><span>{props.words.adm_admin}</span></StyledLink></StyledDivUserAdmin> : null}
+                {props.user.role === 'admin' ? <StyledDivUserAdmin><StyledLink to='/admin'><span>{props.words.adm_admin}</span></StyledLink></StyledDivUserAdmin> : null}
 
                 <StyledDivUserLogout><StyledLink to='/'><span onClick={logout}>{props.words.user_logout}</span></StyledLink></StyledDivUserLogout>
 

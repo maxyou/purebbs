@@ -36,11 +36,11 @@ const ResetPassword = function (props: IState2Prop & IDispatch2Prop & IRouterPro
 
       setMessage(props.user.resetPwdResult.message)
 
-      if (props.user.resetPwdResult.code == 0) {
+      if (props.user.resetPwdResult.code === 0) {
         console.log('useEffect to redirect to /post')
         console.log('props.user.resetPwdResult.code == 0')
         backToHome();
-      }else if(props.user.resetPwdResult.code == -1){
+      }else if(props.user.resetPwdResult.code === -1){
         console.log('useEffect to redirect to /post')
         console.log(props.user.resetPwdResult.code)        
         console.log('props.user.resetPwdResult.code != 0')

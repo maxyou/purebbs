@@ -80,10 +80,10 @@ const Board: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2Pr
   )
 
   function currentMatch(current:string, idStr:string){
-    if(current==idStr){
+    if(current===idStr){
       return true
     }
-    if(!current && idStr==props.category[0].idStr){
+    if(!current && idStr===props.category[0].idStr){
       return true
     }
     return false

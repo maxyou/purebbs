@@ -244,8 +244,8 @@ const Post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
     () => {
       if (
         (!prevProps)
-        || (prevProps.postUpdatting == true && props.postUpdatting == false)
-        || (prevProps.postAttaching == true && props.postAttaching == false)
+        || (prevProps.postUpdatting === true && props.postUpdatting === false)
+        || (prevProps.postAttaching === true && props.postAttaching === false)
       ) {
         props.detailPostGet({
           condition: { postId: props.match.params.id },
@@ -256,7 +256,7 @@ const Post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
   )
   useEffect(
     () => {
-      if (props.post && props.post.code == -1) {
+      if (props.post && props.post.code === -1) {
         // console.log('-------detail post props---------1')
         // console.log(props.post)
         props.history.push({
@@ -361,8 +361,8 @@ const Post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
           <StyledDivHeader>
 
             <StyledDivHeaderAvatar>
-              <StyledLink to={'/user/other/' + (props.post.data.authorId == props.user._id || props.post.data.anonymous === false ? props.post.data.authorId : 'anonymous')}>
-                  <AvatarImg src={calc.calcAvatarPath(props.post.data, props.post.data.anonymous, props.post.data.authorId == props.user._id)}
+              <StyledLink to={'/user/other/' + (props.post.data.authorId === props.user._id || props.post.data.anonymous === false ? props.post.data.authorId : 'anonymous')}>
+                  <AvatarImg src={calc.calcAvatarPath(props.post.data, props.post.data.anonymous, props.post.data.authorId === props.user._id)}
                   width='40px' radius='20px'></AvatarImg>
               </StyledLink>
               
@@ -377,9 +377,9 @@ const Post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
                 //     </StyledDivAvatarInTooltip>
                 // </StyledSpanAvatarTooltip>
                 <UserTip
-                    avatarPath={calc.calcAvatarPath(props.post.data, false, props.post.data.authorId == props.user._id)}
+                    avatarPath={calc.calcAvatarPath(props.post.data, false, props.post.data.authorId === props.user._id)}
                     name={props.post.data.author}
-                    intro={props.post.data.authorId == props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
+                    intro={props.post.data.authorId === props.user._id ? props.words.cntnt_this_is_me : props.words.cntnt_this_is_anonymous}
                     topLeft={{top:'0px',left:'70px'}}
                   ></UserTip>
                 : null
@@ -402,11 +402,11 @@ const Post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
                 <StyledDivTime>{/*updated:*/}{time.fromNow(props.post.data.updated)}</StyledDivTime>
                 {/* <StyledDivTime>created:{time.fromNow(props.post.data.created)}</StyledDivTime> */}
 
-                {(props.user.role == 'bm' || props.user._id == props.post.data.authorId) ?
+                {(props.user.role === 'bm' || props.user._id === props.post.data.authorId) ?
                   <StyledDivCtrl>
                     <StyledLink to={'#'} onClick={() => openEdit(props.post.data)}><StyledSpanOp>{props.words.cmn_update}</StyledSpanOp></StyledLink>
                     <StyledLink to={'#'} onClick={() => handleDelete(props.post.data)}><StyledSpanOp>{props.words.cmn_delete}</StyledSpanOp></StyledLink>
-                    {props.user.role == 'bm' ?
+                    {props.user.role === 'bm' ?
                       <StyledLink to={'#'} onClick={() => toggleStickTop(props.post.data)}><StyledSpanOp>{props.post.data.stickTop ? props.words.cntnt_cancelStickTop : props.words.cntnt_stickTop}</StyledSpanOp></StyledLink>
                       : null
                     }

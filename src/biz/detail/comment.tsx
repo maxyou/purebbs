@@ -55,7 +55,7 @@ function comment(props: IState2Prop & IDispatch2Prop) {
   function handlePageJump(e:any){
     console.log(e.key)
     console.log(e.target.value)
-    if(e.key=='Enter'){
+    if(e.key==='Enter'){
       props.nav(e.target.value)
       e.target.value=''
     }

@@ -31,7 +31,7 @@ function Info(props: IState2Prop & IDispatch2Prop) {
                 <legend>{props.words.user_personalInfo}</legend>
                 <Me></Me>
             </FieldSet.StyledFieldSet>
-            {props.user.source == 'register' ?
+            {props.user.source === 'register' ?
                 <FieldSet.StyledFieldSet>
                     <legend>{props.words.user_personalSecurity}</legend>
                     <NavLink to='/user/password/edit'><button>{props.words.user_changePassword}</button></NavLink>
