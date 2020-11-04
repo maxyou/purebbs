@@ -29,10 +29,10 @@ repos:
 ![](https://github.com/maxyou/purebbs/raw/master/post.PNG)
 
 ### vote page:
-![](https://github.com/maxyou/purebbs/raw/master/detail.PNG)
+![](https://github.com/maxyou/purebbs/raw/master/vote.PNG)
 
 ### lineup page:
-![](https://github.com/maxyou/purebbs/raw/master/detail2.PNG)
+![](https://github.com/maxyou/purebbs/raw/master/liveup.PNG)
 
 ## License<br>
 under [MIT License](http://www.opensource.org/licenses/MIT).
