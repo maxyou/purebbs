@@ -69,13 +69,26 @@ const GridFooter = styled.div`
 `
 const StyledDivInfo = styled.div`
   height: 100%;
+  width: 100%;
   font-size: small;
 //   background-color: #6789df;
-  position: relative;
+//   position: relative;
 //   display:flex;
 //   flex-direction:column;
-//   justify-content: center;
+//   justify-content: flex-start;
 //   align-items: center;
+`
+
+const StyledDivChart = styled.div`
+  background-color: #e7e9ff;
+  border-radius: 10px;
+//   width: 100%;
+//   padding: 10px;
+  margin: 10px;
+  position: relative;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 `
 
 function Footer() {
@@ -84,8 +97,12 @@ function Footer() {
 function Infomation() {
     return(
         <StyledDivInfo>
-            <Info.Chart.TopUser></Info.Chart.TopUser>
-            <Info.Chart.CategoryPostNum></Info.Chart.CategoryPostNum>
+            <StyledDivChart>
+                <Info.Chart.TopUser></Info.Chart.TopUser>
+            </StyledDivChart>
+            <StyledDivChart>
+                <Info.Chart.CategoryPostNum></Info.Chart.CategoryPostNum>
+            </StyledDivChart>
         </StyledDivInfo>
     ) 
 }
