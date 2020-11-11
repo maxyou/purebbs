@@ -47,11 +47,17 @@ const StyledDivItem = styled.div`
     align-items: stretch;  
     flex: 1 0 auto;
 `
-const StyledDivOption = styled.div`
-    // background-color: lightblue;
-    // padding: 10px;   
-    // margin: 10px;
-    // background-color: blue;
+const StyledDivOption = styled.div<{setColor:number}>`
+    background-color:${props => {
+        if (props.setColor % 2) {
+            return 'lightblue'
+        } else {
+            return 'lightgreen'
+        }
+    }};
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
     display:flex;
     justify-content: space-between;
     align-items: center;  
@@ -68,6 +74,7 @@ const StyledDivVoterQuery = styled.div`
     flex: 1 0 auto;    
 `
 const SytledSpanVoter = styled.span`
+  margin-right: 5px;
   position: relative;
   :hover span{
     visibility: visible;
@@ -351,9 +358,9 @@ function Vote(props:IState2Prop & IDispatch2Prop) {
                             props.extendFromServer.addVote.options.map((v:any, index:number) =>
                                 <StyledDivItem key={index}>
                                     <div>
-                                        <StyledDivOption>
+                                        <StyledDivOption setColor={index} key={index}>
                                             <div>
-                                                {index + 1}.{v}
+                                                {index + 1}. {v}
                                             </div>
                                             <div>
                                                 {

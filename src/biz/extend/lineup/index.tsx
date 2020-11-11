@@ -9,6 +9,8 @@ import { Dispatch } from 'redux';
 import {FieldSet} from 'component/style'
 
 const SytledSpanUserTipContainer = styled.span`
+  margin-left: 5px;
+  margin-right: 5px;
   position: relative;
   :hover span{
     visibility: visible;
@@ -20,6 +22,12 @@ const StyledDivSetting = styled.div`
     padding-left: 20px;    
 `
 const StyledDivColor = styled.div<{setColor:number}>`
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
     background-color:${props => {
         // console.log('StyledDivColor')
         // console.log(props)
