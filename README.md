@@ -23,6 +23,7 @@ todo:
 repos:
 - [server](https://github.com/maxyou/purebbs-server)
 - [android](https://github.com/maxyou/purebbs-android)
+- [react-native](https://github.com/maxyou/purebbs-react-native)
 
 
 ### post page:
