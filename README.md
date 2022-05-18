@@ -21,9 +21,11 @@ todo:
 - upload picture
 
 repos:
-- [server](https://github.com/maxyou/purebbs-server)
-- [android](https://github.com/maxyou/purebbs-android)
-- [react-native](https://github.com/maxyou/purebbs-react-native)
+- [web-react](https://github.com/maxyou/purebbs)
+- [server-nodejs](https://github.com/maxyou/purebbs-server)
+- [android-jetpack](https://github.com/maxyou/purebbs-android)
+- [android-compose](https://github.com/maxyou/purebbs-compose)
+- [client-react-native](https://github.com/maxyou/purebbs-react-native)
 
 
 ### post page:
