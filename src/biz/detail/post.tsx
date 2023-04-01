@@ -28,6 +28,7 @@ const PostTitleHeight = '40px'
 const PostInfoHeight = '20px'
 
 const StyledDivPost = styled.div`
+  padding: 5px;
   background-color: white;
 `
 
@@ -163,6 +164,10 @@ const StyledSpanLike = styled.span<{hoverColor:string}>`
 `
 const StyledDivPostContent = styled.div`
   padding: 10px;
+  max-width: 100%;
+  word-break: normal;
+  overflow-wrap: break-word;
+  overflow-x: auto;
 `
 const StyledDivCategory = styled.div`
   padding-left: 10px;
@@ -427,12 +432,12 @@ const Post: React.FC<IState2Prop & IDispatch2Prop & IRouterProp> = function (pro
               </StyledDivHeaderInfo>
             </StyledDivHeaderMain>
           </StyledDivHeader>
-          <hr />
+          
           {/* <StyledDivPostContent>{props.post.data.content}</StyledDivPostContent> */}
           <StyledDivPostContent dangerouslySetInnerHTML={{ __html: converter.makeHtml(props.post.data.content) }}></StyledDivPostContent>
           {/* {props.post.data.extend && props.post.data.extend.addLineup?
           <Extend.Lineup addLineup={props.post.data.extend.addLineup}></Extend.Lineup>:null} */}
-          <hr />
+          
           <Extend.Home></Extend.Home>
         </StyledDivPost>
         : null}

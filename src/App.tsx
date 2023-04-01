@@ -11,6 +11,10 @@ import { sys } from './config';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import axios from 'axios';
+
+axios.defaults.baseURL = sys.appHomepage;
+
 var urljoin = require('url-join');
 
 console.log(urljoin(sys.appHomepage, sys.graphql_endpoint))

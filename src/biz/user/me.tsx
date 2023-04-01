@@ -9,6 +9,7 @@ import { sys } from 'tool'
 import { Dispatch } from 'redux';
 import { user as actionUser } from 'redux/action'
 import {FieldSet} from 'component/style'
+import { calc } from 'tool'
 
 const StyledDivCard = styled.div`
     width:100%;
@@ -58,7 +59,7 @@ const Me: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = functi
 
   return (
     <StyledDivCard>
-      <AvatarImg width='35px' src={props.user.avatarPath} />
+      <AvatarImg width='35px' src={calc.getAvatarUrlFromUser(props.user)} />
       <div>{props.words.user_name}: {props.user.name}</div>
       <div>{props.words.user_role}: {props.user.role}</div>
       <div>{props.words.user_email}: {props.user.email}</div>

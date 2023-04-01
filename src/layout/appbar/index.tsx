@@ -6,7 +6,7 @@ import { Dispatch } from 'redux';
 import { Link, NavLink, Redirect, withRouter } from 'react-router-dom'
 import { user as actionUser, locale as actionLocale, sys as actionSys, post as actionPost, detail as actionDetail } from 'redux/action'
 import { AvatarImg } from 'component/user'
-// import {calc} from 'tool'
+import {calc} from 'tool'
 
 
 const AppbarHeight = '50px'
@@ -167,7 +167,7 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
     )
     useEffect(
         () => {
-            console.log('app bar useEffect')
+            console.log('app bar useEffect ----- props.userGetStatus()')
             // if (!prevProps) {
             //     console.log('app bar useEffect run categoryGet')
             // }
@@ -203,8 +203,8 @@ const Appbar: React.FC<IState2Prop & IDispatch2Prop> = function (props: IState2P
                     <input type='text' ></input><button>Search</button>
                 </StyledDivSearch> */}
                 <StyledDivUserAvatarName>
-                    {/* <StyledDivUserName><NavLink to={`/user/${props.user._id}`}><AvatarImg width='35px' radius={'5px'} src={props.user.avatarPath} /></NavLink></StyledDivUserName> */}
-                    <StyledDivUserName><StyledLink to='/user'><AvatarImg width='35px' radius={'5px'} src={props.user.avatarPath} /></StyledLink></StyledDivUserName>
+                    {/* <StyledDivUserName><NavLink to={`/user/${props.user._id}`}><AvatarImg width='35px' radius={'5px'} src={calc.addBaseUrl(props.user.avatarPath)} /></NavLink></StyledDivUserName> */}
+                    <StyledDivUserName><StyledLink to='/user'><AvatarImg width='35px' radius={'5px'} src={calc.getAvatarUrlFromUser(props.user)} /></StyledLink></StyledDivUserName>
                     {/* <StyledDivUserName><NavLink to={`/user/${props.user._id}`}>{props.user.name}</NavLink></StyledDivUserName> */}
                     <StyledDivUserName><StyledLink to='/user'>{props.user.name}</StyledLink></StyledDivUserName>
                 </StyledDivUserAvatarName>

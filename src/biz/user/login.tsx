@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { user as actionUser, post as actionPost, locale as actionLocale, detail as actionDetail } from 'redux/action'
 import ResetPwd from './resetpwd'
 import {FieldSet} from 'component/style'
+import { calc } from 'tool'
 
 const appConfig = require('../../config')
 
@@ -72,8 +73,8 @@ const Login = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
           <div >{props.words.cmn_verifyCode}: </div>
           <input type="text" name="code" onChange={e => setCode(e.target.value)} value={code} /><br />
 
-          <img src={`/tool/verify?mt=${random}`} title="看不清？点击刷新"
-            onClick={(e:any) => e.target.src = ('/tool/verify?mt=' + Math.random())} /><br />
+          <img src={calc.getVerifyPath(random)} title="看不清？点击刷新"
+            onClick={(e:any) => e.target.src = (calc.getVerifyPath(Math.random()))} /><br />
           <input type="submit" value={props.words.user_login} />
 
         </form>

@@ -1,5 +1,6 @@
 import { IExtendState } from '../redux/common'
-var path = require('path');
+
+//var path = require('path');
 /**
  * todo 这里遗留一个问题
  * 
@@ -12,25 +13,55 @@ var path = require('path');
 
 // console.log('--------calc-------')
 // console.log(category)
+import { sys } from '../config';
 
-const API_PATH_AVATAR = 'user/avatar/'
+var urljoin = require('url-join');
+
+console.log(urljoin(sys.appHomepage, sys.graphql_endpoint))
+
+const PATH_AVATAR = 'user/avatar/'
+const AVATAR_DEFAULT = 'default.png'
+const AVATAR_MY_ANONYMOUS = 'myanonymous.png'
+const AVATAR_ANONYMOUS = 'anonymous.png'
+
+
 
 export default {
 
+    addBaseUrl(url: string) {
+        return urljoin(sys.appHomepage, url)
+    },
+    getVerifyPath(random: number) {
+        return urljoin(sys.appHomepage, `/tool/verify?mt=${random.toString()}`)
+    },
     tool(v: any) {
         return v
     },
-    addAvatarApiPath(fileName:string){
-        return path.join(API_PATH_AVATAR, fileName)
+    // addAvatarApiPath(fileName:string){
+    //     return urljoin(PATH_AVATAR, fileName)
+    // },
+    getAvatarUrlFromUser(user: any) {
+        console.log(`getAvatarUrlFromUser() enter`)
+        if (user.source === 'oauth') {
+            return user.oauth.avatarUrl
+        } else {//暂时认为只有 oauth 及 register 两类                
+            if (user.avatarPath) {
+                console.log(`user.avatarPath: ${user.avatarPath}`)
+                console.log(`getAvatarUrlFromUser(): ${this.addBaseUrl(user.avatarPath)}`)
+                return this.addBaseUrl(user.avatarPath)
+            } else {
+                return this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_DEFAULT))
+            }
+        }
     },
     getAvatarPathFromUser(user: any) {
         if (user.source === 'oauth') {
             return user.oauth.avatarUrl
         } else {//暂时认为只有 oauth 及 register 两类                
             if (user.avatarFileName) {
-                return API_PATH_AVATAR + user.avatarFileName
+                return this.addBaseUrl(urljoin(PATH_AVATAR, user.avatarFileName))
             } else {
-                return API_PATH_AVATAR + 'default.png'
+                return this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_DEFAULT))
             }
         }
     },
@@ -41,18 +72,23 @@ export default {
     ): string {
         if (anonymous) {
             if (isMyself) {
-                return API_PATH_AVATAR + 'myanonymous.png'
+                console.log(`avatar address: ${this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_MY_ANONYMOUS))}`)
+                return this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_MY_ANONYMOUS))                
             } else {
-                return API_PATH_AVATAR + 'anonymous.png'
+                console.log(`avatar address: ${this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_ANONYMOUS))}`)
+                return this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_ANONYMOUS))                 
             }
         } else {
             if (user.source === 'oauth') {
+                console.log(`avatar address: ${user.oauth.avatarUrl}`)
                 return user.oauth.avatarUrl
             } else {//暂时认为只有 oauth 及 register 两类                
                 if (user.avatarFileName) {
-                    return API_PATH_AVATAR + user.avatarFileName
+                    console.log(`avatar address: ${this.addBaseUrl(urljoin(PATH_AVATAR, user.avatarFileName))}`)
+                    return this.addBaseUrl(urljoin(PATH_AVATAR, user.avatarFileName))
                 } else {
-                    return API_PATH_AVATAR + 'default.png'
+                    console.log(`avatar address: ${this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_DEFAULT))}`)
+                    return this.addBaseUrl(urljoin(PATH_AVATAR, AVATAR_DEFAULT))
                 }
             }
         }

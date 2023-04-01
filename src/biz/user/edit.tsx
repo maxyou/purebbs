@@ -8,6 +8,7 @@ import { user as actionUser } from 'redux/action'
 import { AvatarCrop } from 'component/user'
 import { Dispatch } from 'redux';
 import {FieldSet} from 'component/style'
+import { calc, time } from 'tool'
 
 const StyledDivCard = styled.div`
     width:100%;
@@ -99,7 +100,7 @@ const Edit: React.FC<IState2Prop & IDispatch2Prop & IProps & IRouterProp> = func
         
         {/* <div>{props.words.user_name}: {props.user.name}</div> */}
 
-        <div><label htmlFor="theinput" >{props.words.user_avatar}: <AvatarImg width='45px' src={cropBlob ? URL.createObjectURL(cropBlob) : props.user.avatarPath} /></label>
+        <div><label htmlFor="theinput" >{props.words.user_avatar}: <AvatarImg width='45px' src={cropBlob ? URL.createObjectURL(cropBlob) : calc.getAvatarUrlFromUser(props.user) } /></label>
           <StyledInput type="file" onChange={onSelectFile} onClick={(e:any) => e.target.value = ''} id='theinput' /></div>
 
         <div><StyledDivCrop display={cropDisplay} >

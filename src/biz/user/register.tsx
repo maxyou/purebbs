@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { user as actionUser } from 'redux/action'
 import ResetPwd from './resetpwd'
 import {FieldSet} from 'component/style'
+import { calc } from 'tool'
 
 const appConfig = require('../../config')
 
@@ -67,8 +68,8 @@ const Register = function (props: IState2Prop & IDispatch2Prop & IRouterProp) {
           <input type="email" name="email" onChange={e => setEmail(e.target.value)} value={email} /><br />
           <div >{props.words.cmn_verifyCode}: </div>
           <input type="text" name="code" onChange={e => setCode(e.target.value)} value={code} /><br />
-          <img src={`/tool/verify?mt=${random}`} title="看不清？点击刷新"
-            onClick={(e:any) => e.target.src = ('/tool/verify?mt=' + Math.random())} /><br />
+          <img src={calc.getVerifyPath(random)} title="看不清？点击刷新"
+            onClick={(e:any) => e.target.src = (calc.getVerifyPath(Math.random()))} /><br />
           <input type="submit" value={props.words.user_register} />
         </form>
         <div>{prompt}</div>
